@@ -6,7 +6,7 @@ Templates:
 
 ## Type of API
 _For this project we need to choose one type of API that we will use to communicate companies, offer-jobs and employees._
-_In we opinion, after talked for the best of API REST and the best of GraphQL we have decide the best for our project is use API REST. One of the main features of REST Web services is the explicit use of HTTP (HyperText Transfer Protocol) methods. GET, POST, PUT and DELETE. Another very important date is the most popular way to develop web API and it has easier setup than GraphQL._
+_In our opinion, after talking about the best of REST API's and the best of GraphQL, we have decided that the best for our project is to use REST. One of the main features of REST Web services is the explicit use of HTTP (HyperText Transfer Protocol) methods. GET, POST, PUT and DELETE. Another very important fact is that it is the most popular way to develop a web API and that it has easier setup than GraphQL._
 
 ## Node framework
 _We need to work with some framework to streamline our work and procedures. We think the best option is to use Express because it is the most widespread and popular framework in nodeJs. It has a wide variety of resources and a great community as well, all this will make our work easier._

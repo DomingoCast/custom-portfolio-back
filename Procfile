@@ -1,1 +1,1 @@
-web: npm start:heroku
+web: node index.js

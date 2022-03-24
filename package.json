@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev ./index.ts",
-    "start:heroku": "ts-node src/index.ts",
     "test": "jest --watchAll --verbose",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
@@ -24,9 +23,7 @@
   "homepage": "https://github.com/DomingoCast/jnt-copy#readme",
   "dependencies": {
     "axios": "^0.26.1",
-    "express": "^4.17.3",
-    "ts-node": "^3.3.0",
-    "typescript": "^4.6.2"
+    "express": "^4.17.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.13",

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "ts-node-dev ./index.ts",
+    "start:heroku": "ts-node src/index.ts",
     "test": "jest --watchAll --verbose",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",

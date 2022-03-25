@@ -4,7 +4,7 @@
   "description": "API that emulates Job and Talent",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_PATH=./build node dist/index.js",
+    "start": "node dist/index.js",
     "dev": "ts-node-dev src/index.ts",
     "build": "tsc --build",
     "test": "jest --watchAll --verbose",

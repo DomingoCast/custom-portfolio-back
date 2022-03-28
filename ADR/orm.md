@@ -10,4 +10,6 @@ There are 3 prominent orm's
 -   Type-orm: It's the second most popular and it has great implementation with Typescript
 -   Prisma: It is a different kind of orm with a great user interface but it needs another server
 
+## Decision: Type-orm
+
 I think that for the same reason that we discarded graphql we should discard Prisma, it is too much overhead for this project. Between Sequalize and Typeorm, althogh segualize is more popular, from the research I've done I've seen that type-orm is easier to work with specially with the integration with typescript, so I think that Type-orm is the best fit for our project.

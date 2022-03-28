@@ -1,5 +1,5 @@
 // Bootstrap file
-const app = require("./interface/app");
+import app from "./interface/app";
 const port = process.env.PORT || 3000;
 
 try {

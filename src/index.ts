@@ -13,6 +13,14 @@ app.get("/", async (req: Request, res: Response): Promise<Response> => {
         message: "Hello World!",
     });
 });
+app.post(
+    "/register",
+    async (req: Request, res: Response): Promise<Response> => {
+        return res.status(200).send({
+            message: "This is a POST request",
+        });
+    }
+);
 
 try {
     app.listen(port, (): void => {

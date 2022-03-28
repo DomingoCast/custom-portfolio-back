@@ -4,9 +4,11 @@
   "description": "API that emulates Job and Talent",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node-dev ./index.ts",
+    "start": "node dist/index.js",
+    "dev": "ts-node-dev src/index.ts",
+    "build": "tsc --build",
     "test": "jest --watchAll --verbose",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint",
     "lint:fix": "eslint . --ext .ts --fix",
     "prettier": "prettier --check .",
     "prettier:write": "npx prettier --write ."

@@ -1,5 +1,5 @@
-import { runServer, createServer } from "./interface/app";
+import { createServer } from "./interface/app";
 
-const port = Number(process.env.PORT) || 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
-runServer(createServer(), port);
+createServer(PORT).run();

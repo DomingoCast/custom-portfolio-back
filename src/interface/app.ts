@@ -1,7 +1,7 @@
 import { create } from "domain";
 import express, { Application, Request, Response } from "express";
 
-export const createServer = () => {
+export const createServer = (port: number) => {
     const app: Application = express();
 
     // Body parsing Middleware
@@ -13,10 +13,12 @@ export const createServer = () => {
             message: "Hello World!",
         });
     });
-    return app;
+    return {
+        run: () => runServer(app, port),
+    };
 };
 
-export const runServer = (app: Application, port: number) => {
+const runServer = (app: Application, port: number) => {
     try {
         app.listen(port, (): void => {
             console.log(`Connected successfully on port ${port}`);

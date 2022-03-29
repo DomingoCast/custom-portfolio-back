@@ -1,5 +1,4 @@
 import { runServer, createServer } from "./app";
-const axios = require("axios");
 
 describe("Set up", () => {
     it("creates server", async () => {
@@ -7,11 +6,12 @@ describe("Set up", () => {
         expect(app).toHaveProperty("run");
     });
 
+    const mockApp: any = {
+        listen: jest.fn(),
+    };
     it("starts server", async () => {
         const port = 3001;
-        const app = createServer(300).app;
-        runServer(app, port);
-        const response = await axios.get("http://localhost:" + port);
-        expect(response.status).toBe(200);
+        runServer(mockApp, port);
+        expect(mockApp.listen).toHaveBeenCalled();
     });
 });

@@ -1,4 +1,3 @@
-import { create } from "domain";
 import express, { Application, Request, Response } from "express";
 
 export const createServer = (port: number) => {
@@ -14,11 +13,12 @@ export const createServer = (port: number) => {
         });
     });
     return {
+        app: app,
         run: () => runServer(app, port),
     };
 };
 
-const runServer = (app: Application, port: number) => {
+export const runServer = (app: Application, port: number) => {
     try {
         app.listen(port, (): void => {
             console.log(`Connected successfully on port ${port}`);

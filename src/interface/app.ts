@@ -12,6 +12,16 @@ export const createServer = (port: number) => {
             message: "Hello World!",
         });
     });
+
+    app.post(
+        "/register",
+        async (req: Request, res: Response): Promise<Response> => {
+            return res.status(200).send({
+                message: "This is a POST request",
+            });
+        }
+    );
+    
     return {
         app: app,
         run: () => runServer(app, port),

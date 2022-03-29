@@ -1,4 +1,4 @@
-export default interface User {
+export interface User {
     id: number;
     name: string;
     surname: string;
@@ -6,5 +6,4 @@ export default interface User {
     password: string;
     phone: string;
     address: string;
-    active: boolean;
 }

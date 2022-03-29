@@ -1,6 +1,7 @@
 import { EntitySchema } from "typeorm";
+import { User } from "../domain/User";
 
-export const User = new EntitySchema({
+const UserModel = new EntitySchema<User>({
     name: "User",
     columns: {
         id: {
@@ -35,3 +36,5 @@ export const User = new EntitySchema({
         },
     },
 });
+
+export default UserModel;

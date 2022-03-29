@@ -1,13 +1,12 @@
 import express, { Application, Request, Response } from "express";
+import "reflect-metadata";
+import { createConnection } from "typeorm";
 
 const app: Application = express();
 
 const AppDataSource = require("./infrastructure/postgres.datasources");
 
 const port = process.env.PORT || 3000;
-
-const dotenv = require("dotenv");
-dotenv.config();
 
 // Body parsing Middleware
 app.use(express.json());
@@ -29,6 +28,19 @@ try {
 }
 console.log("AAAAAAA");
 console.log("VVVVV", process.env.POSTGRES_DB);
+const casa = {
+    username: process.env.POSTGRES_USER,
+    password: process.env.POSTGRES_PASSWORD,
+    database: process.env.POSTGRES_DB,
+};
+console.log("CCCCCCCC");
+console.log("C", casa);
+
+createConnection()
+    .then(async (connection) => {
+        console.log("HOLA", connection);
+    })
+    .catch((error) => console.error(error));
 AppDataSource.initialize()
     .then(() => {
         console.log("Data Source has been initialized!");

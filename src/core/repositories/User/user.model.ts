@@ -1,13 +1,13 @@
 import { EntitySchema } from "typeorm";
-import { User } from "../domain/User";
+import { User } from "../../domain/User/User";
 
 const UserModel = new EntitySchema<User>({
     name: "User",
     columns: {
         id: {
-            type: String,
             primary: true,
-            generated: true,
+            generated: "uuid",
+            type: String,
         },
         name: {
             type: String,

@@ -14,5 +14,5 @@ EXPOSE 8080
 
 EXPOSE 5432
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "build"]
 

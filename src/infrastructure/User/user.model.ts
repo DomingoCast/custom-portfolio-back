@@ -1,42 +1,40 @@
 import { EntitySchema } from "typeorm";
+import { User } from "../../core/domain/user/User";
 
-export const User = new EntitySchema({
+const UserModel = new EntitySchema<User>({
     name: "User",
     columns: {
         id: {
-            type: Number,
             primary: true,
-            generated: true,
+            generated: "uuid",
+            type: String,
         },
         name: {
             type: String,
-            length: 100,
-            nullable: false,
+            length: 30,
         },
         surname: {
             type: String,
-            length: 100,
-            nullable: false,
+            length: 30,
         },
         email: {
             type: String,
             length: 100,
-            nullable: false,
+            unique: true,
         },
         password: {
             type: String,
-            length: 100,
-            nullable: false,
+            length: 30,
         },
         phone: {
             type: String,
-            length: 100,
-            nullable: false,
+            length: 30,
         },
         address: {
             type: String,
             length: 100,
-            nullable: false,
         },
     },
 });
+
+export default UserModel;

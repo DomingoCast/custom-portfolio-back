@@ -2,6 +2,8 @@ import express, { Application, Request, Response } from "express";
 
 const app: Application = express();
 
+const AppDataSource = require("./infrastructure/postgres.datasources");
+
 const port = process.env.PORT || 3000;
 
 // Body parsing Middleware
@@ -29,3 +31,11 @@ try {
 } catch (error) {
     console.error(`Error occured: ${error}`);
 }
+
+AppDataSource.initialize()
+    .then(() => {
+        console.log("Data Source has been initialized!");
+    })
+    .catch((error: any) => {
+        console.error("Error during Data Source initialization", error);
+    });

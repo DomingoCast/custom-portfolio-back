@@ -21,7 +21,7 @@ export const createServer = (port: number) => {
             });
         }
     );
-    
+
     return {
         app: app,
         run: () => runServer(app, port),

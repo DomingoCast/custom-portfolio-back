@@ -9,6 +9,7 @@ const port = process.env.PORT || 3000;
 // Body parsing Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+require("dotenv").config();
 
 app.get("/", async (req: Request, res: Response): Promise<Response> => {
     return res.status(200).send({
@@ -32,7 +33,6 @@ try {
     console.error(`Error occured: ${error}`);
 }
 
-/*
 AppDataSource.initialize()
     .then(() => {
         console.log("Data Source has been initialized!");
@@ -40,5 +40,3 @@ AppDataSource.initialize()
     .catch((error: any) => {
         console.error("Error during Data Source initialization", error);
     });
-
-*/

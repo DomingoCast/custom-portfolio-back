@@ -32,6 +32,7 @@ try {
     console.error(`Error occured: ${error}`);
 }
 
+/*
 AppDataSource.initialize()
     .then(() => {
         console.log("Data Source has been initialized!");
@@ -39,3 +40,5 @@ AppDataSource.initialize()
     .catch((error: any) => {
         console.error("Error during Data Source initialization", error);
     });
+
+*/

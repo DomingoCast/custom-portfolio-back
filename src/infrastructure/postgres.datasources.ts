@@ -1,4 +1,3 @@
-import { connect } from "http2";
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import UserModel from "./user/user.model";

@@ -16,6 +16,15 @@ app.get("/", async (req: Request, res: Response): Promise<Response> => {
     });
 });
 app.post(
+    "/register/validate",
+    async (req: Request, res: Response): Promise<Response> => {
+        return res.status(200).send({
+            message: "Data validated!",
+        });
+    }
+);
+
+app.post(
     "/register",
     async (req: Request, res: Response): Promise<Response> => {
         return res.status(200).send({

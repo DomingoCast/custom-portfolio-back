@@ -1,4 +1,8 @@
 import express, { Application, Request, Response } from "express";
+import { register } from "ts-node";
+import { User } from "./core/domain/user/User";
+import registerUser from "./core/use-cases/register";
+import createUserRepository from "./infrastructure/user/user.datasource";
 
 const app: Application = express();
 
@@ -17,6 +21,25 @@ app.get("/", async (req: Request, res: Response): Promise<Response> => {
 });
 app.post(
     "/register",
+    async (req: Request, res: Response): Promise<Response> => {
+        const userRepository = createUserRepository(AppDataSource);
+        const user: User = {
+            name: req.body.name,
+            surname: req.body.surname,
+            email: req.body.email,
+            password: req.body.password,
+            phone: req.body.phone,
+            address: req.body.address,
+        };
+        console.log(user);
+        registerUser(user, userRepository);
+        return res.status(200).send({
+            message: "This is a POST request",
+        });
+    }
+);
+app.post(
+    "/save-user",
     async (req: Request, res: Response): Promise<Response> => {
         return res.status(200).send({
             message: "This is a POST request",

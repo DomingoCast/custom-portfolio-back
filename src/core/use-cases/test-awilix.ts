@@ -1,5 +1,5 @@
 const testAwilixController = (testRepo: any) => {
-    testRepo();
+    return testRepo();
 };
 
 export default testAwilixController;

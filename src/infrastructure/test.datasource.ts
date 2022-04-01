@@ -1,3 +1,3 @@
-const testDatasource = () => () => console.log("test datasource");
+const testDatasource = () => () => "awilix";
 
 export default testDatasource;

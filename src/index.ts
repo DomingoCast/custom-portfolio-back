@@ -37,9 +37,9 @@ app.get("/", async (req: Request, res: Response): Promise<Response> => {
     });
 });
 app.get("/awilix", async (req: Request, res: Response): Promise<Response> => {
-    testAwilixController(container.resolve("testRepository"));
+    const message = testAwilixController(container.resolve("testRepository"));
     return res.status(200).send({
-        message: "Hello World!",
+        message: message,
     });
 });
 app.post(

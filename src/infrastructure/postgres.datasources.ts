@@ -29,6 +29,6 @@ export const createDBConnection = () => {
 
     return {
         DataSource: AppDataSource,
-        connect: () => connect(),
+        connect,
     };
 };

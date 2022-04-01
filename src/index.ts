@@ -15,12 +15,15 @@ app.get("/", async (req: Request, res: Response): Promise<Response> => {
         message: "Hello World!",
     });
 });
+
 app.post(
     "/register/validate",
     async (req: Request, res: Response): Promise<Response> => {
-        return res.status(200).send({
-            message: "Data validated!",
-        });
+        const user = req.body;
+        return (
+            res.status(200).send({ "<h1>Recibed From User</h1>": user }) ||
+            res.status(400).send("<h1>Bad request</h1>")
+        );
     }
 );
 

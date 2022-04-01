@@ -2,7 +2,7 @@ const Ajv = require("ajv").default;
 const addFormats = require("ajv-formats");
 
 const ajv = new Ajv({ allErrors: true });
-require("ajv-errors")(ajv /*, {singleError: true} */);
+require("ajv-errors")(ajv);
 addFormats(ajv);
 
 const validateRegister = (dataForm = "") => {

@@ -6,7 +6,14 @@ require("ajv-errors")(ajv /*, {singleError: true} */);
 addFormats(ajv);
 
 const validateRegister = (dataForm = "") => {
-    if (dataForm === "") return false;
+    if (!dataForm) return false;
+    if (!dataForm.name) return "Name is required";
+    if (!dataForm.surname) return "Surname is required";
+    if (!dataForm.email) return "Email is required";
+    if (!dataForm.password) return "Password is required";
+    if (!dataForm.phone) return "Phone is required";
+    if (!dataForm.address) return "Address is required";
+
     const schema = {
         type: "object",
         required: ["name", "surname", "email", "password", "phone", "address"],

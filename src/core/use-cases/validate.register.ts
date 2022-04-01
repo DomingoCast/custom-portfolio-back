@@ -1,9 +1,13 @@
 const Ajv = require("ajv");
+const addFormats = require("ajv-formats");
 
 const ajv = new Ajv();
+addFormats(ajv);
 
 const validateRegister = (dataForm) => {
+    debugger;
     const schema = {
+        type: "object",
         required: ["name", "surname", "email", "password", "phone", "address"],
         properties: {
             name: { type: "string", minLength: 3, maxLength: 30 },
@@ -32,4 +36,4 @@ const validateRegister = (dataForm) => {
     if (valid) return valid;
     if (!valid) return validate.errors;
 };
-export default validateRegister;
+module.exports = { validateRegister };

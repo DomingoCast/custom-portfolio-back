@@ -11,7 +11,8 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "prettier": "prettier --check .",
-    "prettier:write": "npx prettier --write ."
+    "prettier:write": "npx prettier --write .",
+    "test:debug": "node --inspect node_modules/.bin/jest --runInBand"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
   "homepage": "https://github.com/DomingoCast/jnt-copy#readme",
   "dependencies": {
     "ajv": "^8.11.0",
+    "ajv-formats": "^2.1.1",
     "axios": "^0.26.1",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",

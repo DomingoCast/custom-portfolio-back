@@ -1,4 +1,4 @@
-import validateRegister from "./validate.register";
+const { validateRegister } = require("./validate.register");
 
 describe("Validate fields", () => {
     it("should validate fields", () => {

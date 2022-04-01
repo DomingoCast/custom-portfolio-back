@@ -1,7 +1,6 @@
 import express, { Application, Request, Response } from "express";
 import testRepository from "./core/ports/test.repository";
 import testAwilixController from "./core/use-cases/test-awilix";
-// import awilix, { Lifetime } from "awilix";
 import testDatasource from "./infrastructure/test.datasource";
 const awilix = require("awilix");
 
@@ -11,6 +10,9 @@ const container = awilix.createContainer({
 
 container.register({
     testDatasource: awilix.asFunction(testDatasource),
+});
+
+container.register({
     testRepository: awilix.asFunction(testRepository),
 });
 // container.loadModules(["core/ports/*.repository.ts"], {
@@ -57,10 +59,10 @@ try {
     console.error(`Error occured: ${error}`);
 }
 
-// AppDataSource.initialize()
-//     .then(() => {
-//         console.log("Data Source has been initialized!");
-//     })
-//     .catch((error: any) => {
-//         console.error("Error during Data Source initialization", error);
-//     });
+AppDataSource.initialize()
+    .then(() => {
+        console.log("Data Source has been initialized!");
+    })
+    .catch((error: any) => {
+        console.error("Error during Data Source initialization", error);
+    });

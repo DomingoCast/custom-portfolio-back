@@ -19,11 +19,16 @@ app.get("/", async (req: Request, res: Response): Promise<Response> => {
 app.post(
     "/register/validate",
     async (req: Request, res: Response): Promise<Response> => {
-        const user = req.body;
-        return (
-            res.status(200).send({ "<h1>Recibed From User</h1>": user }) ||
-            res.status(400).send("<h1>Bad request</h1>")
-        );
+        try {
+            const user = req.body;
+            return res
+                .status(200)
+                .send({ "<h1>Recibed data From User</h1>": user });
+        } catch (e) {
+            return res.status(500).send({
+                message: "Internal server error",
+            });
+        }
     }
 );
 

@@ -104,7 +104,7 @@ describe("Validate fields", () => {
         };
         const validate = validateRegister(dataForm);
         expect(validate[0].message).toBe(
-            "Invalid surname, minimum 6 and maximum 30"
+            "Invalid password, minimum 6 and maximum 30"
         );
     });
     it("pass invalid password length > 30", () => {
@@ -118,7 +118,7 @@ describe("Validate fields", () => {
         };
         const validate = validateRegister(dataForm);
         expect(validate[0].message).toBe(
-            "Invalid surname, minimum 6 and maximum 30"
+            "Invalid password, minimum 6 and maximum 30"
         );
     });
     it("pass invalid phone number length < 9", () => {

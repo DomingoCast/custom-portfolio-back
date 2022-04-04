@@ -1,7 +1,7 @@
 import validateRegister from "./validate.register";
 
 describe("Validate fields", () => {
-    it("should validate fields", () => {
+    test("should validate fields", () => {
         const dataForm = {
             name: "John",
             surname: "Doe",

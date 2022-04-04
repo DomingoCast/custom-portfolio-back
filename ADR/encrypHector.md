@@ -13,3 +13,5 @@ _This is the way when we use CryptoJS, it is very easy and we can change the for
 
 <img width="324" alt="image" src="https://user-images.githubusercontent.com/73659203/161537929-0dc38040-346e-4e5e-bc66-4cde035758a9.png">
 
+# Conclusion
+_In my opinion, I think CryptoJS would be the best choice and it is so easy to use._

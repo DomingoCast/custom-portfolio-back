@@ -1,4 +1,4 @@
-const { validateRegister } = require("./validate.register");
+import validateRegister from "./validate.register";
 
 describe("Validate fields", () => {
     it("should validate fields", () => {
@@ -184,75 +184,5 @@ describe("Validate fields", () => {
         };
         const validate = validateRegister(dataForm);
         expect(validate).toBe(true);
-    });
-    it("No pass dataForm", () => {
-        const validate = validateRegister();
-        expect(validate).toBe(false);
-    });
-    it("No pass name", () => {
-        const dataForm = {
-            surname: "Doe",
-            email: "john@gmail.com",
-            password: "123456",
-            phone: "+380991234567",
-            address: "Kiev, Ukraine",
-        };
-        const validate = validateRegister(dataForm);
-        expect(validate).toBe("Name is required");
-    });
-    it("No pass surname", () => {
-        const dataForm = {
-            name: "John",
-            email: "john@gmail.com",
-            password: "123456",
-            phone: "+380991234567",
-            address: "Kiev, Ukraine",
-        };
-        const validate = validateRegister(dataForm);
-        expect(validate).toBe("Surname is required");
-    });
-    it("No pass email", () => {
-        const dataForm = {
-            name: "John",
-            surname: "Doe",
-            password: "123456",
-            phone: "+380991234567",
-            address: "Kiev, Ukraine",
-        };
-        const validate = validateRegister(dataForm);
-        expect(validate).toBe("Email is required");
-    });
-    it("No pass password", () => {
-        const dataForm = {
-            name: "John",
-            surname: "Doe",
-            email: "john@gmail.com",
-            phone: "+380991234567",
-            address: "Kiev, Ukraine",
-        };
-        const validate = validateRegister(dataForm);
-        expect(validate).toBe("Password is required");
-    });
-    it("No pass phone", () => {
-        const dataForm = {
-            name: "John",
-            surname: "Doe",
-            email: "john@gmail.com",
-            password: "123456",
-            address: "Kiev, Ukraine",
-        };
-        const validate = validateRegister(dataForm);
-        expect(validate).toBe("Phone is required");
-    });
-    it("No pass address", () => {
-        const dataForm = {
-            name: "John",
-            surname: "Doe",
-            email: "john@gmail.com",
-            password: "123456",
-            phone: "+380991234567",
-        };
-        const validate = validateRegister(dataForm);
-        expect(validate).toBe("Address is required");
     });
 });

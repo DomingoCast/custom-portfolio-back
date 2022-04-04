@@ -4,6 +4,7 @@ export const createServer = (port: number) => {
     const app: Application = express();
 
     // Body parsing Middleware
+    require("dotenv").config();
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
 

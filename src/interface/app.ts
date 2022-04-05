@@ -36,7 +36,7 @@ export const createServer = (port: number) => {
                     });
                 } else {
                     return res
-                        .status(400)
+                        .status(409)
                         .send({ message: validate[0].message });
                 }
             } catch (e) {

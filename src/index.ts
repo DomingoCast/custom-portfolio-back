@@ -23,7 +23,7 @@ app.post(
     "/register",
     async (req: Request, res: Response): Promise<Response> => {
         const userRepository = createUserRepository(AppDataSource);
-        const user: User = {
+        const user: Omit<User, "id"> = {
             name: req.body.name,
             surname: req.body.surname,
             email: req.body.email,

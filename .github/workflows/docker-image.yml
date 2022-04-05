@@ -18,6 +18,6 @@ jobs:
           DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
         run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag domingocast/nodeserver:1.0
+        run: docker build . --file Dockerfile --tag teamdha/nodeserver:1.0
       - name: Push docker image
-        run: docker push domingocast/nodeserver:1.0
+        run: docker push teamdha/nodeserver:1.0

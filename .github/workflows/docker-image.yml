@@ -37,8 +37,7 @@ jobs:
           aws-region: us-east-1
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          instance-ids: |
-            i-0b1893049f4c3f2de
+          instance-ids: i-0b1893049f4c3f2de
 
           working-directory: /home/ec2-user/
           command: docker-compose down;docker-compose pull;docker-compose up

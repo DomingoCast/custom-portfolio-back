@@ -31,6 +31,4 @@ jobs:
           instance-ids: ${{ secrets.INSTANCE_ID }}
 
           working-directory: /home/ubuntu/application
-          command: docker-compose down
-          command: docker-compose pull
-          command: docker-compose up
+          command: docker-compose down;docker-compose pull;docker-compose up

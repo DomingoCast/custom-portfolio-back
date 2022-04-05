@@ -15,4 +15,4 @@ jobs:
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag domingocast/nodeserver:1.0
       - name: Push docker image
-        run: docker push my-image-name:$(date +%s)
+        run: docker push domingocast/nodeserver:1.0

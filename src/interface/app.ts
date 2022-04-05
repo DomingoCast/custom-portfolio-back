@@ -25,7 +25,7 @@ export const createServer = (port: number) => {
     );
 
     app.post(
-        "/register/validate",
+        "/validate",
         async (req: Request, res: Response): Promise<Response | undefined> => {
             try {
                 const dataForm = req.body;

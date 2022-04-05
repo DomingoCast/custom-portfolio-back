@@ -1,5 +1,4 @@
 import express, { Application, Request, Response } from "express";
-import testEmail from "./controllers/test-email.controller";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -21,22 +20,6 @@ export const createServer = (port: number) => {
             return res.status(200).send({
                 message: "This is a POST request",
             });
-        }
-    );
-
-    app.post(
-        "/email",
-        async (req: Request, res: Response): Promise<Response> => {
-            try {
-                testEmail(req.body);
-                return res.status(200).send({
-                    message: "This is a POST request",
-                });
-            } catch {
-                return res.status(500).send({
-                    message: "An error has ocurred",
-                });
-            }
         }
     );
 

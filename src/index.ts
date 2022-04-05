@@ -1,5 +1,4 @@
 import express, { Application, Request, Response } from "express";
-import { register } from "ts-node";
 import { User } from "./core/domain/user/User";
 import registerUser from "./core/use-cases/register";
 import createUserRepository from "./infrastructure/user/user.datasource";
@@ -32,17 +31,9 @@ app.post(
             address: req.body.address,
         };
         console.log(user);
-        registerUser(user, userRepository);
+        const newUser = await registerUser(user, userRepository);
         return res.status(200).send({
-            message: "This is a POST request",
-        });
-    }
-);
-app.post(
-    "/save-user",
-    async (req: Request, res: Response): Promise<Response> => {
-        return res.status(200).send({
-            message: "This is a POST request",
+            message: newUser,
         });
     }
 );

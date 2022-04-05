@@ -5,10 +5,10 @@ import { User } from "../../core/domain/user/User";
 
 const createUserRepository = (dataSource: DataSource): UserRepository => {
     const userRepository = dataSource.getRepository(UserModel);
-    const persist = (user: User) => {
+    const persist = (user: Omit<User, "id">) => {
         return userRepository
             .save(user)
-            .then(() => console.log("GUARDADO"))
+            .then((res) => res)
             .catch((err) => console.error(err));
     };
     return {

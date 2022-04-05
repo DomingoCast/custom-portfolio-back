@@ -21,3 +21,16 @@ jobs:
         run: docker build . --file Dockerfile --tag teamdha/nodeserver:1.0
       - name: Push docker image
         run: docker push teamdha/nodeserver:1.0
+      - name: AWS SSM Send-Command
+        uses: peterkimzz/aws-ssm-send-command@master
+        id: ssm
+        with:
+          aws-region: ${{ secrets.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          instance-ids: ${{ secrets.INSTANCE_ID }}
+
+          working-directory: /home/ubuntu/application
+          command: docker-compose down
+          command: docker-compose pull
+          command: docker-compose up

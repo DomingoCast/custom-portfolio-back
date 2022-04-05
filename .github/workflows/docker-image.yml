@@ -21,14 +21,21 @@ jobs:
         run: docker build . --file Dockerfile --tag teamdha/nodeserver:1.0
       - name: Push docker image
         run: docker push teamdha/nodeserver:1.0
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: ${{ secrests.AWS_REGION}}
+
       - name: AWS SSM Send-Command
         uses: peterkimzz/aws-ssm-send-command@master
         id: ssm
         with:
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: us-east-1
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           instance-ids: ${{ secrets.INSTANCE_ID }}
 
-          working-directory: /home/ubuntu/application
+          working-directory: /home/ec2-user/
           command: docker-compose down;docker-compose pull;docker-compose up

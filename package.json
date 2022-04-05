@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/DomingoCast/jnt-copy#readme",
   "dependencies": {
-    "argon2": "^0.28.5",
     "axios": "^0.26.1",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",

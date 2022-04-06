@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from "express";
 import { DataSource } from "typeorm";
+import { User } from "../../core/domain/user/User";
 import registerController from "./controllers/register.controller";
 
 export const createServer = (port: number, dataSource: DataSource) => {
@@ -16,7 +17,10 @@ export const createServer = (port: number, dataSource: DataSource) => {
     });
     app.post(
         "/register",
-        async (req: Request, res: Response): Promise<Response> => {
+        async (
+            req: Request<{}, {}, Omit<User, "id">>,
+            res: Response
+        ): Promise<Response> => {
             const response = await registerController(req, dataSource);
 
             return res.status(200).send({

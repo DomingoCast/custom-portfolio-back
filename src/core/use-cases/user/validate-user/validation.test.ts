@@ -1,4 +1,4 @@
-import validateRegister from "./validate-register";
+import validateRegister from "./user-register";
 import fixtures from "./fixtures/validate-register.fixtures";
 
 describe("Testing of diferents type of Users", () => {

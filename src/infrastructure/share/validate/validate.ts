@@ -1,12 +1,10 @@
-import schema from "../../../core/use-cases/user/validate-user/schema";
+import DataForm from "./data-form.interface";
+import init from "./init-validate";
 
-const validation = () => {
-    const Ajv = require("ajv").default;
-    const addFormats = require("ajv-formats");
-
-    const ajv = new Ajv({ allErrors: true });
-    require("ajv-errors")(ajv);
-    addFormats(ajv);
-    return ajv.compile(schema);
+const validation = (schema: Object, data: DataForm) => {
+    const initValidate = init(schema);
+    const valid = initValidate.validate(schema, data);
+    if (!valid) return initValidate.errors[0].message;
+    return valid;
 };
 export default validation;

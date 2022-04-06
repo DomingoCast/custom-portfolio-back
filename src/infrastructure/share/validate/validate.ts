@@ -1,6 +1,6 @@
 import schema from "./schema";
 
-const ajv = () => {
+const validation = () => {
     const Ajv = require("ajv").default;
     const addFormats = require("ajv-formats");
 
@@ -9,4 +9,4 @@ const ajv = () => {
     addFormats(ajv);
     return ajv.compile(schema);
 };
-export default ajv;
+export default validation;

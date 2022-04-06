@@ -35,9 +35,7 @@ export const createServer = (port: number) => {
                         "<h1>Recibed data From User</h1><br>": dataForm,
                     });
                 } else {
-                    return res
-                        .status(409)
-                        .send({ message: validate[0].message });
+                    return res.status(409).send({ message: validate });
                 }
             } catch (e) {
                 return res.status(500).send({

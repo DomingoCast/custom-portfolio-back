@@ -1,8 +1,8 @@
 import DataForm from "../../../../infrastructure/share/validate/data-form.interface";
-import ajv from "../../../../infrastructure/share/validate/ajv-validate";
+import validation from "../../../../infrastructure/share/validate/validate";
 
 const validateUser = (dataForm: DataForm) => {
-    const validate = ajv();
+    const validate = validation();
     const valid = validate(dataForm);
 
     if (valid) return valid;

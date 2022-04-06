@@ -5,8 +5,8 @@ require("dotenv").config();
 
 const PORT = Number(process.env.PORT) || 3000;
 
-const { DataSource, connect } = createDBConnection();
+const { dataSource, connect } = createDBConnection();
 
 connect();
 
-createServer(PORT, DataSource).run();
+createServer(PORT, dataSource).run();

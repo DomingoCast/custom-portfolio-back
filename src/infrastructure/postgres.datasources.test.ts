@@ -6,13 +6,12 @@ describe("createDBConnection", () => {
         expect(connection).toHaveProperty("connect");
     });
 
-    // I don't know how to test because it cant connect w/o docker
-
-    // it("connects", async () => {
-    //     console.log = jest.fn();
-    //     createDBConnection().connect();
-    //     expect(console.log).toHaveBeenCalledWith(
-    //         "Data Source has been initialized!"
-    //     );
-    // });
+    it("connects", async () => {
+        const mockDataSource: any = {
+            initialize: jest.fn(() => Promise.resolve()),
+        };
+        const { connect } = createDBConnection();
+        connect(mockDataSource);
+        expect(mockDataSource.initialize).toHaveBeenCalled();
+    });
 });

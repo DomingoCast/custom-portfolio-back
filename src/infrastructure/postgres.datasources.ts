@@ -18,8 +18,9 @@ export const createDBConnection = () => {
         migrations: [],
     });
 
-    const connect = () => {
-        AppDataSource.initialize()
+    const connect = (dataSource = AppDataSource) => {
+        dataSource
+            .initialize()
             .then(() => {
                 console.log("Data Source has been initialized!");
             })
@@ -29,7 +30,7 @@ export const createDBConnection = () => {
     };
 
     return {
-        DataSource: AppDataSource,
+        dataSource: AppDataSource,
         connect,
     };
 };

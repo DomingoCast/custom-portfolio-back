@@ -1,4 +1,4 @@
-import { runServer, createServer } from "./app";
+import { runServer } from "./app";
 
 describe("createServer", () => {
     // it("creates server", async () => {

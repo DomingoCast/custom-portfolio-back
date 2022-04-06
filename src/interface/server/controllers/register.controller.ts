@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request } from "express";
 import { User } from "../../../core/domain/user/User";
 import registerUser from "../../../core/use-cases/register";
 import { DataSource } from "typeorm";

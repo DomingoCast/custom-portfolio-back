@@ -8,10 +8,7 @@ const registerController = async (
     req: Request,
     dataSource: DataSource
 ): Promise<Omit<User, "password"> | string> => {
-    const userRepository = createUserRepository(
-        // createDBConnection().DataSource
-        dataSource
-    );
+    const userRepository = createUserRepository(dataSource);
     const user: Omit<User, "id"> = req.body;
     const newUser: void | User = await registerUser(user, userRepository);
     if (newUser) {

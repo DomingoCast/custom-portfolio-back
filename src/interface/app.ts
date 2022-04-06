@@ -1,5 +1,4 @@
 import express, { Application, Request, Response } from "express";
-import validateRegister from "../core/use-cases/user/validate-user/validate-register";
 
 export const createServer = (port: number) => {
     const app: Application = express();

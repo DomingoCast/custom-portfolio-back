@@ -1,0 +1,34 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [main, 58-deploy-pipeline]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Docker login
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag teamdha/nodeserver:1.0
+      - name: Push docker image
+        run: docker push teamdha/nodeserver:1.0
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: AWS SSM Send-Command
+        uses: peterkimzz/aws-ssm-send-command@master
+        id: ssm
+        with:
+          aws-region: us-east-1
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          instance-ids: ${{ secrets.INSTANCE_ID }}
+
+          working-directory: /home/ec2-user/
+          command: docker-compose down #;docker-compose pull;docker-compose up

@@ -24,27 +24,6 @@ export const createServer = (port: number) => {
         }
     );
 
-    app.post(
-        "/validate",
-        async (req: Request, res: Response): Promise<Response | undefined> => {
-            try {
-                const dataForm = req.body;
-                const validate = validateRegister(dataForm);
-                if (validate === true) {
-                    return res.status(200).send({
-                        "<h1>Recibed data From User</h1><br>": dataForm,
-                    });
-                } else {
-                    return res.status(409).send({ message: validate });
-                }
-            } catch (e) {
-                return res.status(500).send({
-                    message: "Internal server error",
-                });
-            }
-        }
-    );
-
     return {
         app: app,
         run: () => runServer(app, port),

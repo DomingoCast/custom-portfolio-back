@@ -1,4 +1,4 @@
-import { createServer } from "./interface/app";
+import { createServer } from "./interface/server/app";
 
 const axios = require("axios");
 

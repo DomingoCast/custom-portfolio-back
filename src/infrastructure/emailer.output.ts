@@ -1,4 +1,3 @@
-import { Transporter } from "nodemailer";
 import Email from "../core/domain/email/Email";
 
 const nodemailer = require("nodemailer");
@@ -9,12 +8,8 @@ export const setUpEmail = async (
     sender: string,
     password: string
 ) => {
-    // Generate test SMTP service account from ethereal.email
-    // Only needed if you don't have a real mail account for testing
-    let testAccount = await nodemailer.createTestAccount();
-
     // create reusable transporter object using the default SMTP transport
-    let transporter = nodemailer.createTransport({
+    const transporter = nodemailer.createTransport({
         service: "hotmail",
         auth: {
             user: "team-dha@outlook.com", // generated ethereal user
@@ -24,7 +19,7 @@ export const setUpEmail = async (
 
     const sendEmail = async (email: Email) => {
         console.log(email);
-        let info = await transporter.sendMail({
+        const info = await transporter.sendMail({
             from: sender,
             to: email.receiver,
             subject: email.subject,

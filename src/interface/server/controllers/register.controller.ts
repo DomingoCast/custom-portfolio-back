@@ -1,20 +1,24 @@
 import { Request, Response } from "express";
 import { User } from "../../../core/domain/user/User";
 import registerUser from "../../../core/use-cases/register";
-import { createDBConnection } from "../../../infrastructure/postgres.datasources";
-import createUserRepository from "../../../infrastructure/user/user.datasource";
-import _ from "lodash";
 import { DataSource } from "typeorm";
+import createUserRepository from "../../../infrastructure/user/user.datasource";
 
-const registerController = async (req: Request, dataSource: DataSource) => {
+const registerController = async (
+    req: Request,
+    dataSource: DataSource
+): Promise<Omit<User, "password"> | string> => {
     const userRepository = createUserRepository(
         // createDBConnection().DataSource
         dataSource
     );
     const user: Omit<User, "id"> = req.body;
-    const newUser = await registerUser(user, userRepository);
-
-    return _.omit(newUser!, "password");
+    const newUser: void | User = await registerUser(user, userRepository);
+    if (newUser) {
+        const { password, ...partialUser } = newUser;
+        return partialUser;
+    }
+    return "There has been an error";
 };
 
 export default registerController;

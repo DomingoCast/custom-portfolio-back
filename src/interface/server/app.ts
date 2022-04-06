@@ -1,16 +1,11 @@
 import express, { Application, Request, Response } from "express";
 import { DataSource } from "typeorm";
-import { User } from "../../core/domain/user/User";
-import registerUser from "../../core/use-cases/register";
-import { createDBConnection } from "../../infrastructure/postgres.datasources";
-import createUserRepository from "../../infrastructure/user/user.datasource";
 import registerController from "./controllers/register.controller";
 
 export const createServer = (port: number, dataSource: DataSource) => {
     const app: Application = express();
 
     // Body parsing Middleware
-    require("dotenv").config();
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
 

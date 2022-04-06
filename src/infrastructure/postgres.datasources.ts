@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-const UserModel = require("./user/user.model");
+import UserModel from "./user/user.model";
 
 export const createDBConnection = () => {
     const AppDataSource = new DataSource({

@@ -1,8 +1,8 @@
 import DataForm from "./data-form.interface";
-import init from "./init-validate";
+import initValidation from "./init-validation";
 
 const validation = (schema: Object, data: DataForm) => {
-    const initValidate = init(schema);
+    const initValidate = initValidation(schema);
     const valid = initValidate.validate(schema, data);
     if (!valid) return initValidate.errors[0].message;
     return valid;

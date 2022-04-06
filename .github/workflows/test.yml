@@ -2,7 +2,7 @@ name: Node.js CI
 
 on:
   push:
-    branches: [main, 63-cicd-pipeline]
+    branches: [main]
   pull_request:
     branches: [main]
 

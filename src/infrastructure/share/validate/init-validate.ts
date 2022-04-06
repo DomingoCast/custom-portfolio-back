@@ -1,7 +1,7 @@
 const Ajv = require("ajv").default;
 const addFormats = require("ajv-formats");
 
-const init = (schema: any) => {
+const init = (schema: Object) => {
     const ajv = new Ajv({ allErrors: true });
     require("ajv-errors")(ajv);
     addFormats(ajv);

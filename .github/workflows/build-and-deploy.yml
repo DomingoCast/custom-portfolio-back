@@ -31,4 +31,4 @@ jobs:
           instance-ids: ${{ secrets.INSTANCE_ID }}
 
           working-directory: /home/ec2-user/
-          command: docker-compose down #;docker-compose pull;docker-compose up
+          command: docker-compose stop; docker-compose rm -f; docker-compose pull; docker-compose up -d

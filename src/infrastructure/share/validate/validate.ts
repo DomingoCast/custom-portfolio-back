@@ -1,4 +1,4 @@
-import schema from "./schema";
+import schema from "../../../core/use-cases/user/validate-user/schema";
 
 const validation = () => {
     const Ajv = require("ajv").default;

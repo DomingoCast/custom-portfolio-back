@@ -8,6 +8,7 @@
     "dev": "ts-node-dev src/index.ts",
     "build": "tsc --build",
     "test": "jest --watchAll --verbose",
+    "test:prod": "jest",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "prettier": "prettier --check .",

@@ -31,10 +31,12 @@ export const createServer = (port: number) => {
 
 export const runServer = (app: Application, port: number) => {
     try {
-        app.listen(port, (): void => {
+        const server = app.listen(port, (): void => {
             console.log(`Connected successfully on port ${port}`);
         });
+        return server;
     } catch (error) {
         console.error(`Error occured: ${error}`);
+        return null;
     }
 };

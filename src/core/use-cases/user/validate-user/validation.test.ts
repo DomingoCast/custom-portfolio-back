@@ -6,9 +6,6 @@ describe("Testing of diferents type of Users", () => {
         "Testing some fields from users",
         ({ user, expected }) => {
             const validate = validateRegister(user);
-            if (validate !== true) {
-                return expect(validate[0].message).toBe(expected);
-            }
             expect(validate).toBe(expected);
         }
     );

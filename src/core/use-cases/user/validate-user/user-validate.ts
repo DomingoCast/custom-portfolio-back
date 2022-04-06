@@ -6,6 +6,6 @@ const validateUser = (dataForm: DataForm) => {
     const valid = validate(dataForm);
 
     if (valid) return valid;
-    return validate.errors;
+    return validate.errors[0].message;
 };
 export default validateUser;

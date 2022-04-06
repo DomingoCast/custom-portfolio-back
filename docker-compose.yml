@@ -4,11 +4,11 @@ services:
   web:
     build: .
     ports:
-      - "8080:8080"
+      - "80:8080"
     env_file:
       - .env
     volumes:
-      - .:/code
+      - .:/app
     environment:
       NODE_ENV: development
     depends_on:

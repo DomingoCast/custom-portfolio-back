@@ -8,7 +8,7 @@ const createUserRepository = (dataSource: DataSource): UserRepository => {
     const persist = (user: Omit<User, "id">) => {
         return userRepository
             .save(user)
-            .then((res) => res)
+            .then((res: User) => res)
             .catch((err) => console.error(err));
     };
     return {

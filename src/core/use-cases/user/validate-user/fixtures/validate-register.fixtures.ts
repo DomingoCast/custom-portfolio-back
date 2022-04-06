@@ -64,6 +64,7 @@ const fixtures = [
             address: "Kiev, Ukraine",
         },
         expected: "Invalid email",
+        fixtures_title: "User with valid data",
     },
     {
         user: {
@@ -97,6 +98,7 @@ const fixtures = [
             address: "Kiev, Ukraine",
         },
         expected: "Invalid password, minimum 6 and maximum 30",
+        fixtures_title: "User with valid data",
     },
     {
         user: {

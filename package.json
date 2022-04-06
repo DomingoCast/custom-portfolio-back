@@ -8,7 +8,7 @@
     "dev": "ts-node-dev src/index.ts",
     "build": "tsc --build",
     "test": "jest --watchAll --verbose",
-    "test:prod": "jest",
+    "test:prod": "jest --detect-open-handles",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "prettier": "prettier --check .",

@@ -12,7 +12,7 @@ const registerController = async (
     const user: Omit<User, "id"> = req.body;
     const newUser: void | User = await registerUser(user, userRepository);
     if (newUser) {
-        const { password, ...partialUser } = newUser;
+        const partialUser = { ...newUser, password: "***" };
         return partialUser;
     }
     return "There has been an error";

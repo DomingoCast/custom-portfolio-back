@@ -3,9 +3,6 @@ version: "3.8"
 services:
   web:
     image: domingocast/nodeserver:1.0
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
     ports:
       - "80:8080"
     env_file:

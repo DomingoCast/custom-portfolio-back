@@ -2,10 +2,10 @@ import { Request, Response } from "express";
 import { User } from "../../../core/domain/user/User";
 import registerUser from "../../../core/use-cases/register";
 import { DataSource } from "typeorm";
-import createUserRepository from "../../../infrastructure/user/user.datasource";
+import createUserRepository from "../../../infrastructure/persistance/user/user.datasource";
 
 const registerController = async (
-    req: Request,
+    req: Request<{}, {}, Omit<User, "id">>,
     dataSource: DataSource
 ): Promise<Omit<User, "password"> | string> => {
     const userRepository = createUserRepository(dataSource);

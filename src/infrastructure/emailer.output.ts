@@ -1,4 +1,5 @@
 import Email from "../core/domain/email/Email";
+import EmailSender from "../core/ports/send-email.port";
 
 const nodemailer = require("nodemailer");
 
@@ -7,17 +8,16 @@ export const setUpEmail = async (
     service: string,
     sender: string,
     password: string
-) => {
-    // create reusable transporter object using the default SMTP transport
+): Promise<EmailSender> => {
     const transporter = nodemailer.createTransport({
-        service: "hotmail",
+        service: service,
         auth: {
-            user: "team-dha@outlook.com", // generated ethereal user
-            pass: "teamdha5432", // generated ethereal password
+            user: sender,
+            pass: password,
         },
     });
 
-    const sendEmail = async (email: Email) => {
+    const sendEmail = async (email: Email): Promise<void> => {
         console.log(email);
         const info = await transporter.sendMail({
             from: sender,
@@ -30,7 +30,6 @@ export const setUpEmail = async (
     };
 
     return {
-        transporter,
         send: (email: Email) => sendEmail(email),
     };
 };

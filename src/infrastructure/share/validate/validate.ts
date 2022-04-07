@@ -1,4 +1,4 @@
-import CreateUserDataForm from "../../user/user-validate/interface/create-user-data-form.interface";
+import CreateUserDataForm from "../../User/user-validate/interface/create-user-data-form-interface";
 import initValidation from "./init-validation";
 
 const validationDataUser = (

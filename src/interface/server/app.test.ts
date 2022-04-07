@@ -2,7 +2,8 @@ import { runServer, createServer } from "./app";
 
 describe("createServer", () => {
     it("creates server", async () => {
-        const app = createServer(3000);
+        const mockDS: any = null;
+        const app = createServer(3000, mockDS);
         expect(app).toHaveProperty("run");
     });
 });

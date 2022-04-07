@@ -1,4 +1,4 @@
-interface DataForm {
+interface CreateUserByDataForm {
     name: string;
     surname: string;
     email: string;
@@ -6,4 +6,4 @@ interface DataForm {
     phone: string;
     address: string;
 }
-export default DataForm;
+export default CreateUserByDataForm;

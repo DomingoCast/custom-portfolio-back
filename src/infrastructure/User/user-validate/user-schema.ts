@@ -1,7 +1,7 @@
 import { JSONSchemaType } from "ajv";
-import CreateUserByDataForm from "./interface/create-user-by-data-form.interface";
+import CreateUserDataForm from "./interface/create-user-data-form.interface";
 
-const userSchema: JSONSchemaType<CreateUserByDataForm> = {
+const userSchema: JSONSchemaType<CreateUserDataForm> = {
     type: "object",
     required: ["name", "surname", "email", "password", "phone", "address"],
     properties: {

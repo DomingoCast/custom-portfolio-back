@@ -1,9 +1,9 @@
-import CreateUserByDataForm from "../../../core/use-cases/user/validate-user/interface/create-user-by-data-form.interface";
+import CreateUserDataForm from "../../user/user-validate/interface/create-user-data-form.interface";
 import initValidation from "./init-validation";
 
 const validationDataUser = (
     userSchema: Object,
-    data: CreateUserByDataForm
+    data: CreateUserDataForm
 ): boolean | string => {
     const initValidate = initValidation(userSchema);
     const valid = initValidate.validate(userSchema, data);

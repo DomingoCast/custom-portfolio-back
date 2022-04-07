@@ -1,10 +1,16 @@
 import CreateUserByDataForm from "../../../core/use-cases/user/validate-user/create-user-by-data-form.interface";
 import initValidation from "./init-validation";
 
-const validationDataUser = (schema: Object, data: CreateUserByDataForm) => {
-    const initValidate = initValidation(schema);
-    const valid = initValidate.validate(schema, data);
-    if (!valid) return initValidate.errors[0].message;
+const validationDataUser = (
+    userSchema: Object,
+    data: CreateUserByDataForm
+): boolean | string => {
+    const initValidate = initValidation(userSchema);
+    const valid = initValidate.validate(userSchema, data);
+    if (initValidate.errors)
+        return initValidate.errors[0].message
+            ? initValidate.errors[0].message
+            : "And error has ocurred";
     return valid;
 };
 export default validationDataUser;

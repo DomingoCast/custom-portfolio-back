@@ -1,4 +1,4 @@
-const schema = {
+const userSchema = {
     type: "object",
     required: ["name", "surname", "email", "password", "phone", "address"],
     properties: {
@@ -36,4 +36,4 @@ const schema = {
         address: { type: "string", minLength: 3, maxLength: 30 },
     },
 };
-export default schema;
+export default userSchema;

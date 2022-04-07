@@ -1,4 +1,6 @@
-const userSchema = {
+import { UserSchema } from "./interface/user-schema.interface";
+
+const userSchema: UserSchema = {
     type: "object",
     required: ["name", "surname", "email", "password", "phone", "address"],
     properties: {

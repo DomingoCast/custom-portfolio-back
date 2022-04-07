@@ -1,4 +1,4 @@
-import CreateUserByDataForm from "./create-user-by-data-form.interface";
+import CreateUserByDataForm from "./interface/create-user-by-data-form.interface";
 import validationDataUser from "./validate-register";
 
 const validateUser = (

@@ -1,10 +1,11 @@
-import { runServer } from "./app";
+import { runServer, createServer } from "./app";
 
 describe("createServer", () => {
-    // it("creates server", async () => {
-    //     const app = createServer(3000);
-    //     expect(app).toHaveProperty("run");
-    // });
+    it("creates server", async () => {
+        const mockDS: any = null;
+        const app = createServer(3000, mockDS);
+        expect(app).toHaveProperty("run");
+    });
 });
 
 describe("runServer", () => {

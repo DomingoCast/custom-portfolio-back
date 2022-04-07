@@ -1,11 +1,14 @@
 import express, { Application, Request, Response } from "express";
 import { DataSource } from "typeorm";
 import registerController from "./controllers/register.controller";
+import cors from "cors";
 
 export const createServer = (port: number, dataSource: DataSource) => {
     const app: Application = express();
 
     // Body parsing Middleware
+    require("dotenv").config();
+    app.use(cors());
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
 
@@ -33,10 +36,12 @@ export const createServer = (port: number, dataSource: DataSource) => {
 
 export const runServer = (app: Application, port: number) => {
     try {
-        app.listen(port, (): void => {
+        const server = app.listen(port, (): void => {
             console.log(`Connected successfully on port ${port}`);
         });
+        return server;
     } catch (error) {
         console.error(`Error occured: ${error}`);
+        return null;
     }
 };

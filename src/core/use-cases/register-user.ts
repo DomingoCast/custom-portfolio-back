@@ -4,7 +4,7 @@ import UserRepository from "../ports/user-repository.port";
 const registerUser = (
     user: Omit<User, "id">,
     userRepository: UserRepository
-): Promise<User | void> => {
+): Promise<User | null> => {
     return userRepository.persist(user);
 };
 

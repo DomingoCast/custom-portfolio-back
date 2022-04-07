@@ -9,7 +9,7 @@ const createUserRepository = (dataSource: DataSource): UserRepository => {
         return userRepository
             .save(user)
             .then((res: User) => res)
-            .catch((err) => console.error(err));
+            .catch(() => null);
     };
     return {
         persist,

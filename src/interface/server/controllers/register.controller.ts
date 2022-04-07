@@ -10,7 +10,7 @@ const registerController = async (
 ): Promise<Omit<User, "password"> | string> => {
     const userRepository = createUserRepository(dataSource);
     const user: Omit<User, "id"> = req.body;
-    const newUser: void | User = await registerUser(user, userRepository);
+    const newUser: null | User = await registerUser(user, userRepository);
     if (newUser) {
         const partialUser = { ...newUser, password: "***" };
         return partialUser;

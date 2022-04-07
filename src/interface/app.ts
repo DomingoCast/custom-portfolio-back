@@ -1,10 +1,12 @@
 import express, { Application, Request, Response } from "express";
+import cors from "cors";
 
 export const createServer = (port: number) => {
     const app: Application = express();
 
     // Body parsing Middleware
     require("dotenv").config();
+    app.use(cors);
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
 

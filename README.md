@@ -1,4 +1,6 @@
+![job and talent](https://user-images.githubusercontent.com/48081621/162180679-3f1db5bd-72bc-4300-b99e-91d6c5f0a0e6.png)
 # jnt-copy
+
 
 The main goal is to create an API that emulates the workings of Job and Talent. Where you have Workers and Companies. And it's working on our [website](http://ec2-3-85-237-21.compute-1.amazonaws.com/)
 
@@ -69,6 +71,7 @@ In the root folder of the project, you'll find several config files. Let's go ov
 -   `Dockerfile`: we need to replicate a given environment to work under the same conditions. With this file, we configure the Docker image we use.
 -   `docker-compose.yml`: we need to work with a server and a database. With this file we configure both Docker containers
 -   `docker-compose.yml`: to work with the image in the directory and not in the Docker hub and for more development aidance we override the settings with this file.
+-   In the `ADR` folder there are the decissions of the technologies we have chosen for the project
 
 ---
 

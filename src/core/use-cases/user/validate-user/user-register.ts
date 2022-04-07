@@ -1,6 +1,6 @@
 import DataForm from "../../../../infrastructure/share/validate/data-form.interface";
-import validation from "./validate-register";
+import validationDataUser from "./validate-register";
 
 const validateUser = (dataForm: DataForm): string | boolean =>
-    validation(dataForm);
+    validationDataUser(dataForm);
 export default validateUser;

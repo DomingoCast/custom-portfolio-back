@@ -1,6 +1,6 @@
 import { Request } from "express";
 import { User } from "../../../core/domain/user/User";
-import registerUser from "../../../core/use-cases/register";
+import registerUser from "../../../core/use-cases/register-user";
 import { DataSource } from "typeorm";
 import createUserRepository from "../../../infrastructure/persistance/user/user.datasource";
 

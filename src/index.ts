@@ -1,5 +1,8 @@
-import { createDBConnection } from "./infrastructure/postgres.datasources";
+require("dotenv").config();
+
+import { createDBConnection } from "./infrastructure/persistance/postgres.datasources";
 import { createServer } from "./interface/server/app";
+
 const awilix = require("awilix");
 
 const container = awilix.createContainer({
@@ -14,5 +17,8 @@ container.register({});
 
 const PORT = Number(process.env.PORT) || 3000;
 
-createServer(PORT).run();
-createDBConnection().connect();
+const { dataSource, connect } = createDBConnection();
+
+connect();
+
+createServer(PORT, dataSource).run();

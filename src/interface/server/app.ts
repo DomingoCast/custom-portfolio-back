@@ -1,7 +1,9 @@
 import express, { Application, Request, Response } from "express";
+import { DataSource } from "typeorm";
+import registerController from "./controllers/register.controller";
 import cors from "cors";
 
-export const createServer = (port: number) => {
+export const createServer = (port: number, dataSource: DataSource) => {
     const app: Application = express();
 
     // Body parsing Middleware
@@ -15,12 +17,13 @@ export const createServer = (port: number) => {
             message: "Hello World!",
         });
     });
-
     app.post(
         "/register",
         async (req: Request, res: Response): Promise<Response> => {
+            const response = await registerController(req, dataSource);
+
             return res.status(200).send({
-                message: "This is a POST request",
+                message: response,
             });
         }
     );

@@ -1,6 +1,6 @@
 import validation from "../../../../infrastructure/share/validate/validate";
-import schema from "./user-schema";
+import userSchema from "./user-schema";
 
 const validateRegister = (CreateUserByDataForm: any) =>
-    validation(schema, CreateUserByDataForm);
+    validation(userSchema, CreateUserByDataForm);
 export default validateRegister;

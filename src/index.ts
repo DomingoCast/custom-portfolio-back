@@ -1,5 +1,5 @@
-import { createServer } from "./interface/app";
 import { createDBConnection } from "./infrastructure/postgres.datasources";
+import { createServer } from "./interface/server/app";
 const awilix = require("awilix");
 
 const container = awilix.createContainer({

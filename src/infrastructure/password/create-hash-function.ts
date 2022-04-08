@@ -4,20 +4,10 @@ const createHashFunction = (): HashFunction => {
     const saltRounds = 10;
 
     const hash = async (password: string) => {
-        try {
-            return await bcrypt.hash(password, saltRounds);
-        } catch (error) {
-            console.error(error);
-            return "error";
-        }
+        return await bcrypt.hash(password, saltRounds);
     };
     const verify = async (hashed: string, password: string) => {
-        try {
-            return await bcrypt.compare(password, hashed);
-        } catch (error) {
-            console.error(error);
-            return false;
-        }
+        return await bcrypt.compare(password, hashed);
     };
     return {
         hash,

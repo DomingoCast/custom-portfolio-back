@@ -1,4 +1,3 @@
-import { DataSource } from "typeorm";
 import UserRepository from "../../../core/ports/user-repository.port";
 import { User } from "../../../core/domain/user/User";
 import UserModel from "./user.model";

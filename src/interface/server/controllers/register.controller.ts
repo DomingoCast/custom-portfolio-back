@@ -1,11 +1,8 @@
 import { Request, Response } from "express";
 import { User } from "../../../core/domain/user/User";
-import registerUser from "../../../core/use-cases/register-user";
-import { DataSource, TypeORMError } from "typeorm";
-import createUserRepository from "../../../infrastructure/persistance/user/user.datasource";
+import { DataSource } from "typeorm";
 import validateUserDataForm from "../../../infrastructure/User/user-validate/validate-user-data-form";
 import { container } from "../../../infrastructure/dependency-injection/awilix-set-up";
-const awilix = require("awilix");
 
 const registerController = async (
     req: Request<{}, {}, Omit<User, "id">>,

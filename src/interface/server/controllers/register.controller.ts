@@ -1,9 +1,11 @@
 import { Request, Response } from "express";
 import { User } from "../../../core/domain/user/User";
 import registerUser from "../../../core/use-cases/register-user";
-import { DataSource } from "typeorm";
+import { DataSource, TypeORMError } from "typeorm";
 import createUserRepository from "../../../infrastructure/persistance/user/user.datasource";
 import validateUserDataForm from "../../../infrastructure/User/user-validate/validate-user-data-form";
+import { container } from "../../../infrastructure/dependency-injection/awilix-set-up";
+const awilix = require("awilix");
 
 const registerController = async (
     req: Request<{}, {}, Omit<User, "id">>,
@@ -15,9 +17,13 @@ const registerController = async (
         const validate = validateUserDataForm(dataForm);
         if (validate !== true)
             return res.status(409).send({ message: validate });
-        const userRepository = createUserRepository(dataSource);
-        const user: Omit<User, "id"> = req.body;
         // const userRepository = createUserRepository(dataSource);
+        const user: Omit<User, "id"> = req.body;
+        const userRepository = createUserRepository(dataSource);
+        container.register({
+            userRepository: awilix.asValue(userRepository),
+        });
+        console.log("@@@@@@@@@@@@@@@@", userRepository, typeof userRepository);
         // const newUser: null | User = await registerUser(user, userRepository);
         const newUser: null | User = await container.resolve("registerUser")(
             user
@@ -28,6 +34,7 @@ const registerController = async (
         }
         return res.status(400).send({ message: "User already exits" });
     } catch (e) {
+        console.error(e);
         return res.status(500).send({
             message: e,
         });

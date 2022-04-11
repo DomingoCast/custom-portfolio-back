@@ -1,14 +1,13 @@
+import registerUser from "../../core/use-cases/register-user";
+
 const awilix = require("awilix");
 
-const container = awilix.createContainer({
+export const container = awilix.createContainer({
     injectionMode: awilix.InjectionMode.PROXY,
 });
 
-function setup() {
-    container.register({});
-}
-
-module.exports = {
-    container,
-    setup,
+export const setUpAwilix = () => {
+    container.register({
+        registerUser: awilix.asFunction(registerUser),
+    });
 };

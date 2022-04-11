@@ -6,8 +6,6 @@ import cors from "cors";
 export const createServer = (port: number, dataSource: DataSource) => {
     const app: Application = express();
 
-    // Body parsing Middleware
-    require("dotenv").config();
     app.use(cors());
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
@@ -20,11 +18,7 @@ export const createServer = (port: number, dataSource: DataSource) => {
     app.post(
         "/register",
         async (req: Request, res: Response): Promise<Response> => {
-            const response = await registerController(req, dataSource);
-
-            return res.status(200).send({
-                message: response,
-            });
+            return registerController(req, dataSource, res);
         }
     );
 

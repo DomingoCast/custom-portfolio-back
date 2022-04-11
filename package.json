@@ -12,7 +12,8 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "prettier": "prettier --check .",
-    "prettier:write": "npx prettier --write ."
+    "prettier:write": "npx prettier --write .",
+    "test:debug": "node --inspect node_modules/.bin/jest --runInBand"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,9 @@
   "homepage": "https://github.com/DomingoCast/jnt-copy#readme",
   "dependencies": {
     "argon2": "^0.28.5",
+    "ajv": "^8.11.0",
+    "ajv-errors": "^3.0.0",
+    "ajv-formats": "^2.1.1",
     "awilix": "^7.0.1",
     "axios": "^0.26.1",
     "bcryptjs": "^2.4.3",
@@ -35,6 +39,7 @@
     "nodemailer": "^6.7.3",
     "pg": "^8.7.3",
     "reflect-metadata": "^0.1.13",
+    "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
     "typeorm": "^0.3.4"
   },

@@ -18,12 +18,7 @@ const registerController = async (
             return res.status(409).send({ message: validate });
         const userRepository = createUserRepository(dataSource);
         const user: Omit<User, "id"> = req.body;
-        const hashFunction = createHashFunction();
-        const newUser: null | User = await registerUser(
-            user,
-            userRepository,
-            hashFunction
-        );
+        const newUser: null | User = await registerUser(user, userRepository);
         if (newUser) {
             const partialUser = { ...newUser, password: "***" };
             return res.status(200).send({ message: partialUser });

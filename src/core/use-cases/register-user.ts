@@ -1,12 +1,12 @@
+import createHashFunction from "../../infrastructure/password/create-hash-function";
 import { User } from "../domain/user/User";
-import HashFunction from "../ports/hash-function.port";
 import UserRepository from "../ports/user-repository.port";
 
 const registerUser = async (
     user: Omit<User, "id">,
-    userRepository: UserRepository,
-    hashFunction: HashFunction
+    userRepository: UserRepository
 ): Promise<User | null> => {
+    const hashFunction = createHashFunction();
     const userSafe = {
         ...user,
         password: await hashFunction.hash(user.password),

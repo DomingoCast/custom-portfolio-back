@@ -2,7 +2,7 @@ name: Build and deploy
 
 on:
   push:
-    branches: [main, 58-deploy-pipeline]
+    branches: [main]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -31,4 +31,4 @@ jobs:
           instance-ids: ${{ secrets.INSTANCE_ID }}
 
           working-directory: /home/ec2-user/
-          command: docker-compose stop; docker-compose rm -f; docker-compose pull; docker-compose up -d
+          command: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD; docker-compose down; docker rmi -f $(docker images -aq); docker-compose pull; docker-compose up -d

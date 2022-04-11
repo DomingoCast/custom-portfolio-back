@@ -5,20 +5,10 @@ services:
     container_name: web
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     ports:
       - "8080:8080"
     volumes:
       - .:/app
     environment:
       NODE_ENV: development
-  live-reloader:
-    image: apogiatzis/livereloading
-    container_name: livereloader
-    privileged: true
-    environment:
-      - RELOAD_DELAY=1.5 # seconds
-      - RELOAD_CONTAINER=web
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - ".:/app"

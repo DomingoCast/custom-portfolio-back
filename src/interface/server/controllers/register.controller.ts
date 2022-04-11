@@ -1,12 +1,10 @@
 import { Request, Response } from "express";
 import { User } from "../../../core/domain/user/User";
-import { DataSource } from "typeorm";
 import validateUserDataForm from "../../../infrastructure/User/user-validate/validate-user-data-form";
 import { container } from "../../../infrastructure/dependency-injection/awilix-set-up";
 
 const registerController = async (
     req: Request<{}, {}, Omit<User, "id">>,
-    dataSource: DataSource,
     res: Response
 ): Promise<Response> => {
     try {

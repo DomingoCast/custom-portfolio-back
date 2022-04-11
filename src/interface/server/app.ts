@@ -1,9 +1,8 @@
 import express, { Application, Request, Response } from "express";
-import { DataSource } from "typeorm";
 import registerController from "./controllers/register.controller";
 import cors from "cors";
 
-export const createServer = (port: number, dataSource: DataSource) => {
+export const createServer = (port: number) => {
     const app: Application = express();
 
     app.use(cors());
@@ -18,7 +17,7 @@ export const createServer = (port: number, dataSource: DataSource) => {
     app.post(
         "/register",
         async (req: Request, res: Response): Promise<Response> => {
-            return registerController(req, dataSource, res);
+            return registerController(req, res);
         }
     );
 

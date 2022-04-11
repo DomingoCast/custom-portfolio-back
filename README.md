@@ -1,22 +1,22 @@
 ![job and talent](https://user-images.githubusercontent.com/48081621/162180679-3f1db5bd-72bc-4300-b99e-91d6c5f0a0e6.png)
-# jnt-copy
 
+# jnt-copy
 
 The main goal is to create an API that emulates the workings of Job and Talent. Where you have Workers and Companies. And it's working on our [website](http://ec2-3-85-237-21.compute-1.amazonaws.com/)
 
 ### Table of contents
 
-- [jnt-copy](#jnt-copy)
-    - [Table of contents](#table-of-contents)
-  - [Getting started](#getting-started)
-  - [Usage](#usage)
-  - [Development](#development)
-    - [Architecture](#architecture)
-    - [Testing](#testing)
-    - [After finishing a task](#after-finishing-a-task)
-    - [Additional files](#additional-files)
-  - [Release](#release)
-  - [Copyright and license](#copyright-and-license)
+-   [jnt-copy](#jnt-copy)
+    -   [Table of contents](#table-of-contents)
+    -   [Getting started](#getting-started)
+    -   [Usage](#usage)
+    -   [Development](#development)
+        -   [Architecture](#architecture)
+        -   [Testing](#testing)
+        -   [After finishing a task](#after-finishing-a-task)
+        -   [Additional files](#additional-files)
+    -   [Release](#release)
+    -   [Copyright and license](#copyright-and-license)
 
 ---
 

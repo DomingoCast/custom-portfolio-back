@@ -1,8 +1,13 @@
 import UserRepository from "../../../core/ports/user-repository.port";
 import { User } from "../../../core/domain/user/User";
 import UserModel from "./user.model";
+import { DataSource } from "typeorm";
 
-const createUserRepository = ({ dataSource }: any): UserRepository => {
+const createUserRepository = ({
+    dataSource,
+}: {
+    dataSource: DataSource;
+}): UserRepository => {
     const userRepository = dataSource.getRepository(UserModel);
     const persist = (user: Omit<User, "id">) => {
         return userRepository

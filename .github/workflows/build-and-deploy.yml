@@ -2,7 +2,7 @@ name: Build and deploy
 
 on:
   push:
-    branches: [main, 76-fix-pipeline]
+    branches: [main]
 jobs:
   build:
     runs-on: ubuntu-latest

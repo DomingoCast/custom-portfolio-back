@@ -9,11 +9,9 @@ export const container = awilix.createContainer({
     injectionMode: awilix.InjectionMode.PROXY,
 });
 
-export const setUpAwilix = () => {
-    container.register({
-        registerUser: awilix.asFunction(registerUser),
-        userRepository: awilix.asFunction(createUserRepository),
-        sendEmail: awilix.asFunction(sendEmail),
-        emailSender: awilix.asFunction(setUpEmail),
-    });
-};
+container.register({
+    registerUser: awilix.asFunction(registerUser),
+    userRepository: awilix.asFunction(createUserRepository),
+    sendEmail: awilix.asFunction(sendEmail),
+    emailSender: awilix.asFunction(setUpEmail),
+});

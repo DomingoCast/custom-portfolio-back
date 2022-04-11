@@ -3,8 +3,29 @@ import { DataSource } from "typeorm";
 import registerController from "./controllers/register.controller";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
-import swaggerOptions from "./api-docs/swagger-options";
-
+import swaggerOptions from "./swagger-options";
+const option = {
+    apis: ["./app.ts"],
+    paths: {
+        "/": {
+            get: {
+                summary:
+                    "This endpoint is to prove that this endpoint works well.",
+            },
+        },
+    },
+    tags: [
+        {
+            name: "/",
+            description:
+                "This endpoint is to prove that this endpoint works well.",
+        },
+        {
+            name: "/register",
+            description: "This endpoint is to valid and register new User.",
+        },
+    ],
+};
 export const createServer = (port: number, dataSource: DataSource) => {
     const app: Application = express();
     app.use(cors());
@@ -21,17 +42,16 @@ export const createServer = (port: number, dataSource: DataSource) => {
     /**
      * @openapi
      * '/':
-     * get:
-     * '/register':
-     * post:
-     *   description: This endpoint is to valid and register new User.
+     *   get:
+     *    description: This endpoint is to prove that this endpoint works well.
      */
+
     app.get(
         "/",
         cors(),
         async (req: Request, res: Response): Promise<Response> => {
             return res.status(200).send({
-                message: "Hello World!",
+                message: swaggerOptions,
             });
         }
     );

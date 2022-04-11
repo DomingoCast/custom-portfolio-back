@@ -17,14 +17,7 @@ const registerController = async (
         const validate = validateUserDataForm(dataForm);
         if (validate !== true)
             return res.status(409).send({ message: validate });
-        // const userRepository = createUserRepository(dataSource);
         const user: Omit<User, "id"> = req.body;
-        const userRepository = createUserRepository(dataSource);
-        container.register({
-            userRepository: awilix.asValue(userRepository),
-        });
-        console.log("@@@@@@@@@@@@@@@@", userRepository, typeof userRepository);
-        // const newUser: null | User = await registerUser(user, userRepository);
         const newUser: null | User = await container.resolve("registerUser")(
             user
         );

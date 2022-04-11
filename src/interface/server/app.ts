@@ -4,7 +4,6 @@ import registerController from "./controllers/register.controller";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerOptions from "./api-docs/swagger-options";
-import swaggerJsdoc from "swagger-jsdoc";
 
 export const createServer = (port: number, dataSource: DataSource) => {
     const app: Application = express();
@@ -16,15 +15,17 @@ export const createServer = (port: number, dataSource: DataSource) => {
         "/api-docs",
         cors(),
         swaggerUi.serve,
-        swaggerUi.setup(swaggerJsdoc(swaggerOptions))
+        swaggerUi.setup(swaggerOptions)
     );
     // Routes
     /**
      * @openapi
-     * /:
-     *  get:
+     * '/':
+     * get:
+     * '/register':
+     * post:
+     *   description: This endpoint is to valid and register new User.
      */
-
     app.get(
         "/",
         cors(),

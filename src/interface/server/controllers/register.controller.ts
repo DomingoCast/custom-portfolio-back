@@ -8,9 +8,10 @@ const registerController = async (
     req: Request<{}, {}, Omit<User, "id">>,
     dataSource: DataSource
 ): Promise<Omit<User, "password"> | string> => {
-    const userRepository = createUserRepository(dataSource);
     const user: Omit<User, "id"> = req.body;
-    const newUser: null | User = await registerUser(user, userRepository);
+    // const userRepository = createUserRepository(dataSource);
+    // const newUser: null | User = await registerUser(user, userRepository);
+    const newUser: null | User = await container.resolve("registerUser")(user);
     if (newUser) {
         const partialUser = { ...newUser, password: "***" };
         return partialUser;

@@ -4,11 +4,10 @@ import EmailSender from "../../core/ports/send-email.port";
 const nodemailer = require("nodemailer");
 
 // async..await is not allowed in global scope, must use a wrapper
-export const setUpEmail = async (
-    service: string,
-    sender: string,
-    password: string
-): Promise<EmailSender> => {
+export const setUpEmail = (): EmailSender => {
+    const service = process.env.NODEMAILER_SERVICE;
+    const sender = process.env.NODEMAILER_EMAIL;
+    const password = process.env.NODEMAILER_PASSWORD;
     const transporter = nodemailer.createTransport({
         service: service,
         auth: {

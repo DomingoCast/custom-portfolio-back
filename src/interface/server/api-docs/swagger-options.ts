@@ -1,5 +1,3 @@
-import swaggerJsdoc from "swagger-jsdoc";
-
 const swaggerOptions = {
     swaggerDefinition: {
         openapi: "3.0.0",
@@ -32,5 +30,32 @@ const swaggerOptions = {
             description: "This endpoint is to valid and register new User.",
         },
     ],
+    paths: {
+        "/": {
+            get: {
+                tags: ["Home"],
+                summary: "Home page",
+                description: "This is the home page of the API",
+                responses: {
+                    200: {
+                        description: "Successful operation",
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    type: "object",
+                                    properties: {
+                                        message: {
+                                            type: "string",
+                                            description: "Hello World!",
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+    },
 };
-export default swaggerJsdoc(swaggerOptions);
+export default swaggerOptions;

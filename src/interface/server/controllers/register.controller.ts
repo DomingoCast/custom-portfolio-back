@@ -4,7 +4,6 @@ import registerUser from "../../../core/use-cases/register-user";
 import { DataSource } from "typeorm";
 import createUserRepository from "../../../infrastructure/persistance/user/user.datasource";
 import validateUserDataForm from "../../../infrastructure/User/user-validate/validate-user-data-form";
-import createHashFunction from "../../../infrastructure/password/create-hash-function";
 
 const registerController = async (
     req: Request<{}, {}, Omit<User, "id">>,

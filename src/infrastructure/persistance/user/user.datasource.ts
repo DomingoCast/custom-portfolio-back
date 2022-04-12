@@ -3,11 +3,13 @@ import { User } from "../../../core/domain/user/User";
 import UserModel from "./user.model";
 import { DataSource } from "typeorm";
 
+type CreateUserRepositoryProps = {
+    dataSource: DataSource
+}
+
 const createUserRepository = ({
     dataSource,
-}: {
-    dataSource: DataSource;
-}): UserRepository => {
+}: CreateUserRepositoryProps): UserRepository => {
     const userRepository = dataSource.getRepository(UserModel);
     const persist = (user: Omit<User, "id">) => {
         return userRepository

@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { User } from "../../../core/domain/user/User";
-import validateUserDataForm from "../../../infrastructure/User/user-validate/validate-user-data-form";
 import { container } from "../../../infrastructure/dependency-injection/awilix-set-up";
 import Email from "../../../core/domain/email/Email";
+import validateUserDataForm from "../../../infrastructure/user/user-validate/validate-user-data-form";
 
 const registerController = async (
     req: Request<{}, {}, Omit<User, "id">>,

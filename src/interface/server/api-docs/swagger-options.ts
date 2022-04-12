@@ -1,4 +1,6 @@
 import swaggerJsdoc from "swagger-jsdoc";
+import schemaUserParametersProperties from "./schema-user-parameters";
+import schemaUserResponseCorrect from "./schema-user-response";
 
 const swaggerOptions: swaggerJsdoc.Options = {
     openapi: "3.0.1",
@@ -63,43 +65,7 @@ const swaggerOptions: swaggerJsdoc.Options = {
                 requestBody: {
                     content: {
                         "application/x-www-form-urlencoded": {
-                            // application/x-www-form-urlencoded
-                            schema: {
-                                // $ref: "./create-user-interface.yaml#/User",
-                                type: "object",
-                                properties: {
-                                    name: {
-                                        type: "string",
-                                        description: "Name of new user.",
-                                        example: "John",
-                                    },
-                                    surname: {
-                                        type: "string",
-                                        description: "Surname of new user.",
-                                        example: "Doe",
-                                    },
-                                    email: {
-                                        type: "string",
-                                        description: "Email of new user.",
-                                        example: "john@gmail.com",
-                                    },
-                                    password: {
-                                        type: "string",
-                                        description: "Password of new user.",
-                                        example: "12345678",
-                                    },
-                                    phone: {
-                                        type: "string",
-                                        description: "Phone of new user.",
-                                        example: "+380991234567",
-                                    },
-                                    address: {
-                                        type: "string",
-                                        description: "Address of new user.",
-                                        example: "Ukraine, Kyiv",
-                                    },
-                                },
-                            },
+                            schema: schemaUserParametersProperties.schema,
                         },
                     },
                 },
@@ -108,27 +74,7 @@ const swaggerOptions: swaggerJsdoc.Options = {
                         description: "Response of new user.",
                         content: {
                             "application/json": {
-                                schema: {
-                                    // $ref: "../../../infrastructure/user/user-validate/interface/create-user-data-form-interface.ts",
-                                    type: "object",
-                                    properties: {
-                                        message: {
-                                            type: "object",
-                                            code: {
-                                                type: "integer",
-                                                example: 200,
-                                            },
-                                            properties: {
-                                                name: {
-                                                    type: "string",
-                                                    description:
-                                                        "Name of new user.",
-                                                    example: "John",
-                                                },
-                                            },
-                                        },
-                                    },
-                                },
+                                schema: schemaUserResponseCorrect.schema,
                             },
                         },
                     },

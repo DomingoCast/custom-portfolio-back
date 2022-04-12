@@ -14,12 +14,7 @@ export const createServer = (port: number) => {
             message: "Hello World!",
         });
     });
-    app.post(
-        "/register",
-        async (req: Request, res: Response): Promise<Response> => {
-            return registerController(req, res);
-        }
-    );
+    app.post("/register", registerController);
 
     return {
         app: app,

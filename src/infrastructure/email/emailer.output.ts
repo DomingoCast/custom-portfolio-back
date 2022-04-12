@@ -1,7 +1,7 @@
 import Email from "../../core/domain/email/Email";
 import EmailSender from "../../core/ports/send-email.port";
 
-const nodemailer = require("nodemailer");
+import nodemailer from "nodemailer";
 
 // async..await is not allowed in global scope, must use a wrapper
 export const setUpEmail = (): EmailSender => {

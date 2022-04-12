@@ -4,8 +4,8 @@ import UserModel from "./user.model";
 import { DataSource } from "typeorm";
 
 type CreateUserRepositoryProps = {
-    dataSource: DataSource
-}
+    dataSource: DataSource;
+};
 
 const createUserRepository = ({
     dataSource,

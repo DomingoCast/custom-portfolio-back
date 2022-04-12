@@ -4,11 +4,12 @@ import EmailSender from "../../ports/send-email.port";
 type sendEmailProps = {
     emailSender: EmailSender;
 };
-const sendEmail =
-    ({ emailSender }: sendEmailProps): ((email: Email) => Promise<void>) =>
+type SendEmail = (email: Email) => Promise<void>;
+const sendEmailUseCase =
+    ({ emailSender }: sendEmailProps): SendEmail =>
     async (email: Email): Promise<void> => {
         console.log(emailSender);
         await emailSender.send(email);
     };
 
-export default sendEmail;
+export default sendEmailUseCase;

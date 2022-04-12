@@ -14,7 +14,9 @@ const registerController = async (
         if (validate !== true)
             return res.status(409).send({ message: validate });
         const user: Omit<User, "id"> = req.body;
-        const newUser: null | User = await container.cradle.registerUser(user);
+        const newUser: null | User = await container.cradle.registerUserUseCase(
+            user
+        );
         if (newUser) {
             const partialUser = { ...newUser, password: "***" };
             const email: Email = {
@@ -23,7 +25,7 @@ const registerController = async (
                 text: "you've been registered!",
             };
 
-            await container.cradle.sendEmail(email);
+            await container.cradle.sendEmailUseCase(email);
 
             return res.status(200).send({ message: partialUser });
         }

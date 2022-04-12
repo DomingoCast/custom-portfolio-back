@@ -3,7 +3,7 @@ import { User } from "../../../core/domain/user/User";
 import registerUser from "../../../core/use-cases/register-user";
 import { DataSource } from "typeorm";
 import createUserRepository from "../../../infrastructure/persistance/user/user.datasource";
-import validateUserDataForm from "../../../infrastructure/User/user-validate/validate-user-data-form";
+import validateUserDataForm from "../../../infrastructure/user/user-validate/validate-user-data-form";
 
 const registerController = async (
     req: Request<{}, {}, Omit<User, "id">>,

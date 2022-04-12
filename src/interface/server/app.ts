@@ -4,28 +4,7 @@ import registerController from "./controllers/register.controller";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerOptions from "./swagger-options";
-const option = {
-    apis: ["./app.ts"],
-    paths: {
-        "/": {
-            get: {
-                summary:
-                    "This endpoint is to prove that this endpoint works well.",
-            },
-        },
-    },
-    tags: [
-        {
-            name: "/",
-            description:
-                "This endpoint is to prove that this endpoint works well.",
-        },
-        {
-            name: "/register",
-            description: "This endpoint is to valid and register new User.",
-        },
-    ],
-};
+
 export const createServer = (port: number, dataSource: DataSource) => {
     const app: Application = express();
     app.use(cors());
@@ -38,13 +17,6 @@ export const createServer = (port: number, dataSource: DataSource) => {
         swaggerUi.serve,
         swaggerUi.setup(swaggerOptions)
     );
-    // Routes
-    /**
-     * @openapi
-     * '/':
-     *   get:
-     *    description: This endpoint is to prove that this endpoint works well.
-     */
 
     app.get(
         "/",

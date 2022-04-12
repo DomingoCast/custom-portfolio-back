@@ -21,23 +21,101 @@ const swaggerOptions: swaggerJsdoc.Options = {
     apis: ["./app.ts"],
     paths: {
         "/": {
-            name: "Home",
+            namespace: "Home",
             get: {
                 summary:
                     "This endpoint is to prove that this endpoint works well.",
+                tags: ["Home"],
+                responses: {
+                    200: {
+                        description: "Response Hello World.",
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    type: "object",
+                                    properties: {
+                                        message: {
+                                            type: "string",
+                                            example: "Hello world!",
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        },
+        "/register": {
+            post: {
+                tags: ["Register"],
+                description: "Return a response of a new user.",
+                requestBody: {
+                    content: {
+                        "application/x-www-form-urlencoded": {
+                            // application/x-www-form-urlencoded
+                            schema: {
+                                type: "object",
+                                properties: {
+                                    name: {
+                                        type: "string",
+                                        description: "Name of new user.",
+                                        example: "John",
+                                    },
+                                    surname: {
+                                        type: "string",
+                                        description: "Surname of new user.",
+                                        example: "Doe",
+                                    },
+                                    email: {
+                                        type: "string",
+                                        description: "Email of new user.",
+                                        example: "john@gmail.com",
+                                    },
+                                    password: {
+                                        type: "string",
+                                        description: "Password of new user.",
+                                        example: "12345678",
+                                    },
+                                    phone: {
+                                        type: "string",
+                                        description: "Phone of new user.",
+                                        example: "+380991234567",
+                                    },
+                                    address: {
+                                        type: "string",
+                                        description: "Address of new user.",
+                                        example: "Ukraine, Kyiv",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+                responses: {
+                    200: {
+                        description: "Response of new user.",
+                        content: {
+                            "application/json": {
+                                schema: {
+                                    $ref: "#/components/schemas/User",
+                                    // type: "object",
+                                    // properties: {
+                                    //     message: {
+                                    //         type: "string",
+                                    //         example: {
+                                    //             name: "John",
+                                    //             surname: "Doe",
+                                    //         },
+                                    //     },
+                                    // },
+                                },
+                            },
+                        },
+                    },
+                },
             },
         },
     },
-    tags: [
-        {
-            name: "/",
-            description:
-                "This endpoint is to prove that this endpoint works well.",
-        },
-        {
-            name: "/register",
-            description: "This endpoint is to valid and register new User.",
-        },
-    ],
 };
 export default swaggerOptions;

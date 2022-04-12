@@ -1,6 +1,8 @@
 import express, { Application, Request, Response } from "express";
 import registerController from "./controllers/register.controller";
 import cors from "cors";
+import { container } from "../../infrastructure/dependency-injection/awilix-set-up";
+import { scopePerRequest, makeInvoker } from "awilix-express";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -8,13 +10,14 @@ export const createServer = (port: number) => {
     app.use(cors());
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
+    app.use(scopePerRequest(container));
 
     app.get("/", async (req: Request, res: Response): Promise<Response> => {
         return res.status(200).send({
             message: "Hello World!",
         });
     });
-    app.post("/register", registerController);
+    app.post("/register", registerController); //makeInvoker(registerController));
 
     return {
         app: app,

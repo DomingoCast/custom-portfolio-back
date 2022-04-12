@@ -30,6 +30,7 @@
     "ajv-errors": "^3.0.0",
     "ajv-formats": "^2.1.1",
     "awilix": "^7.0.1",
+    "awilix-express": "^7.0.0",
     "axios": "^0.26.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",

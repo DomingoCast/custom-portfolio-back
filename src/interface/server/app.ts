@@ -3,7 +3,7 @@ import { DataSource } from "typeorm";
 import registerController from "./controllers/register.controller";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
-import swaggerOptions from "./swagger-options";
+import swaggerOptions from "./api-docs/swagger-options";
 
 export const createServer = (port: number, dataSource: DataSource) => {
     const app: Application = express();
@@ -17,10 +17,7 @@ export const createServer = (port: number, dataSource: DataSource) => {
         swaggerUi.serve,
         swaggerUi.setup(swaggerOptions)
     );
-<<<<<<< HEAD
-=======
 
->>>>>>> parent of 1edfe15 (Step by step)
     app.get(
         "/",
         cors(),

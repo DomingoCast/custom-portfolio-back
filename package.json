@@ -7,7 +7,7 @@
     "start": "ts-node src/index.ts",
     "dev": "ts-node-dev src/index.ts",
     "build": "tsc --build",
-    "test": "jest --watchAll --verbose",
+    "test": "jest --watchAll --verbose --coverage",
     "test:prod": "jest --detect-open-handles",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",

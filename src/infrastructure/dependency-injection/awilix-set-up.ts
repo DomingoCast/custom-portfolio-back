@@ -3,7 +3,7 @@ import registerUser from "../../core/use-cases/user/register-user";
 import { setUpEmail } from "../email/emailer.output";
 import createUserRepository from "../persistance/user/user.datasource";
 
-const awilix = require("awilix");
+import * as awilix from "awilix";
 
 export const container = awilix.createContainer({
     injectionMode: awilix.InjectionMode.PROXY,

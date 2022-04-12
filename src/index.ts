@@ -4,7 +4,7 @@ import { createServer } from "./interface/server/app";
 
 require("dotenv").config();
 
-const awilix = require("awilix");
+import * as awilix from "awilix";
 
 const PORT = Number(process.env.PORT) || 3000;
 

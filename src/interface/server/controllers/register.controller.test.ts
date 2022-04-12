@@ -1,5 +1,3 @@
-import { Request } from "express";
-import { DataSource } from "typeorm";
 import registerController from "./register.controller";
 
 describe("registerController", () => {

@@ -11,12 +11,7 @@ export const createServer = (port: number, dataSource: DataSource) => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
 
-    app.use(
-        "/api-docs",
-        cors(),
-        swaggerUi.serve,
-        swaggerUi.setup(swaggerOptions)
-    );
+    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
     app.get(
         "/",

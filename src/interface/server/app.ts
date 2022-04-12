@@ -2,7 +2,7 @@ import express, { Application, Request, Response } from "express";
 import registerController from "./controllers/register.controller";
 import cors from "cors";
 import { container } from "../../infrastructure/dependency-injection/awilix-set-up";
-import { scopePerRequest, makeInvoker } from "awilix-express";
+import { scopePerRequest } from "awilix-express";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -17,7 +17,7 @@ export const createServer = (port: number) => {
             message: "Hello World!",
         });
     });
-    app.post("/register", registerController); //makeInvoker(registerController));
+    app.post("/register", registerController); // makeInvoker(registerController));
 
     return {
         app: app,

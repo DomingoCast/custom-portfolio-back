@@ -6,21 +6,23 @@ import { AwilixContainer } from "awilix";
 
 type CustomRequest = Request & {
     body: Omit<User, "id">;
-    container: AwilixContainer;
+    container?: AwilixContainer;
 };
 
 const registerController = async (
-    req: CustomRequest, //Request<{}, {}, Omit<User, "id">>,
+    req: CustomRequest, // Request<{}, {}, Omit<User, "id">>,
     res: Response
 ): Promise<Response> => {
     try {
+        const container = req.container!;
         const dataForm = req.body;
         const validate = validateUserDataForm(dataForm);
         if (validate !== true)
             return res.status(409).send({ message: validate });
         const user: Omit<User, "id"> = req.body;
-        const newUser: null | User =
-            await req.container.cradle.registerUserUseCase(user);
+        const newUser: null | User = await container.cradle.registerUserUseCase(
+            user
+        );
         if (newUser) {
             const partialUser = { ...newUser, password: "***" };
             const email: Email = {
@@ -29,7 +31,7 @@ const registerController = async (
                 text: "you've been registered!",
             };
 
-            await req.container.cradle.sendEmailUseCase(email);
+            await container.cradle.sendEmailUseCase(email);
 
             return res.status(200).send({ message: partialUser });
         }

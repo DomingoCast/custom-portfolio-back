@@ -1,11 +1,14 @@
 import registerUser from "./register-user";
 
 describe("regiter user case", () => {
-    it("registers", () => {
-        const user: any = null;
-        const userRepository = {
-            persist: jest.fn((x) => user),
+    it("registers", async () => {
+        const user: any = {
+            password: "****************",
         };
-        expect(registerUser(user, userRepository)).toBe(user);
+        const userRepository = {
+            persist: jest.fn(async (x) => await user),
+        };
+        const result = await registerUser(user, userRepository);
+        expect(result).toBe(user);
     });
 });

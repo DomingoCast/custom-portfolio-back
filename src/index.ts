@@ -1,7 +1,8 @@
+/* eslint-disable import/first */
+require("dotenv").config();
+
 import { createDBConnection } from "./infrastructure/persistance/postgres.datasources";
 import { createServer } from "./interface/server/app";
-
-require("dotenv").config();
 
 const awilix = require("awilix");
 

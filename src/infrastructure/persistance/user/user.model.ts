@@ -24,7 +24,7 @@ const UserModel = new EntitySchema<User>({
         },
         password: {
             type: String,
-            length: 30,
+            length: 100,
         },
         phone: {
             type: String,

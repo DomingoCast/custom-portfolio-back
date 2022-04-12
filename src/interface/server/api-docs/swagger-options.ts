@@ -113,10 +113,18 @@ const swaggerOptions: swaggerJsdoc.Options = {
                                     type: "object",
                                     properties: {
                                         message: {
-                                            success: {
-                                                type: "object",
-                                                example: true,
-                                                code: 200,
+                                            type: "object",
+                                            code: {
+                                                type: "integer",
+                                                example: 200,
+                                            },
+                                            properties: {
+                                                name: {
+                                                    type: "string",
+                                                    description:
+                                                        "Name of new user.",
+                                                    example: "John",
+                                                },
                                             },
                                         },
                                     },

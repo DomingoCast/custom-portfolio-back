@@ -7,10 +7,18 @@ const swaggerOptions: swaggerJsdoc.Options = {
         description:
             "This API has the function at this moment to add a new user from a registration form.",
         version: "1.0.0",
+        license: {
+            name: "License by Job And Talent",
+            url: "https://www.jobandtalent.com/es",
+        },
+        contact: {
+            name: "Job And Talent Villena",
+            url: "https://www.jobandtalent.com/es",
+        },
     },
     servers: [
         {
-            url: `http:/http://ec2-3-85-237-21.compute-1.amazonaws.com/`,
+            url: `http://ec2-3-85-237-21.compute-1.amazonaws.com`,
             description: "Development server",
         },
         {
@@ -18,11 +26,12 @@ const swaggerOptions: swaggerJsdoc.Options = {
             description: "Local server",
         },
     ],
-    apis: ["./app.ts"],
+    apis: ["../app.ts"],
     paths: {
         "/": {
             namespace: "Home",
             get: {
+                url: "Development server",
                 summary:
                     "This endpoint is to prove that this endpoint works well.",
                 tags: ["Home"],
@@ -48,6 +57,7 @@ const swaggerOptions: swaggerJsdoc.Options = {
         },
         "/register": {
             post: {
+                url: "Development server",
                 tags: ["Register"],
                 description: "Return a response of a new user.",
                 requestBody: {
@@ -55,6 +65,7 @@ const swaggerOptions: swaggerJsdoc.Options = {
                         "application/x-www-form-urlencoded": {
                             // application/x-www-form-urlencoded
                             schema: {
+                                // $ref: "./create-user-interface.yaml#/User",
                                 type: "object",
                                 properties: {
                                     name: {
@@ -98,17 +109,17 @@ const swaggerOptions: swaggerJsdoc.Options = {
                         content: {
                             "application/json": {
                                 schema: {
-                                    $ref: "#/components/schemas/User",
-                                    // type: "object",
-                                    // properties: {
-                                    //     message: {
-                                    //         type: "string",
-                                    //         example: {
-                                    //             name: "John",
-                                    //             surname: "Doe",
-                                    //         },
-                                    //     },
-                                    // },
+                                    // $ref: "../../../infrastructure/user/user-validate/interface/create-user-data-form-interface.ts",
+                                    type: "object",
+                                    properties: {
+                                        message: {
+                                            success: {
+                                                type: "object",
+                                                example: true,
+                                                code: 200,
+                                            },
+                                        },
+                                    },
                                 },
                             },
                         },

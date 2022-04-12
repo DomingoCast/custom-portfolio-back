@@ -3,7 +3,7 @@ import { DataSource } from "typeorm";
 import registerController from "./controllers/register.controller";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
-import swaggerOptions from "./swagger-options";
+import swaggerOptions from "./api-docs/swagger-options";
 
 export const createServer = (port: number, dataSource: DataSource) => {
     const app: Application = express();
@@ -17,13 +17,29 @@ export const createServer = (port: number, dataSource: DataSource) => {
         swaggerUi.serve,
         swaggerUi.setup(swaggerOptions)
     );
-
+    /**
+     * @openapi
+     *  get:
+     *     summary: This endpoint is to prove that this endpoint works well.
+     *     tags: [Home]
+     *      responses:
+     *       '200':
+     *         description: Response Hello World.
+     *         content:
+     *           application/json:
+     *            schema:
+     *              type: object
+     *              properties:
+     *                 message:
+     *                  type: string
+     *                  example: Hello world!
+     */
     app.get(
         "/",
         cors(),
         async (req: Request, res: Response): Promise<Response> => {
             return res.status(200).send({
-                message: swaggerOptions,
+                message: "Hello world!",
             });
         }
     );

@@ -1,5 +1,5 @@
 import { JSONSchemaType } from "ajv";
-import CreateUserDataForm from "./interface/create-user-data-form-interface";
+import CreateUserDataForm from "../../../core/use-cases/user/interface/create-user-data-form-interface";
 
 const userSchema: JSONSchemaType<CreateUserDataForm> = {
     type: "object",

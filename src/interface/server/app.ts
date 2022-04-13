@@ -1,4 +1,4 @@
-import express, { Application, Request, Response } from "express";
+import express, { Application } from "express";
 import registerController from "./controllers/register.controller";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";

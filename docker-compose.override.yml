@@ -12,13 +12,3 @@ services:
       - .:/app
     environment:
       NODE_ENV: development
-  live-reloader:
-    image: apogiatzis/livereloading
-    container_name: livereloader
-    privileged: true
-    environment:
-      - RELOAD_DELAY=1.5 # seconds
-      - RELOAD_CONTAINER=web
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - ".:/app"

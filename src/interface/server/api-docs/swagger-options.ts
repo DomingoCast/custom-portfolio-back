@@ -1,5 +1,5 @@
 import swaggerJsdoc from "swagger-jsdoc";
-import schemaUserParametersProperties from "./schemas/schema-user-register-parameters";
+import schemaRegisterUserParameters from "./schemas/schema-register-user-parameters";
 import swaggerInfo from "./swagger-info";
 
 const swaggerOptions: swaggerJsdoc.Options = {
@@ -16,7 +16,7 @@ const swaggerOptions: swaggerJsdoc.Options = {
                 requestBody: {
                     content: {
                         "application/x-www-form-urlencoded": {
-                            schema: schemaUserParametersProperties.schema,
+                            schema: schemaRegisterUserParameters.schema,
                         },
                     },
                 },
@@ -25,7 +25,7 @@ const swaggerOptions: swaggerJsdoc.Options = {
                         description: "Response of new user.",
                         content: {
                             "application/json": {
-                                schema: schemaUserParametersProperties
+                                schema: schemaRegisterUserParameters
                                     .correctSchema.schema,
                             },
                         },
@@ -34,7 +34,7 @@ const swaggerOptions: swaggerJsdoc.Options = {
                         description: "Error: Bad Request",
                         content: {
                             "application/json": {
-                                schema: schemaUserParametersProperties
+                                schema: schemaRegisterUserParameters
                                     .incorrectSchema.schema,
                             },
                         },
@@ -43,7 +43,7 @@ const swaggerOptions: swaggerJsdoc.Options = {
                         description: "Error: Conflict",
                         content: {
                             "application/json": {
-                                schema: schemaUserParametersProperties
+                                schema: schemaRegisterUserParameters
                                     .incorrectSchema.schema,
                             },
                         },

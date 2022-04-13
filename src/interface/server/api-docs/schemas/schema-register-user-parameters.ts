@@ -1,4 +1,4 @@
-const schemaUserParametersProperties = {
+const schemaRegisterUserParameters = {
     schema: {
         type: "object",
         properties: {
@@ -78,4 +78,4 @@ const schemaUserParametersProperties = {
         },
     },
 };
-export default schemaUserParametersProperties;
+export default schemaRegisterUserParameters;

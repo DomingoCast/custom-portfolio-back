@@ -5,7 +5,7 @@ const axios = require("axios");
 describe("start the server", () => {
     it("starts on 3000", async () => {
         const server = createServer(3000).run();
-        const response = await axios.get("http://localhost:3000");
+        const response = await axios.get("http://localhost:3000/api-docs");
         expect(response.status).toBe(200);
         server?.close();
     });

@@ -10,6 +10,8 @@ export const setUpEmail = (): EmailSender => {
     const password = process.env.NODEMAILER_PASSWORD;
     const transporter = nodemailer.createTransport({
         service: service,
+        port: Number(process.env.NODEMAILER_PORT),
+        secure: false,
         auth: {
             user: sender,
             pass: password,

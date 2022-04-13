@@ -1,35 +1,13 @@
 import swaggerJsdoc from "swagger-jsdoc";
-import schemaUserParametersProperties from "./schemas/schema-user-parameters";
-import schemaUserResponseCorrect from "./schemas/schema-user-response-correct";
-import schemaUserResponseIncorrect from "./schemas/schema-user-response-incorrect";
-import schemaHomeResponseCorrect from "./schemas/schema-home-response-correct";
+import schemaUserParametersProperties from "./schemas/schema-user-register-parameters";
 import swaggerInfo from "./swagger-info";
 
 const swaggerOptions: swaggerJsdoc.Options = {
-    openapi: "3.0.1",
+    openapi: swaggerInfo.openapi,
     info: swaggerInfo.info,
     servers: swaggerInfo.servers,
-    apis: ["../app.ts"],
+    apis: swaggerInfo.apis,
     paths: {
-        "/": {
-            namespace: "Home",
-            get: {
-                url: "Development server",
-                summary:
-                    "This endpoint is to prove that this endpoint works well.",
-                tags: ["Home"],
-                responses: {
-                    200: {
-                        description: "Response Hello World.",
-                        content: {
-                            "application/json": {
-                                schema: schemaHomeResponseCorrect.schema,
-                            },
-                        },
-                    },
-                },
-            },
-        },
         "/register": {
             post: {
                 url: "Development server",
@@ -47,7 +25,8 @@ const swaggerOptions: swaggerJsdoc.Options = {
                         description: "Response of new user.",
                         content: {
                             "application/json": {
-                                schema: schemaUserResponseCorrect.schema,
+                                schema: schemaUserParametersProperties
+                                    .correctSchema.schema,
                             },
                         },
                     },
@@ -55,7 +34,8 @@ const swaggerOptions: swaggerJsdoc.Options = {
                         description: "Error: Bad Request",
                         content: {
                             "application/json": {
-                                schema: schemaUserResponseIncorrect.schema,
+                                schema: schemaUserParametersProperties
+                                    .incorrectSchema.schema,
                             },
                         },
                     },
@@ -63,7 +43,8 @@ const swaggerOptions: swaggerJsdoc.Options = {
                         description: "Error: Conflict",
                         content: {
                             "application/json": {
-                                schema: schemaUserResponseIncorrect.schema,
+                                schema: schemaUserParametersProperties
+                                    .incorrectSchema.schema,
                             },
                         },
                     },

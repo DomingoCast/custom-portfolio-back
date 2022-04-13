@@ -13,18 +13,8 @@ export const createServer = (port: number, dataSource: DataSource) => {
 
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
-    app.get(
-        "/",
-        cors(),
-        async (req: Request, res: Response): Promise<Response> => {
-            return res.status(200).send({
-                message: "Hello world!",
-            });
-        }
-    );
     app.post(
         "/register",
-        cors(),
         async (req: Request, res: Response): Promise<Response> => {
             return registerController(req, dataSource, res);
         }

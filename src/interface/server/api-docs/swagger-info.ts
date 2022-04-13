@@ -1,4 +1,5 @@
 const swaggerInfo = {
+    openapi: "3.0.1",
     info: {
         title: "Documentation API of academy DHA.",
         description:
@@ -23,6 +24,7 @@ const swaggerInfo = {
             description: "Local server",
         },
     ],
+    apis: ["../app.ts"],
 };
 
 export default swaggerInfo;

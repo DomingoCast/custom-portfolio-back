@@ -8,7 +8,6 @@ describe("regiter user case", () => {
         };
 
         sendEmail(email, emailSender);
-
-        expect(emailSender.send).toHaveBeenCalled();
+        expect(emailSender.send).toHaveBeenCalledWith(email);
     });
 });

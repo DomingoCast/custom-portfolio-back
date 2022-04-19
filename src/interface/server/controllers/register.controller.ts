@@ -41,7 +41,7 @@ const registerController = async (
         logger.error({ message: "User already exits" });
         return res.status(400).send({ message: "User already exits" });
     } catch (e) {
-        console.error(e);
+        logger.error({ message: e });
         return res.status(500).send({
             message: e,
         });

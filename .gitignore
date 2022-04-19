@@ -1,9 +1,5 @@
 node_modules
 .env
 dist
-<<<<<<< HEAD
-coverage
-=======
 coverage
 
->>>>>>> 904c51dac46692c71f095afe0c33d5bc8670f65d

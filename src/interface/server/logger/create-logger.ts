@@ -1,5 +1,7 @@
 import { createLogger, transports, format } from "winston";
 
+const folder = "./src/interface/server/logger/logs";
+
 const formatJson = format.combine(
     format.json(),
     format.simple(),
@@ -22,13 +24,13 @@ const logger = createLogger({
         }),
         new transports.File({
             level: "info",
-            dirname: "./src/interface/server/logger/logs",
+            dirname: folder,
             filename: "combined.log",
             format: formatJson,
         }),
         new transports.File({
             level: "error",
-            dirname: "./src/interface/server/logger/logs",
+            dirname: folder,
             filename: "error.log",
             format: formatJson,
         }),

@@ -4,7 +4,6 @@ import { setUpEmail } from "../email/emailer.output";
 import createUserRepository from "../persistance/user/user.datasource";
 
 import * as awilix from "awilix";
-import { dataSource } from "../persistance/postgres.datasources";
 
 export const container = awilix.createContainer({
     injectionMode: awilix.InjectionMode.PROXY,
@@ -15,5 +14,4 @@ container.register({
     userRepository: awilix.asFunction(createUserRepository),
     sendEmailUseCase: awilix.asFunction(sendEmailUseCase),
     emailSender: awilix.asFunction(setUpEmail),
-    dataSource: awilix.asValue(dataSource),
 });

@@ -4,13 +4,12 @@ import Email from "../../../core/domain/email/Email";
 import validateUserDataForm from "../../../infrastructure/user/validate-user/validate-user-data-form";
 import { AwilixContainer } from "awilix";
 
-type CustomRequest = Request & {
-    body: Omit<User, "id">;
+type CustomRequest = Request<{}, {}, Omit<User, "id">> & {
     container?: AwilixContainer;
 };
 
 const registerController = async (
-    req: CustomRequest, // Request<{}, {}, Omit<User, "id">>,
+    req: CustomRequest,
     res: Response
 ): Promise<Response> => {
     try {

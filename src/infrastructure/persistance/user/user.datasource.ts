@@ -10,6 +10,7 @@ type CreateUserRepositoryProps = {
 const createUserRepository = ({
     dataSource,
 }: CreateUserRepositoryProps): UserRepository => {
+    console.log(dataSource);
     const userRepository = dataSource.getRepository(UserModel);
     const persist = (user: Omit<User, "id">) => {
         return userRepository

@@ -1,21 +1,7 @@
-import { createLogger, transports, format } from "winston";
+import { createLogger, transports } from "winston";
+import { formatConsole, formatJson } from "./format-cases";
 
 const folder = "./src/interface/server/logger/logs";
-
-const formatJson = format.combine(
-    format.json(),
-    format.simple(),
-    format.timestamp(),
-    format.json()
-);
-
-const formatConsole = format.combine(
-    format.colorize(),
-    format.timestamp(),
-    format.printf(({ timestamp, level, message, service }) => {
-        return `[${timestamp}] ${service} ${level}: ${JSON.stringify(message)}`;
-    })
-);
 
 const logger = createLogger({
     transports: [

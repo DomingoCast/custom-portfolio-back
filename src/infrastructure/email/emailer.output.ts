@@ -4,20 +4,23 @@ import EmailSender from "../../core/ports/send-email.port";
 import sgMail from "@sendgrid/mail";
 import fs from "fs";
 
-export const setUpEmail = (): EmailSender => {
-    const getTemplate = (file: string): string => {
-        try {
-            return fs.readFileSync(
-                path.join(__dirname, `/template/${file}.html`),
-                "utf8"
-            );
-        } catch {
-            return "error";
-        }
-    };
+export const getTemplate = (file: string): string => {
+    try {
+        return fs.readFileSync(
+            path.join(__dirname, `/template/${file}.html`),
+            "utf8"
+        );
+    } catch {
+        return "error";
+    }
+};
 
-    const sendEmail = async (email: Email): Promise<void> => {
-        const htmlFile = getTemplate(email.text + ".sendgrid");
+export const setUpEmail = (): EmailSender => {
+    const sendEmail = async (
+        email: Email,
+        getTemplateFn = getTemplate
+    ): Promise<void> => {
+        const htmlFile = getTemplateFn(email.text + ".sendgrid");
         sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
         const msg = {
             to: email.receiver,

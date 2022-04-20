@@ -16,14 +16,14 @@ const registerUserUseCase =
     }: RegisterUserUseCaseProps): RegisterUserUseCase =>
     async (user: Omit<User, "id">): Promise<User | null> => {
         const userResponse = await userRepository.persist(user);
-        // if (userResponse) {
-        const email: Email = {
-            receiver: user.email,
-            subject: "REGISTER",
-            text: "register",
-        };
-        emailSender.send(email);
-        // }
+        if (userResponse) {
+            const email: Email = {
+                receiver: user.email,
+                subject: "REGISTER",
+                text: "register",
+            };
+            emailSender.send(email);
+        }
         return userResponse;
     };
 

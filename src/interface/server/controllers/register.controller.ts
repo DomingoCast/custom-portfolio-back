@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { User } from "../../../core/domain/user/User";
-import Email from "../../../core/domain/email/Email";
 import validateUserDataForm from "../../../infrastructure/user/validate-user/validate-user-data-form";
 import { AwilixContainer } from "awilix";
 

@@ -5,13 +5,12 @@ import validateUserDataForm from "../../../infrastructure/user/validate-user/val
 import { AwilixContainer } from "awilix";
 import logger from "../logger/create-logger";
 
-type CustomRequest = Request & {
-    body: Omit<User, "id">;
+type CustomRequest = Request<{}, {}, Omit<User, "id">> & {
     container?: AwilixContainer;
 };
 
 const registerController = async (
-    req: CustomRequest, // Request<{}, {}, Omit<User, "id">>,
+    req: CustomRequest,
     res: Response
 ): Promise<Response> => {
     try {

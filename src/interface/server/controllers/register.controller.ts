@@ -3,6 +3,7 @@ import { User } from "../../../core/domain/user/User";
 import Email from "../../../core/domain/email/Email";
 import validateUserDataForm from "../../../infrastructure/user/validate-user/validate-user-data-form";
 import { AwilixContainer } from "awilix";
+import errorWithCodeAndMessage from "../errors/error-init";
 
 type CustomRequest = Request<{}, {}, Omit<User, "id">> & {
     container?: AwilixContainer;
@@ -17,7 +18,7 @@ const registerController = async (
         const dataForm = req.body;
         const validate = validateUserDataForm(dataForm);
         if (validate !== true)
-            return res.status(409).send({ message: validate });
+            return errorWithCodeAndMessage(res, 409, "validate");
         const user: Omit<User, "id"> = req.body;
         const newUser: null | User = await container.cradle.registerUserUseCase(
             user

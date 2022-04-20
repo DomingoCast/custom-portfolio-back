@@ -25,13 +25,6 @@ const registerController = async (
         );
         if (newUser) {
             const partialUser = { ...newUser, password: "***" };
-            const email: Email = {
-                receiver: partialUser.email,
-                subject: "REGISTER",
-                text: "you've been registered!",
-            };
-
-            await container.cradle.sendEmailUseCase(email);
 
             return res.status(200).send({ message: partialUser });
         }

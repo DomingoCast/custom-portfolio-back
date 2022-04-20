@@ -1,4 +1,4 @@
-import Email from "../../core/domain/email/Email";
+import Email from "../../core/ports/email/Email";
 import { getTemplate, setUpEmail } from "./emailer.output";
 import sgMail from "@sendgrid/mail";
 import fs from "fs";

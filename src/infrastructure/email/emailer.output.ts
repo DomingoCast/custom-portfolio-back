@@ -1,8 +1,8 @@
 import path from "path";
-import Email from "../../core/domain/email/Email";
-import EmailSender from "../../core/ports/send-email.port";
+import Email from "../../core/ports/email/Email";
 import sgMail from "@sendgrid/mail";
 import fs from "fs";
+import EmailSender from "../../core/ports/email/send-email.port";
 
 export const getTemplate = (file: string): string => {
     try {

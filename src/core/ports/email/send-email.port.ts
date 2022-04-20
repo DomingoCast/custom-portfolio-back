@@ -1,4 +1,4 @@
-import Email from "../domain/email/Email";
+import Email from "./Email";
 
 interface EmailSender {
     send(email: Email): void;

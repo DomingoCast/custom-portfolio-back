@@ -1,7 +1,8 @@
-import Email from "../../domain/email/Email";
+import Email from "../../ports/email/Email";
 import { User } from "../../domain/user/User";
-import EmailSender from "../../ports/send-email.port";
+
 import UserRepository from "../../ports/user-repository.port";
+import EmailSender from "../../ports/email/send-email.port";
 
 type RegisterUserUseCaseProps = {
     userRepository: UserRepository;

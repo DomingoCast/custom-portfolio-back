@@ -1,15 +1,9 @@
 import UserRepository from "../../../core/ports/user-repository.port";
 import { User } from "../../../core/domain/user/User";
 import UserModel from "./user.model";
-import { DataSource } from "typeorm";
+import { dataSource } from "../postgres.datasources";
 
-type CreateUserRepositoryProps = {
-    dataSource: DataSource;
-};
-
-const createUserRepository = ({
-    dataSource,
-}: CreateUserRepositoryProps): UserRepository => {
+const createUserRepository = (): UserRepository => {
     const userRepository = dataSource.getRepository(UserModel);
     const persist = (user: Omit<User, "id">) => {
         return userRepository

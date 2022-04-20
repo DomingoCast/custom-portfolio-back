@@ -18,7 +18,7 @@ const registerController = async (
         const dataForm = req.body;
         const validate = validateUserDataForm(dataForm);
         if (validate !== true)
-            return errorWithCodeAndMessage(res, 409, "validate");
+            return errorWithCodeAndMessage(res, 409, validate as string);
         const user: Omit<User, "id"> = req.body;
         const newUser: null | User = await container.cradle.registerUserUseCase(
             user

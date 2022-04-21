@@ -1,5 +1,6 @@
 import Email from "../../core/ports/email/Email";
 import { getTemplate, setUpEmail } from "./emailer.output";
+import * as emailModule from "./emailer.output";
 import sgMail from "@sendgrid/mail";
 import fs from "fs";
 import path from "path";
@@ -22,6 +23,9 @@ describe("get template", () => {
 });
 describe("set up email", () => {
     it("given an emails, sends it", () => {
+        const mockTemplate = jest
+            .spyOn(<any>emailModule, "getTemplate")
+            .mockImplementation(jest.fn(() => mockText));
         const mockText = "x";
         const email: Email = {
             receiver: "",
@@ -33,11 +37,12 @@ describe("set up email", () => {
             from: "team-dha@outlook.com",
             subject: email.subject,
             text: "and easy to do anywhere, even with Node.js",
-            html: getTemplate(email.text + ".sendgrid"),
+            html: mockText,
         };
         const apiKey = "random";
         process.env.SENDGRID_API_KEY = apiKey;
         setUpEmail().send(email);
+        expect(mockTemplate).toHaveBeenCalledWith(email.text + ".sendgrid");
         expect(sgMail.setApiKey).toHaveBeenCalledWith(apiKey);
         expect(sgMail.send).toHaveBeenCalledWith(msg);
     });

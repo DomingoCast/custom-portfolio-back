@@ -1,7 +1,5 @@
 import loggerInit from "./init-logger";
-import logger from "./create-logger";
-const infoMessage = { "This is info logg": "info" };
-const errorMessage = { "This is error logg": "error" };
+import getLogger from "./get-logger";
 
 describe("Test for logger", () => {
     it("Check the function initLogger", () => {
@@ -10,23 +8,15 @@ describe("Test for logger", () => {
     it("Check name of service", () => {
         expect(loggerInit.defaultMeta.service).toEqual("TeamDHA");
     });
-    it("Check pass info logg", () => {
-        const log = loggerInit.info(infoMessage);
-        expect(log.level).toEqual("info");
-    });
-    it("Check pass error logg", () => {
-        const log = loggerInit.error(errorMessage);
-        expect(log.level).toEqual("info");
-    });
     it("Check function logger", () => {
-        expect(logger).toBeDefined();
+        expect(getLogger).toBeDefined();
     });
     it("Check pass info logg", () => {
-        const log = logger.info(infoMessage);
-        expect(log.level).toEqual("info");
+        const log = getLogger().info({ message: "This is info logg" });
+        expect(log.writable).toEqual(true);
     });
     it("Check pass error logg", () => {
-        const log = logger.error(errorMessage);
-        expect(log.level).toEqual("info");
+        const log = getLogger().error({ message: "This is error logg" });
+        expect(log.writable).toEqual(true);
     });
 });

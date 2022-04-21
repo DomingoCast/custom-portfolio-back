@@ -3,7 +3,7 @@ import { User } from "../../../core/domain/user/User";
 import Email from "../../../core/domain/email/Email";
 import validateUserDataForm from "../../../infrastructure/user/validate-user/validate-user-data-form";
 import { AwilixContainer } from "awilix";
-import logger from "../logger/create-logger";
+import getLogger from "../logger/get-logger";
 
 type CustomRequest = Request<{}, {}, Omit<User, "id">> & {
     container?: AwilixContainer;
@@ -18,7 +18,7 @@ const registerController = async (
         const dataForm = req.body;
         const validate = validateUserDataForm(dataForm);
         if (validate !== true) {
-            logger.error({ registerValidate: validate });
+            getLogger().error({ registerValidate: validate });
             return res.status(409).send({ message: validate });
         }
         const user: Omit<User, "id"> = req.body;
@@ -34,13 +34,13 @@ const registerController = async (
             };
 
             await container.cradle.sendEmailUseCase(email);
-            logger.info({ "User registered well": partialUser });
+            getLogger().info({ "User registered well": partialUser });
             return res.status(200).send({ message: partialUser });
         }
-        logger.error({ message: "User already exits" });
+        getLogger().error({ message: "User already exits" });
         return res.status(400).send({ message: "User already exits" });
     } catch (e) {
-        logger.error({ message: e });
+        getLogger().error({ message: e });
         return res.status(500).send({
             message: e,
         });

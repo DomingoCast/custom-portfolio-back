@@ -3,7 +3,7 @@ import { formatConsole, formatJson } from "./format-cases";
 
 const folder = "./src/interface/server/logger/logs";
 
-const loggerInit = createLogger({
+const winston = createLogger({
     transports: [
         new transports.Console({
             format: formatConsole,
@@ -26,4 +26,4 @@ const loggerInit = createLogger({
         service: "TeamDHA",
     },
 });
-export default loggerInit;
+export default winston;

@@ -3,8 +3,10 @@ import "reflect-metadata";
 import { DataSource } from "typeorm";
 import UserModel from "./user/user.model";
 
+export let dataSource: DataSource;
+
 export const createDBConnection = () => {
-    const AppDataSource = new DataSource({
+    dataSource = new DataSource({
         type: "postgres",
         host: "db",
         port: 5432,
@@ -18,8 +20,8 @@ export const createDBConnection = () => {
         migrations: [],
     });
 
-    const connect = (dataSource = AppDataSource) => {
-        dataSource
+    const connect = (appDataSource: DataSource = dataSource) => {
+        appDataSource
             .initialize()
             .then(() => {
                 console.log("Data Source has been initialized!");
@@ -30,7 +32,6 @@ export const createDBConnection = () => {
     };
 
     return {
-        dataSource: AppDataSource,
         connect,
     };
 };

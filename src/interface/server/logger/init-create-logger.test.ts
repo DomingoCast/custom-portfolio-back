@@ -23,7 +23,6 @@ describe("Test for logger", () => {
     });
     it("Check pass info logg", () => {
         const log = logger.info(infoMessage);
-        debugger
         expect(log.level).toEqual("info");
     });
     it("Check pass error logg", () => {

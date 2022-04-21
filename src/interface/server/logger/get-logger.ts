@@ -1,4 +1,4 @@
-import winston from "./init-logger";
+import winston from "./winston-logger";
 
 const getLogger = () => {
     const info = (message: Object) => {

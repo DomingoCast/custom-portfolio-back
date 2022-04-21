@@ -1,4 +1,4 @@
-import loggerInit from "./init-logger";
+import loggerInit from "./winston-logger";
 import getLogger from "./get-logger";
 
 describe("Test for logger", () => {

@@ -1,11 +1,4 @@
-import { Response } from "express";
-
-const errorWithCodeAndMessage = (
-    res: Response,
-    code: number,
-    message: string
-) => {
-    // throw new Error('esto es un error')
-    return res.status(code).send({ message: message });
+const errorWithCodeAndMessage = (code: number, message: string) => {
+    throw new Error(code + " " + message);
 };
 export default errorWithCodeAndMessage;

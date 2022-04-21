@@ -1,12 +1,12 @@
-import loggerInit from "./winston-logger";
+import winston from "./winston-logger";
 import getLogger from "./get-logger";
 
 describe("Test for logger", () => {
     it("Check the function initLogger", () => {
-        expect(loggerInit).toBeDefined();
+        expect(winston).toBeDefined();
     });
     it("Check name of service", () => {
-        expect(loggerInit.defaultMeta.service).toEqual("TeamDHA");
+        expect(winston.defaultMeta.service).toEqual("TeamDHA");
     });
     it("Check function logger", () => {
         expect(getLogger).toBeDefined();

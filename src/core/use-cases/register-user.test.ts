@@ -1,7 +1,7 @@
-import { User } from "../domain/user/User";
 import UserRepository from "../ports/user-repository.port";
 import registerUser from "./register-user";
 import createHashFunction from "../../infrastructure/password/create-hash-function";
+import { User } from "../domain/user/User";
 
 jest.mock("../../infrastructure/password/create-hash-function", () =>
     jest.fn()

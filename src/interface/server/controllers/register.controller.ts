@@ -18,9 +18,10 @@ const registerController = async (
         const dataForm = req.body;
         const validate = validateUserDataForm(dataForm);
         if (validate !== true) {
-            const err = new CustomError("validate");
+            const message = validate as string;
+            const err = new CustomError(message, 409);
             return res
-                .status(err.statusCode)
+                .status(err.getErrorCode())
                 .send({ message: err.getErrorMessage() });
         }
         const user: Omit<User, "id"> = req.body;
@@ -41,9 +42,10 @@ const registerController = async (
         }
         return res.status(400).send({ message: "User already exits" });
     } catch (e) {
-        const err = new CustomError("e");
+        const message = e as string;
+        const err = new CustomError(message, 400);
         return res
-            .status(err.statusCode)
+            .status(err.getErrorCode())
             .send({ message: err.getErrorMessage() });
     }
 };

@@ -34,7 +34,9 @@ const registerController = async (
             };
 
             await container.cradle.sendEmailUseCase(email);
-            getLogger().info({ "User registered well": partialUser });
+            await container.cradle
+                .getLogger()
+                .info({ "User registered well": partialUser });
             return res.status(200).send({ message: partialUser });
         }
         getLogger().error({ message: "User already exits" });

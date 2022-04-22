@@ -1,22 +1,18 @@
 import createUserRepository from "./user.datasource";
 
 describe("createUserRepository", () => {
-    it("creates a repository", () => {
+    it("creates a repository given a data source", () => {
         const mockDs: any = {
-            dataSource: {
-                getRepository: jest.fn(),
-            },
+            getRepository: jest.fn,
         };
         expect(createUserRepository(mockDs)).toHaveProperty("persist");
     });
-    it("persists", async () => {
+    it("persists a user given a repository and a datasource", async () => {
         const user: any = {};
         const mockDs: any = {
-            dataSource: {
-                getRepository: jest.fn((x) => ({
-                    save: jest.fn(async (x) => await user),
-                })),
-            },
+            getRepository: jest.fn((x) => ({
+                save: jest.fn(async (x) => await user),
+            })),
         };
         const userRepository = createUserRepository(mockDs);
         const response = await userRepository.persist(user);

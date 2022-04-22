@@ -1,9 +1,9 @@
-export class CustomError extends Error {
-    statusCode: any;
-
+import CustomError from "./custom-error";
+class HttpError extends CustomError {
+    statusCode: number;
     constructor(message: string, statusCode: number) {
         super(message);
-        Object.setPrototypeOf(this, CustomError.prototype);
+        Object.setPrototypeOf(this, HttpError.prototype);
         this.statusCode = statusCode;
     }
 
@@ -15,4 +15,4 @@ export class CustomError extends Error {
         return this.statusCode;
     }
 }
-export default CustomError;
+export default HttpError;

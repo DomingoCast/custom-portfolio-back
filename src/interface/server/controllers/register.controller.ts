@@ -3,7 +3,7 @@ import { User } from "../../../core/domain/user/User";
 import Email from "../../../core/domain/email/Email";
 import validateUserDataForm from "../../../infrastructure/user/validate-user/validate-user-data-form";
 import { AwilixContainer } from "awilix";
-import CustomError from "../errors/error-init";
+import HttpError from "../errors/http-error";
 
 type CustomRequest = Request<{}, {}, Omit<User, "id">> & {
     container?: AwilixContainer;
@@ -19,7 +19,7 @@ const registerController = async (
         const validate = validateUserDataForm(dataForm);
         if (validate !== true) {
             const message = validate as string;
-            const err = new CustomError(message, 409);
+            const err = new HttpError(message, 409);
             return res
                 .status(err.getErrorCode())
                 .send({ message: err.getErrorMessage() });
@@ -43,7 +43,7 @@ const registerController = async (
         return res.status(400).send({ message: "User already exits" });
     } catch (e) {
         const message = e as string;
-        const err = new CustomError(message, 400);
+        const err = new HttpError(message, 400);
         return res
             .status(err.getErrorCode())
             .send({ message: err.getErrorMessage() });

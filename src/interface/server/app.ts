@@ -31,7 +31,6 @@ export const runServer = (app: Application, port: number) => {
         });
         return server;
     } catch (error: any | CustomError) {
-        const errorMessage = new CustomError(error.message);
-        console.log(errorMessage.getCustomMessage());
+        throw new CustomError(error);
     }
 };

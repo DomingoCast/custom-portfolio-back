@@ -1,6 +1,5 @@
 class CustomError extends Error {
-    static getCustomMessage: any;
-    constructor(message: string) {
+    constructor(message: any) {
         super(message);
         Object.setPrototypeOf(this, CustomError.prototype);
     }

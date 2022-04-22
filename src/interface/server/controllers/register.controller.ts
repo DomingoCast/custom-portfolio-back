@@ -3,7 +3,6 @@ import { User } from "../../../core/domain/user/User";
 import Email from "../../../core/domain/email/Email";
 import validateUserDataForm from "../../../infrastructure/user/validate-user/validate-user-data-form";
 import { AwilixContainer } from "awilix";
-import HttpError from "../errors/http-error";
 
 type CustomRequest = Request<{}, {}, Omit<User, "id">> & {
     container?: AwilixContainer;
@@ -17,13 +16,8 @@ const registerController = async (
         const container = req.container!;
         const dataForm = req.body;
         const validate = validateUserDataForm(dataForm);
-        if (validate !== true) {
-            const message = validate as string;
-            const err = new HttpError(message, 409);
-            return res
-                .status(err.getErrorCode())
-                .send({ message: err.getErrorMessage() });
-        }
+        if (validate !== true)
+            return res.status(409).send({ message: validate });
         const user: Omit<User, "id"> = req.body;
         const newUser: null | User = await container.cradle.registerUserUseCase(
             user
@@ -42,11 +36,10 @@ const registerController = async (
         }
         return res.status(400).send({ message: "User already exits" });
     } catch (e) {
-        const message = e as string;
-        const err = new HttpError(message, 400);
-        return res
-            .status(err.getErrorCode())
-            .send({ message: err.getErrorMessage() });
+        console.error(e);
+        return res.status(500).send({
+            message: e,
+        });
     }
 };
 

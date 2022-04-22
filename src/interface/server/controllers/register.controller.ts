@@ -16,17 +16,13 @@ const registerController = async (
         const container = req.container!;
         const dataForm = req.body;
         const validate = validateUserDataForm(dataForm);
-        console.log("[VALIDATE]", validate);
         if (validate !== true)
             return res.status(409).send({ message: validate });
-        console.log("HOLA");
         const user: Omit<User, "id"> = req.body;
-        console.log("HOLA");
 
         const newUser: null | User = await container.cradle.registerUserUseCase(
             user
         );
-        console.log("HOLA");
         if (newUser) {
             const partialUser = { ...newUser, password: "***" };
             const email: Email = {

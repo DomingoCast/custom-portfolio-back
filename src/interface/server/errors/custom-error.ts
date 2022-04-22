@@ -1,7 +1,12 @@
 class CustomError extends Error {
-    constructor() {
-        super();
-        throw new Error("An error had occurred");
+    static getCustomMessage: any;
+    constructor(message: string) {
+        super(message);
+        Object.setPrototypeOf(this, CustomError.prototype);
+    }
+
+    getCustomMessage() {
+        return "An error had occurred: " + this.message;
     }
 }
 export default CustomError;

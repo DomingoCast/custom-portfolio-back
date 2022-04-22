@@ -1,4 +1,4 @@
-import Email from "../../core/ports/email/Email";
+import Email from "../../core/ports/email/email";
 import { getTemplate, setUpEmail } from "./emailer.output";
 import * as emailModule from "./emailer.output";
 import sgMail from "@sendgrid/mail";
@@ -30,7 +30,7 @@ describe("set up email", () => {
         const email: Email = {
             receiver: "",
             subject: "",
-            text: mockText,
+            template: mockText,
         };
         const msg = {
             to: email.receiver,
@@ -42,7 +42,7 @@ describe("set up email", () => {
         const apiKey = "random";
         process.env.SENDGRID_API_KEY = apiKey;
         setUpEmail().send(email);
-        expect(mockTemplate).toHaveBeenCalledWith(email.text + ".sendgrid");
+        expect(mockTemplate).toHaveBeenCalledWith(email.template + ".sendgrid");
         expect(sgMail.setApiKey).toHaveBeenCalledWith(apiKey);
         expect(sgMail.send).toHaveBeenCalledWith(msg);
     });

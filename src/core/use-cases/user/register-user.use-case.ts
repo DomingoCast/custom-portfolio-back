@@ -1,4 +1,4 @@
-import Email from "../../ports/email/Email";
+import Email from "../../ports/email/email";
 import { User } from "../../domain/user/User";
 
 import UserRepository from "../../ports/user-repository.port";
@@ -21,7 +21,7 @@ const registerUserUseCase =
             const email: Email = {
                 receiver: user.email,
                 subject: "REGISTER",
-                text: "register",
+                template: "register",
             };
             emailSender.send(email);
         }

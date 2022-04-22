@@ -1,5 +1,5 @@
 import path from "path";
-import Email from "../../core/ports/email/Email";
+import Email from "../../core/ports/email/email";
 import sgMail from "@sendgrid/mail";
 import fs from "fs";
 import EmailSender from "../../core/ports/email/send-email.port";
@@ -20,7 +20,7 @@ export const setUpEmail = (): EmailSender => {
         email: Email,
         getTemplateFn = getTemplate
     ): Promise<void> => {
-        const htmlFile = getTemplateFn(email.text + ".sendgrid");
+        const htmlFile = getTemplateFn(email.template + ".sendgrid");
         sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
         const msg = {
             to: email.receiver,

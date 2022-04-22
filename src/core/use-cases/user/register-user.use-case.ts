@@ -1,4 +1,4 @@
-import { User } from "../../domain/user/User";
+import { User } from "../../domain/user/user";
 import UserRepository from "../../ports/user-repository.port";
 
 type RegisterUserUseCaseProps = {

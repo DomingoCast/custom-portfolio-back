@@ -26,8 +26,6 @@ export const createServer = (port: number) => {
 
 export const runServer = (app: Application, port: number) => {
     try {
-        // const error = "Hola";
-        // throw new CustomError(error);
         const server = app.listen(port, (): void => {
             console.log(`Connected successfully on port ${port}`);
         });

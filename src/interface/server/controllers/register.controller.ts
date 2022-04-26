@@ -19,20 +19,18 @@ const registerController = async (
         if (validate !== true)
             return res.status(409).send({ message: validate });
         const user: Omit<User, "id"> = req.body;
-        const newUser: null | User = await container.cradle.registerUserUseCase(
-            user
-        );
-        if (newUser) {
-            const partialUser = { ...newUser, password: "***" };
+        const response: null | string =
+            await container.cradle.registerUserUseCase(user);
+        if (response) {
             const email: Email = {
-                receiver: partialUser.email,
+                receiver: user.email,
                 subject: "REGISTER",
                 text: "you've been registered!",
             };
 
             await container.cradle.sendEmailUseCase(email);
 
-            return res.status(200).send({ message: partialUser });
+            return res.status(200).send({ message: response });
         }
         return res.status(400).send({ message: "User already exits" });
     } catch (e) {

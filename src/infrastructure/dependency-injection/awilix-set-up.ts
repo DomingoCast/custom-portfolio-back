@@ -4,6 +4,7 @@ import { setUpEmail } from "../email/emailer.output";
 import createUserRepository from "../persistance/user/user.datasource";
 
 import * as awilix from "awilix";
+import createHashFunction from "../password/create-hash-function";
 
 export const container = awilix.createContainer({
     injectionMode: awilix.InjectionMode.PROXY,
@@ -14,4 +15,5 @@ container.register({
     userRepository: awilix.asFunction(createUserRepository),
     sendEmailUseCase: awilix.asFunction(sendEmailUseCase),
     emailSender: awilix.asFunction(setUpEmail),
+    hashFunction: awilix.asFunction(createHashFunction),
 });

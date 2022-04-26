@@ -15,5 +15,5 @@ container.register({
     userRepository: awilix.asFunction(createUserRepository),
     sendEmailUseCase: awilix.asFunction(sendEmailUseCase),
     emailSender: awilix.asFunction(setUpEmail),
-    getLogger: awilix.asFunction(getLogger),
+    logger: awilix.asFunction(getLogger),
 });

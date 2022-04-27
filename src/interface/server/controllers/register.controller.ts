@@ -1,15 +1,14 @@
 import { Request, Response } from "express";
-import { User } from "../../../core/domain/user/User";
-import validateUserDataForm from "../../../infrastructure/user/validate-user/validate-user-data-form";
+import { User } from "../../../core/domain/user/user";
 import { AwilixContainer } from "awilix";
+import validateUserDataForm from "../../../infrastructure/user/validate-user/validate-user-data-form";
 
-type CustomRequest = Request & {
-    body: Omit<User, "id">;
+type CustomRequest = Request<{}, {}, Omit<User, "id">> & {
     container?: AwilixContainer;
 };
 
 const registerController = async (
-    req: CustomRequest, // Request<{}, {}, Omit<User, "id">>,
+    req: CustomRequest,
     res: Response
 ): Promise<Response> => {
     try {

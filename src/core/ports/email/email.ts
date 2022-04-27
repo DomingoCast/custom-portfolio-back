@@ -1,7 +1,7 @@
 interface Email {
     receiver: string;
     subject: string;
-    text: string;
+    template: string;
 }
 
 export default Email;

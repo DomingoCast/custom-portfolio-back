@@ -5,7 +5,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerOptions from "./api-docs/swagger-options";
 import { container } from "../../infrastructure/dependency-injection/awilix-set-up";
 import { scopePerRequest } from "awilix-express";
-import CustomError from "./errors/custom-error";
+import CustomError from "../../infrastructure/errors/custom-error";
 
 export const createServer = (port: number) => {
     const app: Application = express();

@@ -1,5 +1,4 @@
 import { User } from "../../domain/user/user";
-import HashFunction from "../../ports/hash-function.port";
 import UserRepository from "../../ports/user-repository.port";
 import registerUserUseCase from "./register-user.use-case";
 

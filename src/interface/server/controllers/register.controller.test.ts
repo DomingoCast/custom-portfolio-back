@@ -17,9 +17,7 @@ describe("registerController", () => {
             send: jest.fn,
         })),
     };
-    const mockDs: any = "";
     it("doesn't register null", () => {
-        const mockDs: any = "";
         registerController(req, res);
         expect(res.status).toHaveBeenCalledWith(400);
     });

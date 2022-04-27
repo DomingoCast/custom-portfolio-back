@@ -18,7 +18,7 @@ const registerController = async (
         const validate = validateUserDataForm(dataForm);
         if (validate !== true) {
             container.cradle.logger.error({ "Bad Request": validate });
-            return res.status(409).send({ message: validate });
+            return res.status(400).send({ message: validate });
         }
         const user: Omit<User, "id"> = req.body;
         const newUser: null | User = await container.cradle.registerUserUseCase(
@@ -37,7 +37,7 @@ const registerController = async (
             return res.status(200).send({ message: partialUser });
         }
         container.cradle.logger.error({ message: "User already exits" });
-        return res.status(400).send({ message: "User already exits" });
+        return res.status(409).send({ message: "User already exits" });
     } catch (e) {
         container.cradle.logger.error({ message: e });
         return res.status(500).send({

@@ -4,7 +4,7 @@ import { setUpEmail } from "../email/emailer.output";
 import createUserRepository from "../persistance/user/user.datasource";
 
 import * as awilix from "awilix";
-import getLogger from "../../interface/server/logger/get-logger";
+import getLogger from "../logger/get-logger";
 import createHashFunction from "../password/create-hash-function";
 
 export const container = awilix.createContainer({

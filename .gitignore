@@ -2,5 +2,4 @@ node_modules
 .env
 dist
 coverage
-error.log
-combined.log
+logs

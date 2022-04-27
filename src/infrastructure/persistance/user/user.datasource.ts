@@ -1,5 +1,5 @@
 import UserRepository from "../../../core/ports/user-repository.port";
-import { User } from "../../../core/domain/user/User";
+import { User } from "../../../core/domain/user/user";
 import UserModel from "./user.model";
 import { dataSource } from "../postgres.datasources";
 import { DataSource } from "typeorm";

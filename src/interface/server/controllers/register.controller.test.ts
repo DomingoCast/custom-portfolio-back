@@ -21,7 +21,7 @@ describe("registerController", () => {
     it("doesn't register null", () => {
         const mockDs: any = "";
         registerController(req, res);
-        expect(res.status).toHaveBeenCalledWith(409);
+        expect(res.status).toHaveBeenCalledWith(400);
     });
     it("validates the input", () => {
         mockValidateUserDataForm.mockImplementation(jest.fn());

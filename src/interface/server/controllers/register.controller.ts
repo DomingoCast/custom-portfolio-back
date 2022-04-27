@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import { User } from "../../../core/domain/user/user";
-import Email from "../../../core/domain/email/Email";
-import validateUserDataForm from "../../../infrastructure/user/validate-user/validate-user-data-form";
 import { AwilixContainer } from "awilix";
+import validateUserDataForm from "../../../infrastructure/user/validate-user/validate-user-data-form";
 
 type CustomRequest = Request<{}, {}, Omit<User, "id">> & {
     container?: AwilixContainer;
@@ -26,13 +25,6 @@ const registerController = async (
         );
         if (newUser) {
             const partialUser = { ...newUser, password: "***" };
-            const email: Email = {
-                receiver: partialUser.email,
-                subject: "REGISTER",
-                text: "you've been registered!",
-            };
-
-            await container.cradle.sendEmailUseCase(email);
             container.cradle.logger.info({ "User Well": partialUser });
             return res.status(200).send({ message: partialUser });
         }

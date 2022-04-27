@@ -1,4 +1,3 @@
-import sendEmailUseCase from "../../core/use-cases/email/send-email.use-case";
 import registerUserUseCase from "../../core/use-cases/user/register-user.use-case";
 import { setUpEmail } from "../email/emailer.output";
 import createUserRepository from "../persistance/user/user.datasource";
@@ -14,7 +13,6 @@ export const container = awilix.createContainer({
 container.register({
     registerUserUseCase: awilix.asFunction(registerUserUseCase),
     userRepository: awilix.asFunction(createUserRepository),
-    sendEmailUseCase: awilix.asFunction(sendEmailUseCase),
     emailSender: awilix.asFunction(setUpEmail),
     logger: awilix.asFunction(getLogger),
     hashFunction: awilix.asFunction(createHashFunction),

@@ -1,33 +1,42 @@
-import Email from "../../core/domain/email/Email";
-import EmailSender from "../../core/ports/send-email.port";
+import path from "path";
+import Email from "../../core/ports/email/email";
+import sgMail from "@sendgrid/mail";
+import fs from "fs";
+import EmailSender from "../../core/ports/email/send-email.port";
 
-import nodemailer from "nodemailer";
+export const getTemplate = (file: string): string => {
+    try {
+        return fs.readFileSync(
+            path.join(__dirname, `/template/${file}.html`),
+            "utf8"
+        );
+    } catch {
+        return "error";
+    }
+};
 
-// async..await is not allowed in global scope, must use a wrapper
 export const setUpEmail = (): EmailSender => {
-    const service = process.env.NODEMAILER_SERVICE;
-    const sender = process.env.NODEMAILER_EMAIL;
-    const password = process.env.NODEMAILER_PASSWORD;
-    const transporter = nodemailer.createTransport({
-        service: service,
-        port: Number(process.env.NODEMAILER_PORT),
-        secure: false,
-        auth: {
-            user: sender,
-            pass: password,
-        },
-    });
-
-    const sendEmail = async (email: Email): Promise<void> => {
-        console.log(email);
-        const info = await transporter.sendMail({
-            from: sender,
+    const sendEmail = async (
+        email: Email,
+        getTemplateFn = getTemplate
+    ): Promise<void> => {
+        const htmlFile = getTemplateFn(email.template + ".sendgrid");
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
+        const msg = {
             to: email.receiver,
+            from: "team-dha@outlook.com",
             subject: email.subject,
-            text: email.text,
-        });
-        console.log("Message sent: %s", info.messageId);
-        console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+            text: "and easy to do anywhere, even with Node.js",
+            html: htmlFile,
+        };
+        sgMail
+            .send(msg)
+            .then(() => {
+                console.log("Email sent");
+            })
+            .catch((error: any) => {
+                console.error(error);
+            });
     };
 
     return {

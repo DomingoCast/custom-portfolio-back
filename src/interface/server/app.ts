@@ -30,7 +30,7 @@ export const runServer = (app: Application, port: number) => {
             console.log(`Connected successfully on port ${port}`);
         });
         return server;
-    } catch (error: any | CustomError) {
+    } catch (error: any) {
         throw new CustomError(error);
     }
 };

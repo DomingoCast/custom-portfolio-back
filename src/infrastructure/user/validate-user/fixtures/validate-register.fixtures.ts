@@ -146,12 +146,34 @@ const fixtures = [
     },
     {
         user: {
-            name: "John",
+            name: "           John",
             surname: "Dean",
             email: "john@gmail.com",
             password: "123456",
             phone: "+447975777666",
             address: "Kiev, Ukraine",
+        },
+        expected: true,
+    },
+    {
+        user: {
+            name: "John              ",
+            surname: "      Dean",
+            email: "john@gmail.com",
+            password: "123456",
+            phone: "+447975777666",
+            address: "Kiev, Ukraine",
+        },
+        expected: true,
+    },
+    {
+        user: {
+            name: "John              ",
+            surname: "      Dean",
+            email: "           john@gmail.com    ",
+            password: "    123456",
+            phone: "+447975777666    ",
+            address: "Kiev, Ukraine       ",
         },
         expected: true,
     },

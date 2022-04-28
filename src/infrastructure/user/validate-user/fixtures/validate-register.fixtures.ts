@@ -19,7 +19,7 @@ const fixtures = [
             phone: "+380991234567",
             address: "Kiev, Ukraine",
         },
-        expected: "Invalid name, minimum 3 and maximum 30",
+        expected: ["Invalid name, minimum 3 and maximum 30"],
     },
     {
         user: {
@@ -30,7 +30,7 @@ const fixtures = [
             phone: "+380991234567",
             address: "Kiev, Ukraine",
         },
-        expected: "Invalid name, minimum 3 and maximum 30",
+        expected: ["Invalid name, minimum 3 and maximum 30"],
     },
     {
         user: {
@@ -41,7 +41,7 @@ const fixtures = [
             phone: "+380991234567",
             address: "Kiev, Ukraine",
         },
-        expected: "Invalid surname, minimum 3 and maximum 30",
+        expected: ["Invalid surname, minimum 3 and maximum 30"],
     },
     {
         user: {
@@ -52,7 +52,7 @@ const fixtures = [
             phone: "+380991234567",
             address: "Kiev, Ukraine",
         },
-        expected: "Invalid surname, minimum 3 and maximum 30",
+        expected: ["Invalid surname, minimum 3 and maximum 30"],
     },
     {
         user: {
@@ -63,7 +63,7 @@ const fixtures = [
             phone: "+380991234567",
             address: "Kiev, Ukraine",
         },
-        expected: "Invalid email",
+        expected: ["Invalid email"],
         fixtures_title: "User with valid data",
     },
     {
@@ -75,7 +75,7 @@ const fixtures = [
             phone: "+380991234567",
             address: "Kiev, Ukraine",
         },
-        expected: "Invalid email",
+        expected: ["Invalid email"],
     },
     {
         user: {
@@ -86,7 +86,7 @@ const fixtures = [
             phone: "+380991234567",
             address: "Kiev, Ukraine",
         },
-        expected: "Invalid password, minimum 6 and maximum 30",
+        expected: ["Invalid password, minimum 6 and maximum 30"],
     },
     {
         user: {
@@ -97,7 +97,7 @@ const fixtures = [
             phone: "+380991234567",
             address: "Kiev, Ukraine",
         },
-        expected: "Invalid password, minimum 6 and maximum 30",
+        expected: ["Invalid password, minimum 6 and maximum 30"],
         fixtures_title: "User with valid data",
     },
     {
@@ -109,7 +109,7 @@ const fixtures = [
             phone: "1234567890",
             address: "Kiev, Ukraine",
         },
-        expected: "Invalid phone number, minimum 9 and maximum 15",
+        expected: ["Invalid phone number, minimum 9 and maximum 15"],
     },
     {
         user: {

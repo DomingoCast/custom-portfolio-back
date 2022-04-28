@@ -166,16 +166,5 @@ const fixtures = [
         },
         expected: true,
     },
-    {
-        user: {
-            name: "John              ",
-            surname: "      Dean",
-            email: "           john@gmail.com    ",
-            password: "  Hola2345  ",
-            phone: "+447975777666    ",
-            address: "Kiev, Ukraine       ",
-        },
-        expected: true,
-    },
 ];
 export default fixtures;

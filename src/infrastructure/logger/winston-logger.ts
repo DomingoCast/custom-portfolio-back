@@ -1,7 +1,7 @@
 import { createLogger, transports } from "winston";
 import { formatConsole, formatJson } from "./format-cases";
 
-const folder = "./src/interface/server/logger/logs";
+const folder = "./src/infrastructure/logger/logs";
 
 const winston = createLogger({
     transports: [

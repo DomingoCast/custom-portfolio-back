@@ -5,6 +5,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerOptions from "./api-docs/swagger-options";
 import { container } from "../../infrastructure/dependency-injection/awilix-set-up";
 import { scopePerRequest } from "awilix-express";
+import CustomError from "../../infrastructure/errors/custom-error";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -29,8 +30,7 @@ export const runServer = (app: Application, port: number) => {
             console.log(`Connected successfully on port ${port}`);
         });
         return server;
-    } catch (error) {
-        console.error(`Error occured: ${error}`);
-        return null;
+    } catch (error: any) {
+        throw new CustomError(error);
     }
 };

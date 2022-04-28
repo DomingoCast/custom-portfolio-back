@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { User } from "../../../core/domain/user/user";
 import { AwilixContainer } from "awilix";
 import validateUserDataForm from "../../../infrastructure/user/validate-user/validate-user-data-form";
+import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
 
 type CustomRequest = Request<{}, {}, Omit<User, "id">> & {
     container?: AwilixContainer;
@@ -13,11 +14,11 @@ const registerController = async (
 ): Promise<Response> => {
     try {
         const container = req.container!;
-        const dataForm = req.body;
+        const dataForm = trimFields(req.body);
         const validate = validateUserDataForm(dataForm);
         if (validate !== true)
             return res.status(400).send({ message: validate });
-        const user: Omit<User, "id"> = req.body;
+        const user: Omit<User, "id"> = dataForm;
 
         const newUser: null | User = await container.cradle.registerUserUseCase(
             user

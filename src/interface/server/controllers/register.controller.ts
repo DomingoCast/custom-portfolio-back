@@ -14,7 +14,10 @@ const registerController = async (
 ): Promise<Response> => {
     try {
         const container = req.container!;
-        const dataForm = trimFields(req.body);
+        let dataForm = req.body;
+        if (req.body !== null) {
+            dataForm = trimFields(req.body);
+        }
         const validate = validateUserDataForm(dataForm);
         if (validate !== true)
             return res.status(400).send({ message: validate });

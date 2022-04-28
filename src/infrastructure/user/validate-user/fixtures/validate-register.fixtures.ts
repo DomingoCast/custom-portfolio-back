@@ -171,7 +171,7 @@ const fixtures = [
             name: "John              ",
             surname: "      Dean",
             email: "           john@gmail.com    ",
-            password: "    123456",
+            password: "  Hola2345  ",
             phone: "+447975777666    ",
             address: "Kiev, Ukraine       ",
         },

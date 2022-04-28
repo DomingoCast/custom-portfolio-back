@@ -9,7 +9,7 @@ type RegisterUserUseCaseProps = {
     emailSender: EmailSender;
     hashFunction: HashFunction;
 };
-type RegisterUserUseCase = (user: Omit<User, "id">) => Promise<string | null>;
+type RegisterUserUseCase = (user: Omit<User, "id">) => Promise<User | null>;
 
 const registerUserUseCase =
     ({
@@ -17,7 +17,7 @@ const registerUserUseCase =
         hashFunction,
         emailSender,
     }: RegisterUserUseCaseProps): RegisterUserUseCase =>
-    async (user: Omit<User, "id">): Promise<string | null> => {
+    async (user: Omit<User, "id">): Promise<User | null> => {
         const userSafe = {
             ...user,
             password: await hashFunction.hash(user.password),
@@ -31,9 +31,8 @@ const registerUserUseCase =
                 template: "register",
             };
             emailSender.send(email);
-            return "user has been registered";
         }
-        return null;
+        return userResponse;
     };
 
 export default registerUserUseCase;

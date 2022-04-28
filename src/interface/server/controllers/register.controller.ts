@@ -21,7 +21,9 @@ const registerController = async (
         const response: null | User =
             await container.cradle.registerUserUseCase(user);
         if (response) {
-            return res.status(200).send({ message: response });
+            return res
+                .status(200)
+                .send({ message: "User has been registered" });
         }
         return res.status(409).send({ message: "User already exits" });
     } catch (e) {

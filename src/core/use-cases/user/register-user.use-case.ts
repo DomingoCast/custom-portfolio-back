@@ -22,7 +22,6 @@ const registerUserUseCase =
             ...user,
             password: await hashFunction.hash(user.password),
         };
-
         const userResponse = await userRepository.persist(userSafe);
         if (userResponse) {
             const email: Email = {

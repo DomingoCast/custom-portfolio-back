@@ -8,6 +8,7 @@ const userSchema: JSONSchemaType<CreateUserDataForm> = {
         name: {
             type: "string",
             transform: ["trim"],
+            pattern: "^[a-zA-Z0-9]+$",
             minLength: 3,
             maxLength: 30,
             errorMessage: "Invalid name, minimum 3 and maximum 30",
@@ -15,6 +16,7 @@ const userSchema: JSONSchemaType<CreateUserDataForm> = {
         surname: {
             type: "string",
             transform: ["trim"],
+            pattern: "^[a-zA-Z0-9]+$",
             minLength: 3,
             maxLength: 30,
             errorMessage: "Invalid surname, minimum 3 and maximum 30",

@@ -6,4 +6,9 @@ module.exports = {
     },
     transformIgnorePatterns: ["<rootDir>/node_modules/"],
     modulePathIgnorePatterns: ["<rootDir>/dist/"],
+    coverageThreshold: {
+        global: {
+            lines: 80,
+        },
+    },
 };

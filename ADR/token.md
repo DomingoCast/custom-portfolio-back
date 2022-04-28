@@ -23,4 +23,6 @@ From quick search I've found that the most used library for jwt is `jsonwebtoken
 ```bash
 import jwt from "jsonwebtoken");
 const token = jwt.sign({ exp: expirationDate, data: value  }, secret);
+
+jwt.verify(token, secret, (err,decoded) => {})
 ```

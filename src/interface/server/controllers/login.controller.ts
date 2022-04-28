@@ -5,7 +5,7 @@ type CustomRequest = Request & {
     container?: AwilixContainer;
 };
 
-const registerController = async (
+const loginController = async (
     req: CustomRequest,
     res: Response
 ): Promise<Response> => {
@@ -21,4 +21,4 @@ const registerController = async (
     }
 };
 
-export default registerController;
+export default loginController;

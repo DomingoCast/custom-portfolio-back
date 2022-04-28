@@ -29,7 +29,6 @@ const userSchema: JSONSchemaType<CreateUserDataForm> = {
         },
         password: {
             type: "string",
-            transform: ["trim"],
             minLength: 6,
             maxLength: 30,
             errorMessage: "Invalid password, minimum 6 and maximum 30",

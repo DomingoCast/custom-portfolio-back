@@ -1,7 +1,7 @@
 import { JSONSchemaType } from "ajv";
-import CreateUserDataForm from "./interface/create-user-data-form-interface";
+import { User } from "../../../core/domain/user/user";
 
-const userSchema: JSONSchemaType<CreateUserDataForm> = {
+const userSchema: JSONSchemaType<Omit<User, "id">> = {
     type: "object",
     required: ["name", "surname", "email", "password", "phone", "address"],
     properties: {

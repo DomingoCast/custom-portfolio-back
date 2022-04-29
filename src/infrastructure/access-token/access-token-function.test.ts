@@ -12,6 +12,6 @@ describe("Test for access Token", () => {
     it("Check the function verifyAccessToken", () => {
         const accessToken =
             accessTokenFunction().verifyAccessToken("hola@gmail.com");
-        expect(accessToken).toBe(true);
+        expect(accessToken).toBeDefined();
     });
 });

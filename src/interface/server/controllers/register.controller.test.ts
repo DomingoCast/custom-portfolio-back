@@ -1,12 +1,11 @@
-import validateUserDataForm from "../../../infrastructure/user/validate-user/validate-user-data-form";
+import validateUser from "../../../infrastructure/user/validate-user/validate-user";
 import registerController from "./register.controller";
 
-jest.mock(
-    "../../../infrastructure/user/validate-user/validate-user-data-form",
-    () => jest.fn()
+jest.mock("../../../infrastructure/user/validate-user/validate-user", () =>
+    jest.fn()
 );
 
-const mockValidateUserDataForm = validateUserDataForm as unknown as jest.Mock;
+const mockValidateUserDataForm = validateUser as unknown as jest.Mock;
 
 describe("registerController", () => {
     const req: any = {

@@ -21,7 +21,15 @@ describe("Testing a trimp fields", () => {
             phone: "+447975777666",
             address: "Kiev, Ukraine",
         };
+        const userCorrect = {
+            name: "John",
+            surname: "Dean",
+            email: "john@gmail.com",
+            password: "   123456",
+            phone: "+447975777666",
+            address: "Kiev, Ukraine",
+        };
         const field = trimFields(user);
-        expect(field.name).toBe("John");
+        expect(field).toEqual(userCorrect);
     });
 });

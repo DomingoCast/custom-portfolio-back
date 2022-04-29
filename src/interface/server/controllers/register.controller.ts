@@ -14,7 +14,7 @@ const registerController = async (
 ): Promise<Response> => {
     try {
         const container = req.container!;
-        let dataForm = req.body;
+        let dataForm: any = req.body;
         if (req.body !== null) {
             dataForm = trimFields(req.body);
         }

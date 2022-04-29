@@ -1,9 +1,11 @@
+import jwtToken from "./jwt";
+
 const accessTokenFunction = () => {
-    const createAccessToken = () => {
-        return "Hello";
+    const createAccessToken = (value: string) => {
+        return jwtToken().createAcessToken(value);
     };
-    const verifyAccessToken = () => {
-        return "Ok";
+    const verifyAccessToken = (value: string) => {
+        return jwtToken().verifyAccessToken(createAccessToken(value), value);
     };
     return {
         createAccessToken,

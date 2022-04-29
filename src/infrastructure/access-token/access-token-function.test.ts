@@ -5,11 +5,13 @@ describe("Test for access Token", () => {
         expect(accessTokenFunction).toBeDefined();
     });
     it("Check the function createAccessToken", () => {
-        const accessToken = accessTokenFunction().createAccessToken();
-        expect(accessToken).toBe("Hello");
+        const accessToken =
+            accessTokenFunction().createAccessToken("hola@gmail.com");
+        expect(accessToken).toBeDefined();
     });
     it("Check the function verifyAccessToken", () => {
-        const accessToken = accessTokenFunction().verifyAccessToken();
-        expect(accessToken).toBe("Ok");
+        const accessToken =
+            accessTokenFunction().verifyAccessToken("hola@gmail.com");
+        expect(accessToken).toBe(true);
     });
 });

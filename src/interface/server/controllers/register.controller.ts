@@ -3,6 +3,7 @@ import { User } from "../../../core/domain/user/user";
 import { AwilixContainer } from "awilix";
 import validateUserDataForm from "../../../infrastructure/user/validate-user/validate-user-data-form";
 import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
+import CustomError from "../../../infrastructure/errors/custom-error";
 
 type CustomRequest = Request<{}, {}, Omit<User, "id">> & {
     container?: AwilixContainer;
@@ -17,6 +18,7 @@ const registerController = async (
         let dataForm: any = req.body;
         if (req.body !== null) {
             dataForm = trimFields(req.body);
+            container.logger.info("Trim fields from data form");
         }
         const validate = validateUserDataForm(dataForm);
         if (validate !== true) {
@@ -33,11 +35,9 @@ const registerController = async (
         }
         container.logger.error("User already exits");
         return res.status(409).send({ message: "User already exits" });
-    } catch (e) {
-        container.logger.error(e);
-        return res.status(500).send({
-            message: e,
-        });
+    } catch (error: any) {
+        container.logger.error(error);
+        throw new CustomError(error);
     }
 };
 

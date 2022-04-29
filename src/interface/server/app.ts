@@ -8,7 +8,6 @@ import { scopePerRequest } from "awilix-express";
 import loginController from "./controllers/login.controller";
 import CustomError from "../../infrastructure/errors/custom-error";
 
-
 export const createServer = (port: number) => {
     const app: Application = express();
     app.use(cors());

@@ -7,21 +7,21 @@ const fixtures = [
         expected: true,
     },
     {
-        user: {
+        login: {
             email: "john@gmail",
             password: "123456",
         },
         expected: "Invalid email",
     },
     {
-        user: {
+        login: {
             email: "john@gmail.com",
             password: "122",
         },
         expected: "Invalid password, minimum 6 and maximum 30",
     },
     {
-        user: {
+        login: {
             email: "john@gmail.com",
             password: "121321231223912239218482482183818248218284813",
         },

@@ -155,5 +155,28 @@ const fixtures = [
         },
         expected: true,
     },
+    {
+        user: {},
+        expected: [
+            "must have required property 'name'",
+            "must have required property 'surname'",
+            "must have required property 'email'",
+            "must have required property 'password'",
+            "must have required property 'phone'",
+            "must have required property 'address'",
+        ],
+    },
+    {
+        user: {
+            email: "john@gmail.com",
+            password: "123456",
+        },
+        expected: [
+            "must have required property 'name'",
+            "must have required property 'surname'",
+            "must have required property 'phone'",
+            "must have required property 'address'",
+        ],
+    },
 ];
 export default fixtures;

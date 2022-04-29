@@ -5,7 +5,7 @@ describe("Testing of diferents type of Users", () => {
     test.each(fixtures)(
         "Testing some fields from users",
         ({ user, expected }) => {
-            const validate = validateUserDataForm(user);
+            const validate = validateUserDataForm(<any>user);
             expect(validate).toStrictEqual(expected);
         }
     );

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { User } from "../../../core/domain/user/user";
 import { AwilixContainer } from "awilix";
-import validateUserDataForm from "../../../infrastructure/user/validate-user/validate-user-data-form";
+import validateUser from "../../../infrastructure/user/validate-user/validate-user";
 
 type CustomRequest = Request<{}, {}, Omit<User, "id">> & {
     container?: AwilixContainer;
@@ -14,7 +14,7 @@ const registerController = async (
     const container = req.container?.cradle!;
     try {
         const dataForm = req.body;
-        const validate = validateUserDataForm(dataForm);
+        const validate = validateUser(dataForm);
         if (validate !== true) {
             container.logger.error(validate);
             return res.status(400).send({ message: validate });
@@ -23,7 +23,7 @@ const registerController = async (
         const response: null | User =
             await container.cradle.registerUserUseCase(user);
         if (response) {
-            container.logger.info(partialUser);
+            container.logger.info(response);
             return res
                 .status(200)
                 .send({ message: "User has been registered" });

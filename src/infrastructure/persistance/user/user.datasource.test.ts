@@ -1,5 +1,4 @@
 import createUserRepository from "./user.datasource";
-import * as datasources from "../postgres.datasources";
 jest.mock("../postgres.datasources", () => ({
     dataSource: {
         getRepository: () => ({ save: jest.fn(async (x) => await x) }),

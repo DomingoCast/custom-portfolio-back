@@ -20,11 +20,13 @@ const registerController = async (
             return res.status(400).send({ message: validate });
         }
         const user: Omit<User, "id"> = req.body;
-        const newUser: null | User = await container.registerUserUseCase(user);
-        if (newUser) {
-            const partialUser = { ...newUser, password: "***" };
+        const response: null | User =
+            await container.cradle.registerUserUseCase(user);
+        if (response) {
             container.logger.info(partialUser);
-            return res.status(200).send({ message: partialUser });
+            return res
+                .status(200)
+                .send({ message: "User has been registered" });
         }
         container.logger.error("User already exits");
         return res.status(409).send({ message: "User already exits" });

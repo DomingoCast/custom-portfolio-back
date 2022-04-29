@@ -11,24 +11,25 @@ const registerController = async (
     req: CustomRequest,
     res: Response
 ): Promise<Response> => {
+    const container = req.container?.cradle!;
     try {
-        const container = req.container!;
         const dataForm = req.body;
         const validate = validateUserDataForm(dataForm);
-        if (validate !== true)
+        if (validate !== true) {
+            container.logger.error(validate);
             return res.status(400).send({ message: validate });
+        }
         const user: Omit<User, "id"> = req.body;
-        const newUser: null | User = await container.cradle.registerUserUseCase(
-            user
-        );
+        const newUser: null | User = await container.registerUserUseCase(user);
         if (newUser) {
             const partialUser = { ...newUser, password: "***" };
-
+            container.logger.info(partialUser);
             return res.status(200).send({ message: partialUser });
         }
+        container.logger.error("User already exits");
         return res.status(409).send({ message: "User already exits" });
     } catch (e) {
-        console.error(e);
+        container.logger.error(e);
         return res.status(500).send({
             message: e,
         });

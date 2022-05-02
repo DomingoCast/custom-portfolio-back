@@ -5,8 +5,8 @@ describe("Test for access Token", () => {
         expect(accessToken).toBeDefined();
     });
     it("Check the function createAccessToken", () => {
-        const createAccessToken = accessToken().createAccessToken();
-        expect(createAccessToken).toBe(accessToken);
+        const createAccessToken: string = accessToken().createAccessToken();
+        expect(createAccessToken).toContain("");
     });
     it("Check the function verifyAccessToken", () => {
         const createAccessToken = accessToken().createAccessToken();

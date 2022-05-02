@@ -1,6 +1,5 @@
 import { AwilixContainer } from "awilix";
 import { Request, Response } from "express";
-import CustomError from "../../../infrastructure/errors/custom-error";
 
 type CustomRequest = Request & {
     container?: AwilixContainer;
@@ -8,16 +7,16 @@ type CustomRequest = Request & {
 
 const loginController = async (
     req: CustomRequest,
-    res: Response
-): Promise<Response> => {
+    res: Response,
+    next: any
+): Promise<void | Response> => {
     const container = req.container?.cradle!;
     try {
-        const response = container.loginUseCase(req.body);
+        const response = await container.loginUseCase(req.body);
         container.logger.info(response);
         return res.status(200).send({ message: response });
     } catch (error: any) {
-        container.logger.error(error);
-        throw new CustomError(error);
+        next(error);
     }
 };
 

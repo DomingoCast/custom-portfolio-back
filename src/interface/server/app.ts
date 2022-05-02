@@ -8,19 +8,25 @@ import { scopePerRequest } from "awilix-express";
 import loginController from "./controllers/login.controller";
 import CustomError from "../../infrastructure/errors/custom-error";
 
-
 export const createServer = (port: number) => {
     const app: Application = express();
     app.use(cors());
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(scopePerRequest(container));
+    app.use((err: any, req: any, res: any, next: any) => {
+        res.status(500).send(err);
+    });
 
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
     app.post("/login", loginController);
 
     app.post("/register", registerController); // makeInvoker(registerController));
+
+    app.use((err: any, req: any, res: any, next: any) => {
+        res.status(500).send({ message: err.message });
+    });
 
     return {
         app: app,

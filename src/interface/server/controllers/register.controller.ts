@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { User } from "../../../core/domain/user/user";
 import { AwilixContainer } from "awilix";
 import validateUser from "../../../infrastructure/user/validate-user/validate-user";
-import { nextTick } from "process";
 
 type CustomRequest = Request<{}, {}, Omit<User, "id">> & {
     container?: AwilixContainer;
@@ -12,7 +11,7 @@ const registerController = async (
     req: CustomRequest,
     res: Response,
     next: any
-): Promise<any> /*Promise<Response>*/ => {
+): Promise<void | Response> => {
     try {
         const container = req.container?.cradle!;
         const dataForm = req.body;

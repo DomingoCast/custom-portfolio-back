@@ -1,4 +1,3 @@
-import { SimpleConsoleLogger } from "typeorm";
 import { runServer, createServer } from "./app";
 
 describe("createServer", () => {

@@ -18,7 +18,7 @@ describe("loginController", () => {
                 send: sendResponse,
             })),
         };
-        const response = await loginController(req, res, next);
+        await loginController(req, res, next);
         expect(res.status).toHaveBeenCalledWith(200);
         expect(sendResponse).toHaveBeenCalledWith({ message: req.body });
     });

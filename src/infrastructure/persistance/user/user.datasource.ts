@@ -15,7 +15,8 @@ const createUserRepository = (): UserRepository => {
         const response = await userRepository.find({
             where: { email: email },
         });
-        if (response) return true;
+        console.log("[RESPONSE]", response);
+        if (response.length > 0) return true;
         return false;
     };
     return {

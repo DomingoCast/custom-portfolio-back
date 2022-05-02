@@ -27,7 +27,7 @@ const registerController = async (
                 .status(200)
                 .send({ message: "User has been registered" });
         }
-        container.logger.error("User already exits");
+        container.logger.error("An error has ocurred in the repository");
         return res.status(409).send({ message: "User already exits" });
     } catch (e) {
         container.logger.error(e);

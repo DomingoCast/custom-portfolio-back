@@ -20,8 +20,7 @@ const registerController = async (
             return res.status(400).send({ message: validate });
         }
         const user: Omit<User, "id"> = req.body;
-        const response: null | User =
-            await container.cradle.registerUserUseCase(user);
+        const response: null | User = await container.registerUserUseCase(user);
         if (response) {
             container.logger.info(response);
             return res

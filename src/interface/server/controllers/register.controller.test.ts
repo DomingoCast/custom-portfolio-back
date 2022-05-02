@@ -1,16 +1,20 @@
-import validateUserDataForm from "../../../infrastructure/user/validate-user/validate-user-data-form";
+import validateUser from "../../../infrastructure/user/validate-user/validate-user";
 import registerController from "./register.controller";
 
-jest.mock(
-    "../../../infrastructure/user/validate-user/validate-user-data-form",
-    () => jest.fn()
+jest.mock("../../../infrastructure/user/validate-user/validate-user", () =>
+    jest.fn()
 );
 
-const mockValidateUserDataForm = validateUserDataForm as unknown as jest.Mock;
+const mockValidateUserDataForm = validateUser as unknown as jest.Mock;
 
 describe("registerController", () => {
     const req: any = {
         body: null,
+        container: {
+            cradle: {
+                logger: { error: jest.fn, info: jest.fn },
+            },
+        },
     };
     const res: any = {
         status: jest.fn((x) => ({
@@ -30,7 +34,10 @@ describe("registerController", () => {
         const req: any = {
             body: null,
             container: {
-                cradle: { registerUserUseCase: jest.fn(async (x) => await x) },
+                cradle: {
+                    registerUserUseCase: jest.fn(async (x) => await x),
+                    logger: { error: jest.fn, info: jest.fn },
+                },
             },
         };
         mockValidateUserDataForm.mockImplementation(() => true);

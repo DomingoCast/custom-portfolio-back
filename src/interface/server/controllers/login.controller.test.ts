@@ -5,7 +5,10 @@ describe("loginController", () => {
         const req: any = {
             body: null,
             container: {
-                cradle: { loginUseCase: jest.fn((x) => x) },
+                cradle: {
+                    loginUseCase: jest.fn((x) => x),
+                    logger: { error: jest.fn, info: jest.fn },
+                },
             },
         };
         const sendResponse = jest.fn();

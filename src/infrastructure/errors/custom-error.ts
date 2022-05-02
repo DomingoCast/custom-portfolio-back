@@ -5,7 +5,7 @@ class CustomError extends Error {
         Object.setPrototypeOf(this, CustomError.prototype);
     }
 
-    getCustomMessage() {
+    getCustomMessage(): string {
         return "An error had occurred: " + this.message;
     }
 }

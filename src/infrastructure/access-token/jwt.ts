@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import CustomError from "../errors/custom-error";
 import "dotenv/config";
-const JWT_SECRET: string = process.env.JWT_SECRET || "";
+const JWT_SECRET: string = process.env.JWT_SECRET || "test";
 
 const jwtToken = () => {
     const createAcessToken = () => {

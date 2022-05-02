@@ -1,5 +1,7 @@
-import arrayExceptions from "./array-exceptions";
-const trimFields = (objectToTrim: object): object => {
+const trimFields = (
+    objectToTrim: object,
+    arrayExceptions: Array<string>
+): object => {
     const newObject: { [key: string]: string } = { ...objectToTrim };
     Object.keys(newObject).forEach((key) => {
         if (typeof newObject[key] === "string") {

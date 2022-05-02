@@ -4,6 +4,7 @@ import { AwilixContainer } from "awilix";
 import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
 import CustomError from "../../../infrastructure/errors/custom-error";
 import validateUser from "../../../infrastructure/user/validate-user/validate-user";
+import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
 
 type CustomRequest = Request<{}, {}, Omit<User, "id">> & {
     container?: AwilixContainer;
@@ -17,7 +18,7 @@ const registerController = async (
     try {
         let dataForm: any = req.body;
         if (req.body !== null) {
-            dataForm = trimFields(req.body);
+            dataForm = trimFields(req.body, arrayExceptions);
             container.logger.info("Trim fields from data form");
         }
 

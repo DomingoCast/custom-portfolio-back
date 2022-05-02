@@ -1,12 +1,23 @@
 import { createServer } from "./interface/server/app";
+import { createDBConnection } from "./infrastructure/persistance/postgres.datasources";
+import { startApplication } from ".";
 
-const axios = require("axios");
+jest.mock("./interface/server/app", () => ({
+    createServer: jest.fn(() => ({ run: jest.fn })),
+}));
+jest.mock("./infrastructure/persistance/postgres.datasources", () => ({
+    createDBConnection: jest.fn(() => ({
+        dataSource: null,
+        connect: jest.fn(),
+    })),
+}));
+const createServerMock = createServer as unknown as jest.Mock;
+const createDBConnectionMock = createDBConnection as unknown as jest.Mock;
 
-describe("start the server", () => {
-    it("starts on 3000", async () => {
-        const server = createServer(3000).run();
-        const response = await axios.get("http://localhost:3000/api-docs");
-        expect(response.status).toBe(200);
-        server?.close();
+describe("unit tests", () => {
+    it("calls every function when start application", () => {
+        startApplication();
+        expect(createServerMock).toHaveBeenCalledWith(3000);
+        expect(createDBConnectionMock).toHaveBeenCalled();
     });
 });

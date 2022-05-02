@@ -4,7 +4,7 @@ import "dotenv/config";
 const JWT_SECRET: string = process.env.JWT_SECRET || "test";
 
 const jwtToken = () => {
-    const createAcessToken = () => {
+    const createToken = () => {
         try {
             return jwt.sign(
                 { exp: Math.floor(Date.now() / 1000) + 60 * 60 },
@@ -14,7 +14,7 @@ const jwtToken = () => {
             throw new CustomError(error.message);
         }
     };
-    const verifyAccessToken = (token: string) => {
+    const verifyToken = (token: string) => {
         try {
             const decoded = jwt.verify(token, JWT_SECRET);
             return decoded;
@@ -23,8 +23,8 @@ const jwtToken = () => {
         }
     };
     return {
-        createAcessToken,
-        verifyAccessToken,
+        createToken,
+        verifyToken,
     };
 };
 

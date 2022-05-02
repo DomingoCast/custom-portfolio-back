@@ -1,15 +1,15 @@
 import jwtToken from "./jwt";
 
 const accessToken = () => {
-    const createAccessToken = () => {
-        return jwtToken().createAcessToken();
+    const create = () => {
+        return jwtToken().createToken();
     };
-    const verifyAccessToken = (token: string) => {
-        return jwtToken().verifyAccessToken(token);
+    const verify = (token: string) => {
+        return jwtToken().verifyToken(token);
     };
     return {
-        createAccessToken,
-        verifyAccessToken,
+        create,
+        verify,
     };
 };
 export default accessToken;

@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { User } from "../../../core/domain/user/user";
 import { AwilixContainer } from "awilix";
-import validateUserDataForm from "../../../infrastructure/user/validate-user/validate-user-data-form";
 import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
 import CustomError from "../../../infrastructure/errors/custom-error";
+import validateUser from "../../../infrastructure/user/validate-user/validate-user";
 
 type CustomRequest = Request<{}, {}, Omit<User, "id">> & {
     container?: AwilixContainer;
@@ -20,7 +20,8 @@ const registerController = async (
             dataForm = trimFields(req.body);
             container.logger.info("Trim fields from data form");
         }
-        const validate = validateUserDataForm(dataForm);
+
+        const validate = validateUser(dataForm);
         if (validate !== true) {
             container.logger.error(validate);
             return res.status(400).send({ message: validate });

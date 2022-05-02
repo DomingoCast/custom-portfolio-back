@@ -1,13 +1,13 @@
 import fixtures from "./fixtures/validate-register.fixtures";
-import validateUserDataForm from "./validate-user-data-form";
 import trimFields from "../../share/trim-fields/trim-fields";
+import validateUserDataForm from "./validate-user";
 
 describe("Testing of diferents type of Users", () => {
     test.each(fixtures)(
         "Testing some fields from users",
         ({ user, expected }) => {
-            const validate = validateUserDataForm(user);
-            expect(validate).toBe(expected);
+            const validate = validateUserDataForm(<any>user);
+            expect(validate).toStrictEqual(expected);
         }
     );
 });

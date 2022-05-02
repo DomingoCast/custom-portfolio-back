@@ -1,6 +1,7 @@
 import "reflect-metadata";
 
 import { DataSource } from "typeorm";
+import CustomError from "../errors/custom-error";
 import UserModel from "./user/user.model";
 
 export let dataSource: DataSource;
@@ -27,7 +28,9 @@ export const createDBConnection = () => {
                 console.log("Data Source has been initialized!");
             })
             .catch((error: any) => {
-                console.error("Error during Data Source initialization", error);
+                const errorMessage =
+                    "Error during Data Source initialization " + error;
+                throw new CustomError(errorMessage);
             });
     };
 

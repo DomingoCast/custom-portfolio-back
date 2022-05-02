@@ -11,7 +11,9 @@ describe("registerController", () => {
     const req: any = {
         body: null,
         container: {
-            cradle: { logger: { error: jest.fn, info: jest.fn } },
+            cradle: {
+                logger: { error: jest.fn, info: jest.fn },
+            },
         },
     };
     const res: any = {
@@ -19,13 +21,14 @@ describe("registerController", () => {
             send: jest.fn,
         })),
     };
+    const next = jest.fn;
     it("doesn't register null", () => {
-        registerController(req, res);
+        registerController(req, res, next);
         expect(res.status).toHaveBeenCalledWith(400);
     });
     it("validates the input", () => {
         mockValidateUser.mockImplementation(jest.fn());
-        registerController(req, res);
+        registerController(req, res, next);
         expect(mockValidateUser).toHaveBeenCalledWith(req.body);
     });
     it("calls the usecase if the validation works", () => {
@@ -39,7 +42,7 @@ describe("registerController", () => {
             },
         };
         mockValidateUser.mockImplementation(() => true);
-        registerController(req, res);
+        registerController(req, res, next);
         expect(req.container.cradle.registerUserUseCase).toHaveBeenCalledWith(
             req.body
         );

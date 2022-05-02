@@ -1,1 +1,1 @@
-export type ValidationResponse = string | boolean;
+export type ValidationResponse = Array<string> | boolean;

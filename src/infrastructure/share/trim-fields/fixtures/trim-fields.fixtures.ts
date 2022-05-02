@@ -1,5 +1,6 @@
 const fixtures = [
     {
+        description: "Quit whitespace into a object except password",
         object: {
             name: "           John",
             surname: "Dean",
@@ -18,6 +19,8 @@ const fixtures = [
         },
     },
     {
+        description:
+            "Pass Object quit whitespace into a string except password",
         object: {
             name: "John              ",
             password: "      123456    ",
@@ -28,6 +31,9 @@ const fixtures = [
         },
     },
     {
+        description:
+            "Pass Object quit whitespace into a string except password",
+
         object: {
             name: "          John              ",
             password: "      123  456    ",
@@ -40,6 +46,8 @@ const fixtures = [
         },
     },
     {
+        description:
+            "Pass Object with colors and quit whitespace into a string except password",
         object: {
             color: "          Yellow, Green              ",
 
@@ -51,6 +59,8 @@ const fixtures = [
         },
     },
     {
+        description:
+            "Pass Object with carModel and quit whitespace except password",
         object: {
             carModel: "          c4, c5, c8, c1              ",
 
@@ -59,6 +69,16 @@ const fixtures = [
         expected: {
             carModel: "c4, c5, c8, c1",
             password: "      123456    ",
+        },
+    },
+    {
+        description:
+            "Pass Object with thousand separator special spaces and quit whitespace",
+        object: {
+            separator: "  4 294 967 295,000 000  ",
+        },
+        expected: {
+            separator: "4 294 967 295,000 000",
         },
     },
 ];

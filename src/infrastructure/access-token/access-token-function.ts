@@ -1,11 +1,11 @@
 import jwtToken from "./jwt";
 
 const accessTokenFunction = () => {
-    const createAccessToken = (value: string) => {
-        return jwtToken().createAcessToken(value);
+    const createAccessToken = () => {
+        return jwtToken().createAcessToken();
     };
-    const verifyAccessToken = (value: string) => {
-        return jwtToken().verifyAccessToken(createAccessToken(value), value);
+    const verifyAccessToken = (token: string) => {
+        return jwtToken().verifyAccessToken(token);
     };
     return {
         createAccessToken,

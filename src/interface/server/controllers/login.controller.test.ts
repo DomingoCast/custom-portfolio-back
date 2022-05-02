@@ -15,7 +15,7 @@ describe("loginController", () => {
             container: {
                 cradle: {
                     loginUseCase: jest.fn((x) => x),
-                    logger: { error: jest.fn() },
+                    logger: { error: jest.fn, info: jest.fn },
                 },
             },
         };

@@ -1,3 +1,4 @@
+import { SimpleConsoleLogger } from "typeorm";
 import { runServer, createServer } from "./app";
 
 describe("createServer", () => {
@@ -13,7 +14,12 @@ describe("runServer", () => {
     };
     it("starts server", async () => {
         const port = 3001;
-        runServer(mockApp, port);
+        try {
+            const server = runServer(mockApp, port);
+            console.log(server);
+        } catch (err) {
+            console.error(err);
+        }
         expect(mockApp.listen).toHaveBeenCalled();
     });
 });

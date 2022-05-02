@@ -16,6 +16,7 @@ const loginController = async (
         container.logger.info(response);
         return res.status(200).send({ message: response });
     } catch (error: any) {
+        console.log("ADIOS");
         next(error);
     }
 };

@@ -26,6 +26,7 @@ describe("Regiter user use case", () => {
         };
         const userRepository: any = {
             persist: jest.fn(async () => await userSafe),
+            findEmail: jest.fn(async () => await false),
         };
         const hashFunction: any = {
             hash: jest.fn(async () => await hashPassword),
@@ -63,6 +64,7 @@ describe("Regiter user use case", () => {
         const userSafe: null = null;
         const userRepository: any = {
             persist: jest.fn(async () => await userSafe),
+            findEmail: jest.fn(async () => await false),
         };
         const hashFunction: any = {
             hash: jest.fn(async () => await hashPassword),

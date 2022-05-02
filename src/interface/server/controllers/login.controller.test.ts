@@ -1,7 +1,7 @@
 import loginController from "./login.controller";
 
 describe("loginController", () => {
-    it("returns the response of the loginUseCase given a container", () => {
+    it("returns the response of the loginUseCase given a container", async () => {
         const req: any = {
             body: null,
             container: {
@@ -18,7 +18,7 @@ describe("loginController", () => {
                 send: sendResponse,
             })),
         };
-        loginController(req, res, next);
+        const response = await loginController(req, res, next);
         expect(res.status).toHaveBeenCalledWith(200);
         expect(sendResponse).toHaveBeenCalledWith({ message: req.body });
     });

@@ -1,6 +1,6 @@
 import jwtToken from "./jwt";
 
-const accessTokenFunction = () => {
+const accessToken = () => {
     const createAccessToken = () => {
         return jwtToken().createAcessToken();
     };
@@ -12,4 +12,4 @@ const accessTokenFunction = () => {
         verifyAccessToken,
     };
 };
-export default accessTokenFunction;
+export default accessToken;

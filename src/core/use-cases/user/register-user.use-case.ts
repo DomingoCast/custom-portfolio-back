@@ -24,7 +24,7 @@ const registerUserUseCase =
             password: await hashFunction.hash(user.password),
         };
 
-        if (await userRepository.findEmail(user.email))
+        if (await userRepository.findByEmail(user.email))
             throw new CustomError("Email already in the database");
 
         const userResponse = await userRepository.persist(userSafe);

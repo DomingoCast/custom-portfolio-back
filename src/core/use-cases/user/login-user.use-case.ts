@@ -9,7 +9,7 @@ type LoginUseCaseProps = {
 const loginUseCase =
     ({ userRepository }: LoginUseCaseProps): LoginUseCase =>
     async (loginInfo: LoginInfo): Promise<void> => {
-        if (!(await userRepository.findEmail(loginInfo.email)))
+        if (!(await userRepository.findByEmail(loginInfo.email)))
             throw new CustomError("Email not in database");
     };
 

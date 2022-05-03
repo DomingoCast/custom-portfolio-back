@@ -11,7 +11,7 @@ const loginController = async (
     req: CustomRequest,
     res: Response
 ): Promise<Response> => {
-    const container = req.container!.cradle;
+    const container = req.container?.cradle;
     try {
         const loginInfo = req.body;
         const validate = validateLogin(loginInfo);
@@ -19,7 +19,9 @@ const loginController = async (
             container.logger.error(validate);
             return res.status(400).send({ message: validate });
         }
-        const response = container.loginUseCase(req.body);
+        const response = container.loginUseCase(loginInfo);
+        container.accessToken.create(response);
+        container.logger.info("TokenAccess created");
         container.logger.info(response);
         return res.status(200).send({ message: response });
     } catch (error: any) {

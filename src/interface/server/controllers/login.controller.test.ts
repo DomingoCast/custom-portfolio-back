@@ -16,6 +16,10 @@ describe("loginController", () => {
                 cradle: {
                     loginUseCase: jest.fn((x) => x),
                     logger: { error: jest.fn, info: jest.fn },
+                    accessToken: {
+                        create: jest.fn((x) => x),
+                        verify: jest.fn((x) => x),
+                    },
                 },
             },
         };

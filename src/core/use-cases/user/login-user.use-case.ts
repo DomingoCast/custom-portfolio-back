@@ -1,9 +1,10 @@
 import { LoginInfo } from "../../domain/user/login-info";
 import { User } from "../../domain/user/user";
-type RegisterUserUseCase = (loginInfo: LoginInfo) => Promise<User | null>;
+type LoginUseCase = (loginInfo: LoginInfo) => Promise<User | null>;
 
 const loginUseCase =
-    (): RegisterUserUseCase => async (): Promise<User | null> => {
+    (loginInfo: LoginInfo): LoginUseCase =>
+    async (): Promise<User | null> => {
         return null;
     };
 

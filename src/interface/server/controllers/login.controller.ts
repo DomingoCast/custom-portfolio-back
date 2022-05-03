@@ -1,8 +1,6 @@
 import { AwilixContainer } from "awilix";
 import { Request, Response } from "express";
 import validateLogin from "../../../infrastructure/user/validate-login/validate-login";
-import CustomError from "../../../infrastructure/errors/custom-error";
-
 
 type CustomRequest = Request & {
     container?: AwilixContainer;

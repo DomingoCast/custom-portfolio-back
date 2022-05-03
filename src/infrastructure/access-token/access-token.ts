@@ -1,8 +1,8 @@
 import jwtToken from "./jwt";
 
 const accessToken = () => {
-    const create = () => {
-        return jwtToken().createToken();
+    const create = (UserLogin: any) => {
+        return jwtToken().createToken(UserLogin);
     };
     const verify = (token: string) => {
         return jwtToken().verifyToken(token);

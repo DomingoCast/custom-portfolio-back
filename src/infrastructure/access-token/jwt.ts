@@ -4,10 +4,13 @@ import "dotenv/config";
 const JWT_SECRET: string = process.env.JWT_SECRET || "test";
 
 const jwtToken = () => {
-    const createToken = () => {
+    const createToken = (UserLogin: any) => {
         try {
             return jwt.sign(
-                { exp: Math.floor(Date.now() / 1000) + 60 * 60 },
+                {
+                    exp: Math.floor(Date.now() / 1000) + 60 * 60,
+                    data: UserLogin,
+                },
                 JWT_SECRET
             );
         } catch (error: any) {
@@ -16,10 +19,9 @@ const jwtToken = () => {
     };
     const verifyToken = (token: string) => {
         try {
-            const decoded = jwt.verify(token, JWT_SECRET);
-            return decoded;
+            return jwt.verify(token, JWT_SECRET);
         } catch (error: any) {
-            throw new CustomError(error.message);
+            throw new CustomError(error);
         }
     };
     return {

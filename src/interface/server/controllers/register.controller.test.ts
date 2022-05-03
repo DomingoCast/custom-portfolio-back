@@ -43,7 +43,8 @@ describe("registerController", () => {
         mockValidateUserDataForm.mockImplementation(() => true);
         registerController(req, res);
         expect(req.container.cradle.registerUserUseCase).toHaveBeenCalledWith(
-            req.body
+            req.body,
+            "worker"
         );
     });
 });

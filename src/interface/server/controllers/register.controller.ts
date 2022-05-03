@@ -2,8 +2,9 @@ import { Request, Response } from "express";
 import { User } from "../../../core/domain/user/user";
 import { AwilixContainer } from "awilix";
 import validateUser from "../../../infrastructure/user/validate-user/validate-user";
+import { RegisterInfo } from "../../../core/domain/user/register-info";
 
-type CustomRequest = Request<{}, {}, Omit<User, "id">> & {
+type CustomRequest = Request<{}, {}, RegisterInfo> & {
     container?: AwilixContainer;
 };
 
@@ -19,8 +20,11 @@ const registerController = async (
             container.logger.error(validate);
             return res.status(400).send({ message: validate });
         }
-        const user: Omit<User, "id"> = req.body;
-        const response: null | User = await container.registerUserUseCase(user);
+        const user: RegisterInfo = req.body;
+        const response: null | User = await container.registerUserUseCase(
+            user,
+            "worker"
+        );
         if (response) {
             container.logger.info(response);
             return res

@@ -1,7 +1,7 @@
 import { JSONSchemaType } from "ajv";
-import { User } from "../../../core/domain/user/user";
+import { RegisterInfo } from "../../../core/domain/user/register-info";
 
-const userSchema: JSONSchemaType<Omit<User, "id">> = {
+const userSchema: JSONSchemaType<RegisterInfo> = {
     type: "object",
     required: ["name", "surname", "email", "password", "phone", "address"],
     properties: {

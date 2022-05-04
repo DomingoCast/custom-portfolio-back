@@ -12,11 +12,10 @@ const createUserRepository = (): UserRepository => {
             .catch(() => null);
     };
     const findByEmail = async (email: string): Promise<User | null> => {
-        const response = await userRepository.find({
+        const response = await userRepository.findOne({
             where: { email: email },
         });
-        if (response.length > 0) return response[0];
-        return null;
+        return response;
     };
     return {
         persist,

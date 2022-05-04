@@ -32,6 +32,8 @@ describe("loginController", () => {
         loginController(req, res);
         expect(mockValidateLogin).toHaveBeenCalledWith(req.body);
         expect(res.status).toHaveBeenCalledWith(200);
-        expect(sendResponse).toHaveBeenCalledWith({ message: req.body });
+        expect(sendResponse).toHaveBeenCalledWith({
+            message: { token: req.body },
+        });
     });
 });

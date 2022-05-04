@@ -1,8 +1,9 @@
+import { LoginInfo } from "../../core/domain/user/login-info";
 import jwtToken from "./jwt";
 import { VerifyResponse } from "./verify.type";
 
 const accessToken = () => {
-    const create = (userLogin: object): string => {
+    const create = (userLogin: Omit<LoginInfo, "password">): string => {
         return jwtToken().createToken(userLogin);
     };
     const verify = (token: string): VerifyResponse => {

@@ -4,6 +4,7 @@ import validateLogin from "../../../infrastructure/user/validate-login/validate-
 import CustomError from "../../../infrastructure/errors/custom-error";
 import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
 import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
+import { LoginInfo } from "../../../core/domain/user/login-info";
 
 type CustomRequest = Request & {
     container?: AwilixContainer;
@@ -25,11 +26,12 @@ const loginController = async (
             container.logger.error(validate);
             return res.status(400).send({ message: validate });
         }
-        const response = container.loginUseCase(loginInfo);
-        container.accessToken.create(response);
+        const response: Omit<LoginInfo, "password"> =
+            container.loginUseCase(loginInfo);
+        const token: string = container.accessToken.create(response);
         container.logger.info("TokenAccess created");
         container.logger.info(response);
-        return res.status(200).send({ message: response });
+        return res.status(200).send({ message: token });
     } catch (error: any) {
         container.logger.error(error);
         throw new CustomError(error);

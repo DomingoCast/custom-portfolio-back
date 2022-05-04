@@ -2,10 +2,11 @@ import jwt from "jsonwebtoken";
 import CustomError from "../errors/custom-error";
 import "dotenv/config";
 import { VerifyResponse } from "./verify.type";
+import { LoginInfo } from "../../core/domain/user/login-info";
 const JWT_SECRET: string = process.env.JWT_SECRET || "test";
 
 const jwtToken = () => {
-    const createToken = (userLogin: any): string => {
+    const createToken = (userLogin: Omit<LoginInfo, "password">): string => {
         try {
             return jwt.sign(
                 {

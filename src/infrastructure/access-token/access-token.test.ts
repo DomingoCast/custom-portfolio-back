@@ -1,7 +1,7 @@
+import { LoginInfo } from "../../core/domain/user/login-info";
 import accessToken from "./access-token";
 import { VerifyResponse } from "./verify.type";
-const userLogin: object = {
-    id: "1",
+const userLogin: Omit<LoginInfo, "password"> = {
     email: "test@gmail.com",
 };
 const createAccessToken: string = accessToken().create(userLogin);

@@ -14,12 +14,19 @@ export const createServer = (port: number) => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(scopePerRequest(container));
+    app.use((err: any, req: any, res: any, next: any) => {
+        res.status(500).send(err);
+    });
 
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
     app.post("/login", loginController);
 
     app.post("/register", registerController); // makeInvoker(registerController));
+
+    app.use((err: any, req: any, res: any, next: any) => {
+        res.status(500).send({ message: err.message });
+    });
 
     return {
         app: app,

@@ -1,10 +1,16 @@
+import CustomError from "../../../infrastructure/errors/custom-error";
 import { LoginInfo } from "../../domain/user/login-info";
-import { User } from "../../domain/user/user";
-type RegisterUserUseCase = (loginInfo: LoginInfo) => Promise<User | null>;
+import UserRepository from "../../ports/user-repository.port";
+type LoginUseCase = (loginInfo: LoginInfo) => void;
 
+type LoginUseCaseProps = {
+    userRepository: UserRepository;
+};
 const loginUseCase =
-    (): RegisterUserUseCase => async (): Promise<User | null> => {
-        return null;
+    ({ userRepository }: LoginUseCaseProps): LoginUseCase =>
+    async (loginInfo: LoginInfo): Promise<void> => {
+        if (!(await userRepository.findByEmail(loginInfo.email)))
+            throw new CustomError("Email not in database");
     };
 
 export default loginUseCase;

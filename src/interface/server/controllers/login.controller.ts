@@ -1,8 +1,9 @@
 import { AwilixContainer } from "awilix";
 import { Request, Response } from "express";
 import validateLogin from "../../../infrastructure/user/validate-login/validate-login";
+import { LoginInfo } from "../../../core/domain/user/login-info";
 
-type CustomRequest = Request & {
+type CustomRequest = Request<{}, {}, LoginInfo> & {
     container?: AwilixContainer;
 };
 
@@ -19,7 +20,7 @@ const loginController = async (
             container.logger.error(validate);
             return res.status(400).send({ message: validate });
         }
-        const response = container.loginUseCase(req.body);
+        const response = await container.loginUseCase(req.body);
         container.logger.info(response);
         return res.status(200).send({ message: response });
     } catch (error: any) {

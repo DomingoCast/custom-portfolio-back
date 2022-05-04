@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { User } from "../../../core/domain/user/user";
 import { AwilixContainer } from "awilix";
 import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
-import CustomError from "../../../infrastructure/errors/custom-error";
 import validateUser from "../../../infrastructure/user/validate-user/validate-user";
 import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
 

@@ -17,6 +17,10 @@ describe("loginController", () => {
                 cradle: {
                     loginUseCase: jest.fn((x) => x),
                     logger: { error: jest.fn, info: jest.fn },
+                    accessToken: {
+                        create: jest.fn((x) => x),
+                        verify: jest.fn((x) => x),
+                    },
                 },
             },
         };
@@ -31,6 +35,8 @@ describe("loginController", () => {
         await loginController(req, res, next);
         expect(mockValidateLogin).toHaveBeenCalledWith(req.body);
         expect(res.status).toHaveBeenCalledWith(200);
-        expect(sendResponse).toHaveBeenCalledWith({ message: req.body });
+        expect(sendResponse).toHaveBeenCalledWith({
+            message: { token: req.body },
+        });
     });
 });

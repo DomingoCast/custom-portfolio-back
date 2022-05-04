@@ -1,4 +1,5 @@
 import { RegisterInfo } from "../../domain/user/register-info";
+import { Role } from "../../domain/user/role.enum";
 import { User } from "../../domain/user/user";
 import UserRepository from "../../ports/user-repository.port";
 import registerUserUseCase from "./register-user.use-case";
@@ -25,7 +26,7 @@ describe("Regiter user use case", () => {
         const userSafe: User = {
             ...newUser,
             id: "",
-            role: "worker",
+            role: Role.worker,
         };
         const userRepository: UserRepository = {
             persist: jest.fn(async () => await userSafe),

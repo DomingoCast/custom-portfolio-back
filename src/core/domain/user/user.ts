@@ -1,4 +1,4 @@
-import { EnumType } from "typescript";
+import { Role } from "./role.enum";
 
 export interface User {
     id: string;

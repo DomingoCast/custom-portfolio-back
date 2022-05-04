@@ -11,8 +11,15 @@ const createUserRepository = (): UserRepository => {
             .then((res: User) => res)
             .catch(() => null);
     };
+    const findByEmail = async (email: string): Promise<User | null> => {
+        const response = await userRepository.findOne({
+            where: { email: email },
+        });
+        return response;
+    };
     return {
         persist,
+        findByEmail,
     };
 };
 

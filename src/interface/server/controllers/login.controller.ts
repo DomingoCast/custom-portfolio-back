@@ -10,8 +10,9 @@ type CustomRequest = Request<{}, {}, LoginInfo> & {
 
 const loginController = async (
     req: CustomRequest,
-    res: Response
-): Promise<Response> => {
+    res: Response,
+    next: any
+): Promise<void | Response> => {
     const container = req.container!.cradle;
     try {
         const loginInfo = req.body;
@@ -20,12 +21,11 @@ const loginController = async (
             container.logger.error(validate);
             return res.status(400).send({ message: validate });
         }
-        const response = container.loginUseCase(req.body);
+        const response = await container.loginUseCase(req.body);
         container.logger.info(response);
         return res.status(200).send({ message: response });
     } catch (error: any) {
-        container.logger.error(error);
-        throw new CustomError(error);
+        next(error);
     }
 };
 

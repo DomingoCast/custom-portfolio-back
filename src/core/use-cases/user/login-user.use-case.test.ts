@@ -1,5 +1,5 @@
 import { User } from "../../domain/user/user";
-import registerUserUseCase from "./register-user.use-case";
+import loginUserUseCase from "./login-user.use-case";
 
 describe("Regiter user use case", () => {
     afterAll(() => {
@@ -40,7 +40,7 @@ describe("Regiter user use case", () => {
             hashFunction,
             emailSender,
         };
-        const result = await registerUserUseCase(mockProps)(user);
+        const result = await loginUserUseCase(mockProps)(user);
         expect(result).toStrictEqual(userSafe);
         expect(hashFunction.hash).toHaveBeenCalled();
         expect(userRepository.persist).toHaveBeenCalledWith(newUser);
@@ -78,7 +78,7 @@ describe("Regiter user use case", () => {
             hashFunction,
             emailSender,
         };
-        const result = await registerUserUseCase(mockProps)(user);
+        const result = await loginUserUseCase(mockProps)(user);
         expect(result).toStrictEqual(userSafe);
         expect(hashFunction.hash).toHaveBeenCalled();
         expect(userRepository.persist).toHaveBeenCalledWith(newUser);

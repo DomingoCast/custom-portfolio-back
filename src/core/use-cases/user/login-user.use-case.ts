@@ -13,7 +13,7 @@ const loginUseCase =
     async (loginInfo: LoginInfo): Promise<User | void> => {
         const user = await userRepository.findByEmail(loginInfo.email);
         if (!user) throw new CustomError("Email or password incorrect");
-        if (await hashFunction.verify(user.password, loginInfo.password))
+        if (!(await hashFunction.verify(user.password, loginInfo.password)))
             throw new CustomError("Email or password incorrect");
         return user;
     };

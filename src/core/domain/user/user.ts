@@ -1,3 +1,5 @@
+import { EnumType } from "typescript";
+
 export interface User {
     id: string;
     name: string;
@@ -6,5 +8,5 @@ export interface User {
     password: string;
     phone: string;
     address: string;
-    role: string;
+    role: Role;
 }

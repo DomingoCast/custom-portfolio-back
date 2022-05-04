@@ -2,6 +2,8 @@ import { AwilixContainer } from "awilix";
 import { Request, Response } from "express";
 import validateLogin from "../../../infrastructure/user/validate-login/validate-login";
 import CustomError from "../../../infrastructure/errors/custom-error";
+import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
+import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
 
 type CustomRequest = Request & {
     container?: AwilixContainer;
@@ -13,7 +15,11 @@ const loginController = async (
 ): Promise<Response> => {
     const container = req.container?.cradle;
     try {
-        const loginInfo = req.body;
+        let loginInfo = req.body;
+        if (req.body !== null) {
+            loginInfo = trimFields(req.body, arrayExceptions);
+            container.logger.info("Trim fields from login info");
+        }
         const validate = validateLogin(loginInfo);
         if (validate !== true) {
             container.logger.error(validate);

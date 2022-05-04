@@ -67,7 +67,7 @@ describe("Regiter user use case", () => {
             ...user,
             password: hashPassword,
         };
-        const userSafe: null = null;
+        const userSafe = null;
         const userRepository: UserRepository = {
             persist: jest.fn(async () => await userSafe),
         };

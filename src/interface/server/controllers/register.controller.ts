@@ -4,11 +4,9 @@ import { AwilixContainer } from "awilix";
 import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
 import CustomError from "../../../infrastructure/errors/custom-error";
 import validateUser from "../../../infrastructure/user/validate-user/validate-user";
-<<<<<<< HEAD
 import { RegisterInfo } from "../../../core/domain/user/register-info";
-=======
+import { Role } from "../../../core/domain/user/role.enum";
 import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
->>>>>>> bfee7b1091498ccc18b3eed5ba31df1acec48cac
 
 type CustomRequest = Request<{}, {}, RegisterInfo> & {
     container?: AwilixContainer;
@@ -22,11 +20,11 @@ const registerController = async (
     try {
         let user: RegisterInfo = req.body;
         if (req.body !== null) {
-            user = trimFields(req.body, arrayExceptions);
+            user = trimFields(user, arrayExceptions);
             container.logger.info("Trim fields from data form");
         }
 
-        const validate = validateUser(dataForm);
+        const validate = validateUser(user);
         if (validate !== true) {
             container.logger.error(validate);
             return res.status(400).send({ message: validate });

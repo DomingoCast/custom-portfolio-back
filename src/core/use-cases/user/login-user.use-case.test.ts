@@ -54,10 +54,6 @@ describe("Login user use case", () => {
             ...user,
             password: hashPassword,
         };
-        const userSafe: User = {
-            ...newUser,
-            id: "",
-        };
         const userRepository: any = {
             findByEmail: jest.fn(async () => await null),
         };

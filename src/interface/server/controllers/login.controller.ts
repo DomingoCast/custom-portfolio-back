@@ -6,15 +6,17 @@ import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
 import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
 import { LoginInfo } from "../../../core/domain/user/login-info";
 
-type CustomRequest = Request & {
+type CustomRequest = Request<{}, {}, LoginInfo> & {
     container?: AwilixContainer;
 };
 
 const loginController = async (
     req: CustomRequest,
     res: Response
+    next: any
 ): Promise<Response> => {
     const container = req.container?.cradle;
+    res: Response,
     try {
         let loginInfo = req.body;
         if (req.body !== null) {
@@ -27,14 +29,14 @@ const loginController = async (
             return res.status(400).send({ message: validate });
         }
         const response: Omit<LoginInfo, "password"> =
-            container.loginUseCase(loginInfo);
+           await container.loginUseCase(loginInfo);
         const token: string = container.accessToken.create(response);
         container.logger.info("TokenAccess created");
+
         container.logger.info(response);
         return res.status(200).send({ message: { token: token } });
     } catch (error: any) {
-        container.logger.error(error);
-        throw new CustomError(error);
+        next(error);
     }
 };
 

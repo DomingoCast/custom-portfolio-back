@@ -5,12 +5,12 @@ import { VerifyResponse } from "./verify.type";
 const JWT_SECRET: string = process.env.JWT_SECRET || "test";
 
 const jwtToken = () => {
-    const createToken = (UserLogin: any): string => {
+    const createToken = (userLogin: any): string => {
         try {
             return jwt.sign(
                 {
                     exp: Math.floor(Date.now() / 1000) + 60 * 60,
-                    data: UserLogin,
+                    data: userLogin,
                 },
                 JWT_SECRET
             );

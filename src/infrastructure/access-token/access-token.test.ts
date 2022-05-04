@@ -1,10 +1,10 @@
 import accessToken from "./access-token";
 import { VerifyResponse } from "./verify.type";
-const UserLogin: object = {
+const userLogin: object = {
     id: "1",
     email: "test@gmail.com",
 };
-const createAccessToken: string = accessToken().create(UserLogin);
+const createAccessToken: string = accessToken().create(userLogin);
 const verifyAccessToken: VerifyResponse =
     accessToken().verify(createAccessToken);
 

@@ -48,7 +48,7 @@ describe("Regiter user use case", () => {
         expect(hashFunction.hash).toHaveBeenCalled();
         expect(userRepository.persist).toHaveBeenCalledWith({
             ...newUser,
-            role: "worker",
+            role: Role.worker,
         });
         expect(emailSender.send).toHaveBeenCalled();
     });
@@ -88,7 +88,7 @@ describe("Regiter user use case", () => {
         expect(hashFunction.hash).toHaveBeenCalled();
         expect(userRepository.persist).toHaveBeenCalledWith({
             ...newUser,
-            role: "worker",
+            role: Role.worker,
         });
         expect(emailSender.send).not.toHaveBeenCalled();
     });

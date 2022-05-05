@@ -1,16 +1,11 @@
 import { RegisterInfo } from "../../../core/domain/user/register-info";
 
-const trimFields = (
-    objectToTrim: RegisterInfo,
-    arrayExceptions: Array<string>
-): RegisterInfo => {
+const trimFields = <T>(objectToTrim: T, arrayExceptions: Array<string>): T => {
     const newObject = { ...objectToTrim };
     Object.keys(newObject).forEach((key: any) => {
-        if (!arrayExceptions.includes(key)) {
-            newObject[key as keyof RegisterInfo] = <string>(
-                newObject[key as keyof RegisterInfo].trim()
-            );
-        }
+        const param = newObject[key as keyof T];
+        if (typeof param === "string" && !arrayExceptions.includes(key))
+            newObject[key as keyof T] = <any>param.trim();
     });
     return newObject;
 };

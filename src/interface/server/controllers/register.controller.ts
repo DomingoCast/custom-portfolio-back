@@ -20,7 +20,7 @@ const registerController = async (
     try {
         let user: RegisterInfo = req.body;
         if (req.body !== null) {
-            user = trimFields(user, arrayExceptions);
+            user = trimFields<RegisterInfo>(user, arrayExceptions);
             container.logger.info("Trim fields from data form");
         }
 

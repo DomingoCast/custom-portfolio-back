@@ -4,6 +4,8 @@ import HashFunction from "../../ports/hash-function.port";
 import UserRepository from "../../ports/user-repository.port";
 import EmailSender from "../../ports/email/send-email.port";
 import { RegisterInfo } from "../../domain/user/register-info";
+import { Role } from "../../domain/user/role.enum";
+import CustomError from "../../../infrastructure/errors/custom-error";
 
 type RegisterUserUseCaseProps = {
     userRepository: UserRepository;
@@ -18,12 +20,16 @@ const registerUserUseCase =
         hashFunction,
         emailSender,
     }: RegisterUserUseCaseProps): RegisterUserUseCase =>
-    async (user: RegisterInfo, role = "worker"): Promise<User | null> => {
+    async (user: RegisterInfo, role = Role.worker): Promise<User | null> => {
         const userSafe = {
             ...user,
             password: await hashFunction.hash(user.password),
             role,
         };
+
+        if (await userRepository.findByEmail(user.email))
+            throw new CustomError("Email already in the database");
+
         const userResponse = await userRepository.persist(userSafe);
         if (userResponse) {
             const email: Email = {

@@ -1,4 +1,5 @@
 import { RegisterInfo } from "../../domain/user/register-info";
+import { Role } from "../../domain/user/role.enum";
 import { User } from "../../domain/user/user";
 import UserRepository from "../../ports/user-repository.port";
 import registerUserUseCase from "./register-user.use-case";
@@ -25,10 +26,11 @@ describe("Regiter user use case", () => {
         const userSafe: User = {
             ...newUser,
             id: "",
-            role: "worker",
+            role: Role.worker,
         };
-        const userRepository: UserRepository = {
+        const userRepository: any = {
             persist: jest.fn(async () => await userSafe),
+            findByEmail: jest.fn(async () => await null),
         };
         const hashFunction: any = {
             hash: jest.fn(async () => await hashPassword),
@@ -47,7 +49,7 @@ describe("Regiter user use case", () => {
         expect(hashFunction.hash).toHaveBeenCalled();
         expect(userRepository.persist).toHaveBeenCalledWith({
             ...newUser,
-            role: "worker",
+            role: Role.worker,
         });
         expect(emailSender.send).toHaveBeenCalled();
     });
@@ -66,9 +68,10 @@ describe("Regiter user use case", () => {
             ...user,
             password: hashPassword,
         };
-        const userSafe: null = null;
+        const userSafe = null;
         const userRepository: UserRepository = {
             persist: jest.fn(async () => await userSafe),
+            findByEmail: jest.fn(async () => await null),
         };
         const hashFunction: any = {
             hash: jest.fn(async () => await hashPassword),
@@ -87,7 +90,7 @@ describe("Regiter user use case", () => {
         expect(hashFunction.hash).toHaveBeenCalled();
         expect(userRepository.persist).toHaveBeenCalledWith({
             ...newUser,
-            role: "worker",
+            role: Role.worker,
         });
         expect(emailSender.send).not.toHaveBeenCalled();
     });

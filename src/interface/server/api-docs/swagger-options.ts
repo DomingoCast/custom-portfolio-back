@@ -1,4 +1,5 @@
 import swaggerJsdoc from "swagger-jsdoc";
+import schemaLoginUserParameters from "./schemas/schema-login-user-parameters";
 import schemaRegisterUserParameters from "./schemas/schema-register-user-parameters";
 import swaggerInfo from "./swagger-info";
 
@@ -44,6 +45,49 @@ const swaggerOptions: swaggerJsdoc.Options = {
                         content: {
                             "application/json": {
                                 schema: schemaRegisterUserParameters
+                                    .incorrectSchema.schema,
+                            },
+                        },
+                    },
+                },
+            },
+        },
+        "/login": {
+            post: {
+                url: "Development server",
+                tags: ["Login"],
+                description: "Return a response of a new user.",
+                requestBody: {
+                    content: {
+                        "application/x-www-form-urlencoded": {
+                            schema: schemaLoginUserParameters.schema,
+                        },
+                    },
+                },
+                responses: {
+                    200: {
+                        description: "Response of new user.",
+                        content: {
+                            "application/json": {
+                                schema: schemaLoginUserParameters.correctSchema
+                                    .schema,
+                            },
+                        },
+                    },
+                    400: {
+                        description: "Error: Bad Request",
+                        content: {
+                            "application/json": {
+                                schema: schemaLoginUserParameters
+                                    .incorrectSchema.schema,
+                            },
+                        },
+                    },
+                    409: {
+                        description: "Error: Conflict",
+                        content: {
+                            "application/json": {
+                                schema: schemaLoginUserParameters
                                     .incorrectSchema.schema,
                             },
                         },

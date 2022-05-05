@@ -1,7 +1,7 @@
 import { JSONSchemaType } from "ajv";
-import CreateUserDataForm from "./interface/create-user-data-form-interface";
+import { User } from "../../../core/domain/user/user";
 
-const userSchema: JSONSchemaType<CreateUserDataForm> = {
+const userSchema: JSONSchemaType<Omit<User, "id">> = {
     type: "object",
     required: ["name", "surname", "email", "password", "phone", "address"],
     properties: {
@@ -36,7 +36,11 @@ const userSchema: JSONSchemaType<CreateUserDataForm> = {
                 "(([+][(]?[0-9]{1,3}[)]?)|([(]?[0-9]{4}[)]?))s*[)]?[-s.]?[(]?[0-9]{1,3}[)]?([-s.]?[0-9]{3})([-s.]?[0-9]{3,4})",
             errorMessage: "Invalid phone number, minimum 9 and maximum 15",
         },
-        address: { type: "string", minLength: 3, maxLength: 30 },
+        address: {
+            type: "string",
+            minLength: 3,
+            maxLength: 30,
+        },
     },
 };
 export default userSchema;

@@ -3,12 +3,9 @@ import { User } from "../../domain/user/user";
 import HashFunction from "../../ports/hash-function.port";
 import UserRepository from "../../ports/user-repository.port";
 import EmailSender from "../../ports/email/send-email.port";
-<<<<<<< HEAD
 import { RegisterInfo } from "../../domain/user/register-info";
 import { Role } from "../../domain/user/role.enum";
-=======
 import CustomError from "../../../infrastructure/errors/custom-error";
->>>>>>> cf57bdb23c89d0bae400a73f6b6be15f9bcb23d2
 
 type RegisterUserUseCaseProps = {
     userRepository: UserRepository;

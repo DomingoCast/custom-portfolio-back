@@ -25,13 +25,10 @@ export const createServer = (port: number) => {
 
     app.post("/register", registerController); // makeInvoker(registerController));
 
-<<<<<<< HEAD
     app.post("/admin/register", registerAdminController);
-=======
     app.use((err: any, req: any, res: any, next: any) => {
         res.status(500).send({ message: err.message });
     });
->>>>>>> e0c253862da8cbd2d6dfaea829b6b793416183b8
 
     return {
         app: app,

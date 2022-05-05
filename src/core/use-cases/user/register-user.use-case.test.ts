@@ -1,6 +1,7 @@
 import { RegisterInfo } from "../../domain/user/register-info";
 import { Role } from "../../domain/user/role.enum";
 import { User } from "../../domain/user/user";
+import UserRepository from "../../ports/user-repository.port";
 import registerUserUseCase from "./register-user.use-case";
 
 describe("Regiter user use case", () => {
@@ -67,13 +68,8 @@ describe("Regiter user use case", () => {
             ...user,
             password: hashPassword,
         };
-<<<<<<< HEAD
         const userSafe = null;
         const userRepository: UserRepository = {
-=======
-        const userSafe: null = null;
-        const userRepository: any = {
->>>>>>> cf57bdb23c89d0bae400a73f6b6be15f9bcb23d2
             persist: jest.fn(async () => await userSafe),
             findByEmail: jest.fn(async () => await null),
         };

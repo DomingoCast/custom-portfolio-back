@@ -6,7 +6,7 @@ jest.mock("../../../infrastructure/user/validate-user/validate-user", () =>
     jest.fn()
 );
 
-const mockValidateUserDataForm = validateUser as unknown as jest.Mock;
+const mockValidateUser = validateUser as unknown as jest.Mock;
 
 describe("registerController", () => {
     const req: any = {
@@ -22,14 +22,15 @@ describe("registerController", () => {
             send: jest.fn,
         })),
     };
+    const next = jest.fn;
     it("doesn't register null", () => {
-        registerController(req, res);
+        registerController(req, res, next);
         expect(res.status).toHaveBeenCalledWith(400);
     });
     it("validates the input", () => {
-        mockValidateUserDataForm.mockImplementation(jest.fn());
-        registerController(req, res);
-        expect(mockValidateUserDataForm).toHaveBeenCalledWith(req.body);
+        mockValidateUser.mockImplementation(jest.fn());
+        registerController(req, res, next);
+        expect(mockValidateUser).toHaveBeenCalledWith(req.body);
     });
     it("calls the usecase if the validation works", () => {
         const req: any = {
@@ -41,8 +42,8 @@ describe("registerController", () => {
                 },
             },
         };
-        mockValidateUserDataForm.mockImplementation(() => true);
-        registerController(req, res);
+        mockValidateUser.mockImplementation(() => true);
+        registerController(req, res, next);
         expect(req.container.cradle.registerUserUseCase).toHaveBeenCalledWith(
             req.body,
             Role.worker

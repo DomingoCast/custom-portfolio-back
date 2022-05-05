@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { User } from "../../../core/domain/user/user";
 import { AwilixContainer } from "awilix";
 import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
-import CustomError from "../../../infrastructure/errors/custom-error";
 import validateUser from "../../../infrastructure/user/validate-user/validate-user";
 import { RegisterInfo } from "../../../core/domain/user/register-info";
 import { Role } from "../../../core/domain/user/role.enum";
@@ -14,8 +13,9 @@ type CustomRequest = Request<{}, {}, RegisterInfo> & {
 
 const registerController = async (
     req: CustomRequest,
-    res: Response
-): Promise<Response> => {
+    res: Response,
+    next: any
+): Promise<void | Response> => {
     const container = req.container!.cradle;
     try {
         let user: RegisterInfo = req.body;
@@ -39,11 +39,12 @@ const registerController = async (
                 .status(200)
                 .send({ message: "User has been registered" });
         }
-        container.logger.error("User already exits");
-        return res.status(409).send({ message: "User already exits" });
-    } catch (error: any) {
-        container.logger.error(error);
-        throw new CustomError(error);
+        container.logger.error("An error has ocurred in the repository");
+        return res
+            .status(500)
+            .send({ message: "An error has ocurred in the repository" });
+    } catch (error) {
+        next(error);
     }
 };
 

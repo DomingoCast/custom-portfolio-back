@@ -5,51 +5,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased] - 2022-05-05
+## [0.2.0] - 2022-05-05
 
 Here we write upgrading notes for brands. It's a team effort to make them as
-straightforward as possible.
+straightforward as possible. Here we would have the update steps for 0.2.0 for people to follow.
+
 
 ### Added
 
 -   [CREATE LOGIN ENDPOINT](https://github.com/DomingoCast/jnt-copy/pull/130)
-We have created a new endpoint and a new controller, in this controller our app do that:
-- Trim fields.
-- Validate fields.
-- Find a email in our database and if this find is correct our app authentication password. 
-- After if this steps are OK, created a accessToken and return this.
 
+-   [CREATE LOGIN CONTROLLER](https://github.com/DomingoCast/jnt-copy/pull/142)
 
-### Changed
--  [CORRECTED FAIL IN TRIM FIELDS]()
-### Fixed
+-   [CREATE TRIM FIELDS](https://github.com/DomingoCast/jnt-copy/pull/133)
 
-## [1.2.4] - 2017-03-15
+-   [CREATE FIND EMAIL IN DATABSE](https://github.com/DomingoCast/jnt-copy/pull/144)
 
-Here we would have the update steps for 1.2.4 for people to follow.
+-   [CREATE PASSWORD AUTHENTICATION](https://github.com/DomingoCast/jnt-copy/pull/150)
 
-### Added
+-   [CREATE ACCESS TOKEN](https://github.com/DomingoCast/jnt-copy/pull/145)
 
-### Changed
+-   [CREATE LOGGER](https://github.com/DomingoCast/jnt-copy/pull/100)
 
--   [PROJECTNAME-ZZZZ](http://tickets.projectname.com/browse/PROJECTNAME-ZZZZ)
-    PATCH Drupal.org is now used for composer.
+-   [CREATE SWAGGER INFO FOR ENDPOINT](https://github.com/DomingoCast/jnt-copy/pull/151)
 
-### Fixed
-
--   [PROJECTNAME-TTTT](http://tickets.projectname.com/browse/PROJECTNAME-TTTT)
-    PATCH Add logic to runsheet teaser delete to delete corresponding
-    schedule cards.
-
-## [1.2.3] - 2017-03-14
-
-### Added
+-   [CREATE A NEW TEST ](https://github.com/DomingoCast/jnt-copy/pull/130)
 
 ### Changed
+-  [CORRECTED FAIL IN TRIM FIELDS INTO REGISTER CONTROLLER](https://github.com/DomingoCast/jnt-copy/pull/149)
+-  [CORRECTED TYPES IN SOME FILES](https://github.com/DomingoCast/jnt-copy/pull/149)
 
 ### Fixed
-
--   [PROJECTNAME-UUUU](http://tickets.projectname.com/browse/PROJECTNAME-UUUU)
-    MINOR Fix module foo tests
--   [PROJECTNAME-RRRR](http://tickets.projectname.com/browse/PROJECTNAME-RRRR)
-    MAJOR Module foo's timeline uses the browser timezone for date resolution
+- [FIXED REGISTER USE CASE TEST PARTY](https://www.notion.so/Register-Use-Case-Test-party-5f2d2123e0bf43f6bb4a2f0fc7d6ea5d)

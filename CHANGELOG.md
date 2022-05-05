@@ -10,7 +10,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 Here we write upgrading notes for brands. It's a team effort to make them as
 straightforward as possible. Here we would have the update steps for 0.2.0 for people to follow.
 
-
 ### Added
 
 -   [CREATE LOGIN ENDPOINT](https://github.com/DomingoCast/jnt-copy/pull/130)
@@ -32,8 +31,11 @@ straightforward as possible. Here we would have the update steps for 0.2.0 for p
 -   [CREATE A NEW TEST ](https://github.com/DomingoCast/jnt-copy/pull/130)
 
 ### Changed
--  [CORRECTED FAIL IN TRIM FIELDS INTO REGISTER CONTROLLER](https://github.com/DomingoCast/jnt-copy/pull/149)
--  [CORRECTED TYPES IN SOME FILES](https://github.com/DomingoCast/jnt-copy/pull/149)
+
+-   [CORRECTED FAIL IN TRIM FIELDS INTO REGISTER CONTROLLER](https://github.com/DomingoCast/jnt-copy/pull/149)
+
+-   [CORRECTED TYPES IN SOME FILES](https://github.com/DomingoCast/jnt-copy/pull/149)
 
 ### Fixed
-- [FIXED REGISTER USE CASE TEST PARTY](https://www.notion.so/Register-Use-Case-Test-party-5f2d2123e0bf43f6bb4a2f0fc7d6ea5d)
+
+-   [FIXED REGISTER USE CASE TEST PARTY](https://www.notion.so/Register-Use-Case-Test-party-5f2d2123e0bf43f6bb4a2f0fc7d6ea5d)

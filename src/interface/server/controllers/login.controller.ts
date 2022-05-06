@@ -4,6 +4,7 @@ import validateLogin from "../../../infrastructure/user/validate-login/validate-
 import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
 import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
 import { LoginInfo } from "../../../core/domain/user/login-info";
+import BadRequestError from "../../../infrastructure/errors/http/http-bad-request";
 
 type CustomRequest = Request<{}, {}, LoginInfo> & {
     container?: AwilixContainer;
@@ -24,7 +25,7 @@ const loginController = async (
         const validate = validateLogin(loginInfo);
         if (validate !== true) {
             container.logger.error(validate);
-            return res.status(400).send({ message: validate });
+            throw new BadRequestError("Validate Error").returnResponse(res);
         }
         const response: Omit<LoginInfo, "password"> =
             await container.loginUseCase(loginInfo);

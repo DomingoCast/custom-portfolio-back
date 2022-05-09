@@ -1,0 +1,31 @@
+import ConflictError from "./conflict-error";
+
+describe("CustomError test", () => {
+    it("Check if function is called", () => {
+        const conflictError = new ConflictError("Email or password incorrect");
+        expect(conflictError).toMatchObject({});
+    });
+    it("Should return the correct message", () => {
+        const conflictError = new ConflictError("Email or password incorrect");
+        expect(conflictError.getCustomMessage()).toBe(
+            "An error had occurred: Email or password incorrect"
+        );
+    });
+    it("Check if custom Error work well", () => {
+        const t = () => {
+            throw new ConflictError("Email or password incorrect");
+        };
+        expect(t).toThrowError(ConflictError);
+        expect(t).toThrow("Email or password incorrect");
+        expect(t).toBeTruthy();
+    });
+    it("Check custom message work well", () => {
+        const message = () => {
+            throw new ConflictError(
+                "Email or password incorrect"
+            ).getCustomMessage();
+        };
+        expect(message).toBeTruthy();
+        expect(message).toThrowError("Email or password incorrect");
+    });
+});

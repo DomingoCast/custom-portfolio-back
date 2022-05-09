@@ -1,4 +1,7 @@
+import { RegisterInfo } from "../../domain/user/register-info";
+import { Role } from "../../domain/user/role.enum";
 import { User } from "../../domain/user/user";
+import UserRepository from "../../ports/user-repository.port";
 import registerUserUseCase from "./register-user.use-case";
 
 describe("Regiter user use case", () => {
@@ -8,7 +11,7 @@ describe("Regiter user use case", () => {
 
     it("Given a user and user repository, should return a new user", async () => {
         const hashPassword = "654321";
-        const user: Omit<User, "id"> = {
+        const user: RegisterInfo = {
             name: "",
             surname: "",
             password: "123456",
@@ -23,6 +26,7 @@ describe("Regiter user use case", () => {
         const userSafe: User = {
             ...newUser,
             id: "",
+            role: Role.worker,
         };
         const userRepository: any = {
             persist: jest.fn(async () => await userSafe),
@@ -43,13 +47,16 @@ describe("Regiter user use case", () => {
         const result = await registerUserUseCase(mockProps)(user);
         expect(result).toStrictEqual(userSafe);
         expect(hashFunction.hash).toHaveBeenCalled();
-        expect(userRepository.persist).toHaveBeenCalledWith(newUser);
+        expect(userRepository.persist).toHaveBeenCalledWith({
+            ...newUser,
+            role: Role.worker,
+        });
         expect(emailSender.send).toHaveBeenCalled();
     });
 
     it("Given a user and user repository, should return a null", async () => {
         const hashPassword = "654321";
-        const user: Omit<User, "id"> = {
+        const user: RegisterInfo = {
             name: "",
             surname: "",
             password: "123456",
@@ -61,8 +68,8 @@ describe("Regiter user use case", () => {
             ...user,
             password: hashPassword,
         };
-        const userSafe: null = null;
-        const userRepository: any = {
+        const userSafe = null;
+        const userRepository: UserRepository = {
             persist: jest.fn(async () => await userSafe),
             findByEmail: jest.fn(async () => await null),
         };
@@ -81,7 +88,10 @@ describe("Regiter user use case", () => {
         const result = await registerUserUseCase(mockProps)(user);
         expect(result).toStrictEqual(userSafe);
         expect(hashFunction.hash).toHaveBeenCalled();
-        expect(userRepository.persist).toHaveBeenCalledWith(newUser);
+        expect(userRepository.persist).toHaveBeenCalledWith({
+            ...newUser,
+            role: Role.worker,
+        });
         expect(emailSender.send).not.toHaveBeenCalled();
     });
 });

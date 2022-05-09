@@ -1,3 +1,4 @@
+import { Role } from "../../domain/user/role.enum";
 import { User } from "../../domain/user/user";
 import loginUserUseCase from "./login-user.use-case";
 
@@ -15,6 +16,7 @@ describe("Login user use case", () => {
             email: "",
             phone: "",
             address: "",
+            role: Role.worker,
         };
         const newUser = {
             ...user,
@@ -49,6 +51,7 @@ describe("Login user use case", () => {
             email: "",
             phone: "",
             address: "",
+            role: Role.worker,
         };
         const newUser = {
             ...user,
@@ -81,6 +84,7 @@ describe("Login user use case", () => {
             email: "",
             phone: "",
             address: "",
+            role: Role.worker,
         };
         const newUser = {
             ...user,

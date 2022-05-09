@@ -1,3 +1,4 @@
+import { Role } from "../../../core/domain/user/role.enum";
 import validateUser from "../../../infrastructure/user/validate-user/validate-user";
 import registerController from "./register.controller";
 
@@ -44,7 +45,8 @@ describe("registerController", () => {
         mockValidateUser.mockImplementation(() => true);
         registerController(req, res, next);
         expect(req.container.cradle.registerUserUseCase).toHaveBeenCalledWith(
-            req.body
+            req.body,
+            Role.worker
         );
     });
 });

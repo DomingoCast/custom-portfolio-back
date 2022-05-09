@@ -7,10 +7,11 @@ import { container } from "../../infrastructure/dependency-injection/awilix-set-
 import { scopePerRequest } from "awilix-express";
 import loginController from "./controllers/login.controller";
 import wrapperController from "./wrapper";
-import CustomError from "../../infrastructure/errors/custom-error";
 import BadRequestError from "../../infrastructure/http-errors/bad-request";
 import ConflictErrorRequest from "../../infrastructure/http-errors/conflict";
 import NotFoundRequest from "../../infrastructure/http-errors/not-found";
+import registerAdminController from "./controllers/admin/register.admin.controller";
+import CustomError from "../../core/errors/custom-error";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -27,6 +28,8 @@ export const createServer = (port: number) => {
     app.post("/login", wrapperController(loginController));
 
     app.post("/register", wrapperController(registerController)); // makeInvoker(registerController));
+
+    app.post("/admin/register", registerAdminController);
 
     app.use((_err: any, req: any, res: any, next: any) => {
         if (

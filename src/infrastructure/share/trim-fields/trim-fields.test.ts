@@ -4,6 +4,6 @@ import arrayExceptions from "./array-exceptions";
 
 describe("Testing a trimp fields", () => {
     test.each(fixtures)("Test: $description", ({ object, expected }) => {
-        expect(trimFields(object, arrayExceptions)).toEqual(expected);
+        expect(trimFields(<any>object, arrayExceptions)).toEqual(expected);
     });
 });

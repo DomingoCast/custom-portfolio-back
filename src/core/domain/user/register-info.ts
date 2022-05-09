@@ -1,12 +1,8 @@
-import { Role } from "./role.enum";
-
-export interface User {
-    id: string;
+export interface RegisterInfo {
     name: string;
     surname: string;
     email: string;
     password: string;
     phone: string;
     address: string;
-    role: Role;
 }

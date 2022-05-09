@@ -1,14 +1,11 @@
-const trimFields = (
-    objectToTrim: object,
-    arrayExceptions: Array<string>
-): object => {
-    const newObject: { [key: string]: string } = { ...objectToTrim };
-    Object.keys(newObject).forEach((key) => {
-        if (typeof newObject[key] === "string") {
-            if (!arrayExceptions.includes(key)) {
-                newObject[key] = newObject[key].trim();
-            }
-        }
+import { RegisterInfo } from "../../../core/domain/user/register-info";
+
+const trimFields = <T>(objectToTrim: T, arrayExceptions: Array<string>): T => {
+    const newObject = { ...objectToTrim };
+    Object.keys(newObject).forEach((key: any) => {
+        const param = newObject[key as keyof T];
+        if (typeof param === "string" && !arrayExceptions.includes(key))
+            newObject[key as keyof T] = <any>param.trim();
     });
     return newObject;
 };

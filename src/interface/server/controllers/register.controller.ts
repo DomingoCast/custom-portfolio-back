@@ -3,9 +3,11 @@ import { User } from "../../../core/domain/user/user";
 import { AwilixContainer } from "awilix";
 import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
 import validateUser from "../../../infrastructure/user/validate-user/validate-user";
+import { RegisterInfo } from "../../../core/domain/user/register-info";
+import { Role } from "../../../core/domain/user/role.enum";
 import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
 
-type CustomRequest = Request<{}, {}, Omit<User, "id">> & {
+type CustomRequest = Request<{}, {}, RegisterInfo> & {
     container?: AwilixContainer;
 };
 
@@ -14,21 +16,23 @@ const registerController = async (
     res: Response,
     next: any
 ): Promise<void | Response> => {
+    const container = req.container!.cradle;
     try {
-        const container = req.container?.cradle!;
-        let dataForm: any = req.body;
+        let user: RegisterInfo = req.body;
         if (req.body !== null) {
-            dataForm = trimFields(req.body, arrayExceptions);
+            user = trimFields<RegisterInfo>(user, arrayExceptions);
             container.logger.info("Trim fields from data form");
         }
 
-        const validate = validateUser(dataForm);
+        const validate = validateUser(user);
         if (validate !== true) {
             container.logger.error(validate);
             return res.status(400).send({ message: validate });
         }
-        const user: Omit<User, "id"> = dataForm;
-        const response: null | User = await container.registerUserUseCase(user);
+        const response: null | User = await container.registerUserUseCase(
+            user,
+            Role.worker
+        );
         if (response) {
             container.logger.info(response);
             return res

@@ -1,8 +1,8 @@
-import { JSONSchemaType } from "ajv";
+import { JSONSchemaType, Schema } from "ajv";
 import initValidation from "./init-validation";
 import { ValidationResponse } from "./validation.types";
 
-const validation = <T extends Object>(
+const validation = <T extends Schema>(
     schema: JSONSchemaType<T>,
     data: T
 ): ValidationResponse => {

@@ -5,6 +5,8 @@ import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
 import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
 import { LoginInfo } from "../../../core/domain/user/login-info";
 import BadRequestError from "../../../infrastructure/http-errors/bad-request";
+import NotFoundError from "../../../core/errors/not-found-error";
+import NotFoundRequest from "../../../infrastructure/http-errors/not-found";
 
 type CustomRequest = Request<{}, {}, LoginInfo> & {
     container?: AwilixContainer;
@@ -34,6 +36,10 @@ const loginController = async (
         container.logger.info(response);
         return res.status(200).send({ message: { token: token } });
     } catch (error) {
+        console.log(error + "Llega");
+        if (error instanceof NotFoundError) {
+            throw new NotFoundRequest(error.message);
+        }
         next(error);
     }
 };

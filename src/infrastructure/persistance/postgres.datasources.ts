@@ -2,6 +2,7 @@ import "reflect-metadata";
 
 import { DataSource } from "typeorm";
 import CustomError from "../errors/custom-error";
+import runSeed from "./seed";
 import UserModel from "./user/user.model";
 
 export let dataSource: DataSource;
@@ -24,8 +25,9 @@ export const createDBConnection = () => {
     const connect = (appDataSource: DataSource = dataSource) => {
         appDataSource
             .initialize()
-            .then(() => {
+            .then(async () => {
                 console.log("Data Source has been initialized!");
+                await runSeed();
             })
             .catch((error: any) => {
                 const errorMessage =

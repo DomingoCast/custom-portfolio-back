@@ -13,7 +13,8 @@
     "lint:fix": "eslint . --ext .ts --fix",
     "prettier": "prettier --check .",
     "prettier:write": "npx prettier --write .",
-    "test:debug": "node --inspect node_modules/.bin/jest --runInBand"
+    "test:debug": "node --inspect node_modules/.bin/jest --runInBand",
+    "seed": "node src/infrastructure/persistance/seed.ts"
   },
   "repository": {
     "type": "git",

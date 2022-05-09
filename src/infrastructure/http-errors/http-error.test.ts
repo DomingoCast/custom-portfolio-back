@@ -16,6 +16,5 @@ describe("CustomError test", () => {
         expect(t).toThrowError(BadRequestError);
         expect(t).toBeTruthy();
         expect(t).toThrowError("Register Error");
-        // see status code 400
     });
 });

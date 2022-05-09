@@ -1,8 +1,8 @@
-import CustomError from "../custom-error";
+import CustomError from "../../core/errors/custom-error";
 
 class HttpError extends CustomError {
     statusCode: number;
-    responseBody: string | string[];
+    responseBody: string;
     constructor(responseBody: string, statusCode: number) {
         super(responseBody || "An error had occurred");
         this.name = "HttpError";

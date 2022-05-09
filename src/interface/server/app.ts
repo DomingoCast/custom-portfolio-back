@@ -6,7 +6,9 @@ import swaggerOptions from "./api-docs/swagger-options";
 import { container } from "../../infrastructure/dependency-injection/awilix-set-up";
 import { scopePerRequest } from "awilix-express";
 import loginController from "./controllers/login.controller";
-import CustomError from "../../infrastructure/errors/custom-error";
+import CustomError from "../../core/errors/custom-error";
+import wrapperController from "./wrapper";
+import BadRequestError from "../../infrastructure/http-errors/http-bad-request";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -20,12 +22,20 @@ export const createServer = (port: number) => {
 
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
-    app.post("/login", loginController);
+    app.post("/login", wrapperController(loginController));
 
-    app.post("/register", registerController); // makeInvoker(registerController));
+    app.post("/register", wrapperController(registerController)); // makeInvoker(registerController));
 
-    app.use((err: any, req: any, res: any, next: any) => {
-        res.status(500).send({ message: err.message });
+    app.use((_err: any, req: any, res: any, next: any) => {
+        if (_err instanceof BadRequestError) {
+            res.status(_err.statusCode).send({
+                message: _err.responseBody,
+            });
+        } else {
+            res.status(500).send({
+                message: "Internal Error",
+            });
+        }
     });
 
     return {

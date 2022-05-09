@@ -1,15 +1,15 @@
 import HttpError from "./error";
 import httpStatusCodes from "./status-codes";
-class ConflictErrorRequest extends HttpError {
+class ConflictRequestError extends HttpError {
     constructor(
         responseBody: any,
         statusCode: number = httpStatusCodes.CONFLICT
     ) {
         super(responseBody, statusCode);
         this.name = "ConflictError";
-        Object.setPrototypeOf(this, ConflictErrorRequest.prototype);
+        Object.setPrototypeOf(this, ConflictRequestError.prototype);
         this.statusCode = statusCode;
         this.responseBody = responseBody;
     }
 }
-export default ConflictErrorRequest;
+export default ConflictRequestError;

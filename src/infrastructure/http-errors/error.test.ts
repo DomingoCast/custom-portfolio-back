@@ -1,6 +1,6 @@
 import HttpError from "./error";
 import BadRequestError from "./bad-request";
-describe("CustomError test", () => {
+describe("Http error test", () => {
     it("Check if HttpError is called", () => {
         const customError = new HttpError("An error had occurred", 500);
         expect(customError).toMatchObject({});

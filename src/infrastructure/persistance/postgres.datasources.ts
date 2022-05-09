@@ -1,7 +1,7 @@
 import "reflect-metadata";
 
 import { DataSource } from "typeorm";
-import CustomError from "../../core/errors/custom-error";
+import CustomError from "../errors/custom-error";
 import UserModel from "./user/user.model";
 
 export let dataSource: DataSource;

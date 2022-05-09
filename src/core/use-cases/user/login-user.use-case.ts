@@ -1,4 +1,4 @@
-import CustomError from "../../errors/custom-error";
+import CustomError from "../../../infrastructure/errors/custom-error";
 import { LoginInfo } from "../../domain/user/login-info";
 import { User } from "../../domain/user/user";
 import HashFunction from "../../ports/hash-function.port";

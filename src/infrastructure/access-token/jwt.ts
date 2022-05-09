@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import CustomError from "../../core/errors/custom-error";
+import CustomError from "../errors/custom-error";
 import "dotenv/config";
 import { VerifyResponse } from "./verify.type";
 import { LoginInfo } from "../../core/domain/user/login-info";

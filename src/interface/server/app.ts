@@ -6,9 +6,9 @@ import swaggerOptions from "./api-docs/swagger-options";
 import { container } from "../../infrastructure/dependency-injection/awilix-set-up";
 import { scopePerRequest } from "awilix-express";
 import loginController from "./controllers/login.controller";
-import CustomError from "../../core/errors/custom-error";
+import CustomError from "../../infrastructure/errors/custom-error";
 import wrapperController from "./wrapper";
-import BadRequestError from "../../infrastructure/http-errors/http-bad-request";
+import BadRequestError from "../../infrastructure/errors/http-errors/http-bad-request";
 
 export const createServer = (port: number) => {
     const app: Application = express();

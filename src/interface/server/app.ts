@@ -8,8 +8,9 @@ import { scopePerRequest } from "awilix-express";
 import loginController from "./controllers/login.controller";
 import wrapperController from "./wrapper";
 import CustomError from "../../infrastructure/errors/custom-error";
-import BadRequestError from "../../infrastructure/errors/http/http-bad-request";
-import ConflictErrorRequest from "../../infrastructure/errors/http/http-conflict";
+import BadRequestError from "../../infrastructure/http-errors/bad-request";
+import ConflictErrorRequest from "../../infrastructure/http-errors/conflict";
+import NotFoundRequest from "../../infrastructure/http-errors/not-found";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -28,11 +29,11 @@ export const createServer = (port: number) => {
     app.post("/register", wrapperController(registerController)); // makeInvoker(registerController));
 
     app.use((_err: any, req: any, res: any, next: any) => {
-        if (_err instanceof BadRequestError) {
-            res.status(_err.statusCode).send({
-                message: _err.responseBody,
-            });
-        } else if (_err instanceof ConflictErrorRequest) {
+        if (
+            _err instanceof BadRequestError ||
+            _err instanceof ConflictErrorRequest ||
+            _err instanceof NotFoundRequest
+        ) {
             res.status(_err.statusCode).send({
                 message: _err.responseBody,
             });

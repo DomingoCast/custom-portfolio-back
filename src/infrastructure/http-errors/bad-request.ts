@@ -1,5 +1,5 @@
-import HttpError from "./http-error";
-import httpStatusCodes from "./http-status-codes";
+import HttpError from "./error";
+import httpStatusCodes from "./status-codes";
 class BadRequestError extends HttpError {
     constructor(
         responseBody: any,

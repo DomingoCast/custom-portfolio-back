@@ -1,5 +1,5 @@
-import HttpError from "./http-error";
-import httpStatusCodes from "./http-status-codes";
+import HttpError from "./error";
+import httpStatusCodes from "./status-codes";
 class ConflictErrorRequest extends HttpError {
     constructor(
         responseBody: any,

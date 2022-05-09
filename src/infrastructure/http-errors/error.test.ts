@@ -1,5 +1,5 @@
-import HttpError from "./http-error";
-import BadRequestError from "./http-bad-request";
+import HttpError from "./error";
+import BadRequestError from "./bad-request";
 describe("CustomError test", () => {
     it("Check if HttpError is called", () => {
         const customError = new HttpError("An error had occurred", 500);

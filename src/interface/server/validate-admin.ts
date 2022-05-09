@@ -21,7 +21,6 @@ const validateAdmin: RequestHandler = (
         console.log(err);
         next(new CustomError("Wrong Token"));
     }
-    console.log("[DECODED]", decoded, decoded.data, decoded.data.role);
     if (Number(decoded.data.role) !== Role.admin)
         next(new CustomError("Unauthorized"));
     next();

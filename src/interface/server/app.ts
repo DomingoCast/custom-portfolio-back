@@ -25,7 +25,7 @@ export const createServer = (port: number) => {
 
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
-    app.post("/login", wrapperController(loginController));
+    app.post("/login", loginController);
 
     app.post("/register", wrapperController(registerController)); // makeInvoker(registerController));
 

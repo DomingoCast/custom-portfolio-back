@@ -36,8 +36,9 @@ const loginController = async (
         container.logger.info(response);
         return res.status(200).send({ message: { token: token } });
     } catch (error) {
-        console.log(error + "Llega");
+        console.log(error + "Llega a entrar");
         if (error instanceof NotFoundError) {
+            console.log(error.message);
             throw new NotFoundRequest(error.message);
         }
         next(error);

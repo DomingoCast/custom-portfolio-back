@@ -1,7 +1,7 @@
 import HttpError from "./error";
 import BadRequestError from "./bad-request";
-import ConflictRequestError from './conflict';
-import NotFoundRequest from './not-found';
+import ConflictRequestError from "./conflict";
+import NotFoundRequest from "./not-found";
 describe("Http error test", () => {
     it("Check if HttpError is called", () => {
         const customError = new HttpError("An error had occurred", 500);

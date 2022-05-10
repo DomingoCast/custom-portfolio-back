@@ -14,7 +14,9 @@
     "prettier": "prettier --check .",
     "prettier:write": "npx prettier --write .",
     "test:debug": "node --inspect node_modules/.bin/jest --runInBand",
-    "seed": "node src/infrastructure/persistance/seed.ts"
+    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
+    "migration:generate": "node --require ts-node/register ./node_modules/typeorm/cli.js -d src/infrastructure/persistance/datasource migration:generate",
+    "migration:run": "node --require ts-node/register ./node_modules/typeorm/cli.js -d src/infrastructure/persistance/datasource migration:run"
   },
   "repository": {
     "type": "git",
@@ -46,7 +48,7 @@
     "swagger-ui-express": "^4.3.0",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
-    "typeorm": "^0.3.4",
+    "typeorm": "^0.3.6",
     "winston": "^3.7.2"
   },
   "devDependencies": {

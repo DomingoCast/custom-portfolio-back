@@ -2,32 +2,15 @@ import "reflect-metadata";
 
 import { DataSource } from "typeorm";
 import CustomError from "../errors/custom-error";
-import runSeed from "./seed";
-import UserModel from "./user/user.model";
-
-export let dataSource: DataSource;
+import { dataSource } from "./datasource";
 
 export const createDBConnection = () => {
-    dataSource = new DataSource({
-        type: "postgres",
-        host: "db",
-        port: 5432,
-        username: process.env.POSTGRES_USER,
-        password: process.env.POSTGRES_PASSWORD,
-        database: process.env.POSTGRES_DB,
-        synchronize: true,
-        logging: true,
-        entities: [UserModel],
-        subscribers: [],
-        migrations: [],
-    });
-
     const connect = (appDataSource: DataSource = dataSource) => {
         appDataSource
             .initialize()
             .then(async () => {
                 console.log("Data Source has been initialized!");
-                await runSeed();
+                // await runSeed();
             })
             .catch((error: any) => {
                 const errorMessage =

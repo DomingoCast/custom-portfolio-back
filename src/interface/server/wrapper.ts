@@ -1,6 +1,6 @@
 import { Response, Request } from "express";
 
-const wrapperController = (controller: Function) => {
+const wrapperController = (controller: any) => {
     const run = (req: Request, res: Response, next: any) => {
         try {
             controller(req, res, next);

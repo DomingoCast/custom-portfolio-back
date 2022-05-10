@@ -16,7 +16,7 @@ const registerController = async (
     res: Response,
     next: any
 ): Promise<void | Response> => {
-    const container = req.container!.cradle;
+    const container = req.container?.cradle;
     try {
         let user: RegisterInfo = req.body;
         if (req.body !== null) {

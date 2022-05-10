@@ -1,7 +1,7 @@
 import HttpError from "./http-error";
 import httpStatusCodes from "./status-codes";
 class InternalServerError extends HttpError {
-    constructor(responseBody: any) {
+    constructor(responseBody: string) {
         super(responseBody, httpStatusCodes.INTERNAL_SERVER);
         this.name = "InternalServerError";
         Object.setPrototypeOf(this, InternalServerError.prototype);

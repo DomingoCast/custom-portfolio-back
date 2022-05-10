@@ -1,7 +1,7 @@
 import HttpError from "./http-error";
 import httpStatusCodes from "./status-codes";
 class NotFoundRequestError extends HttpError {
-    constructor(responseBody: any) {
+    constructor(responseBody: string) {
         super(responseBody, httpStatusCodes.NOT_FOUND);
         this.name = "NotFoundRequestError";
         Object.setPrototypeOf(this, NotFoundRequestError.prototype);

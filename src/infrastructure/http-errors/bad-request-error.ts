@@ -1,7 +1,7 @@
 import HttpError from "./http-error";
 import httpStatusCodes from "./status-codes";
 class BadRequestError extends HttpError {
-    constructor(responseBody: any) {
+    constructor(responseBody: string) {
         super(responseBody, httpStatusCodes.BAD_REQUEST);
         this.name = "BadRequestError";
         Object.setPrototypeOf(this, BadRequestError.prototype);

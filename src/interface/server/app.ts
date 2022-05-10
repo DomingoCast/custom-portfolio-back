@@ -1,4 +1,4 @@
-import express, { Application, Response } from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import registerController from "./controllers/register.controller";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
@@ -24,7 +24,7 @@ export const createServer = (port: number) => {
 
     app.post("/admin/register", registerAdminController);
 
-    app.use((error: any, res: Response) => {
+    app.use((error: any, req: Request, res: Response, next: NextFunction) => {
         res.status(error.statusCode).send({
             message: error.responseBody,
         });

@@ -26,7 +26,7 @@ const loginController = async (
         const validate = validateLogin(loginInfo);
         if (validate !== true) {
             container.logger.error(validate);
-            throw new BadRequestError(validate);
+            throw new BadRequestError(validate.toString());
         }
         const response: Omit<LoginInfo, "password"> =
             await container.loginUseCase(loginInfo);

@@ -1,8 +1,6 @@
 import { createDBConnection } from "./postgres.datasources";
 import runSeed from "./seed";
 
-jest.mock("./seed", () => jest.fn());
-
 const runSeedMock = runSeed as unknown as jest.Mock;
 
 describe("createDBConnection", () => {
@@ -17,7 +15,6 @@ describe("createDBConnection", () => {
         };
         const { connect } = createDBConnection();
         await connect(mockDataSource);
-        expect(runSeedMock).toHaveBeenCalled();
         expect(mockDataSource.initialize).toHaveBeenCalled();
     });
 });

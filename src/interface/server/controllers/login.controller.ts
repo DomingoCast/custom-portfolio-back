@@ -18,7 +18,7 @@ const loginController = async (
 ): Promise<void | Response> => {
     try {
         const container = req.container?.cradle;
-        let loginInfo: any = req.body;
+        let loginInfo = req.body;
         if (req.body !== null) {
             loginInfo = trimFields(req.body, arrayExceptions);
             container.logger.info("Trim fields from login info");

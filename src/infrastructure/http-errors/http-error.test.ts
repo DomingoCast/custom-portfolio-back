@@ -2,6 +2,7 @@ import HttpError from "./http-error";
 import BadRequestError from "./bad-request-error";
 import ConflictRequestError from "./conflict-request-error";
 import NotFoundRequestError from "./not-found-request-error";
+import InternalServerError from "./internal-error";
 describe("Http error test", () => {
     it("Check if HttpError is called", () => {
         const customError = new HttpError("An error had occurred", 500);
@@ -36,6 +37,13 @@ describe("Check all functions of HttpError", () => {
             throw new ConflictRequestError("Conflict Request");
         };
         expect(t).toThrowError(ConflictRequestError);
+        expect(t).toBeTruthy();
+    });
+    it("Check if Internal Server Error is called", () => {
+        const t = () => {
+            throw new InternalServerError("Internal Server Error");
+        };
+        expect(t).toThrowError(InternalServerError);
         expect(t).toBeTruthy();
     });
 });

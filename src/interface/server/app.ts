@@ -7,9 +7,9 @@ import { container } from "../../infrastructure/dependency-injection/awilix-set-
 import { scopePerRequest } from "awilix-express";
 import loginController from "./controllers/login.controller";
 import wrapperController from "./wrapper";
-import BadRequestError from "../../infrastructure/http-errors/bad-request";
-import ConflictRequestError from "../../infrastructure/http-errors/conflict";
-import NotFoundRequest from "../../infrastructure/http-errors/not-found";
+import BadRequestError from "../../infrastructure/http-errors/bad-request-error";
+import ConflictRequestError from "../../infrastructure/http-errors/conflict-request-error";
+import NotFoundRequest from "../../infrastructure/http-errors/not-found-request-error";
 import registerAdminController from "./controllers/admin/register.admin.controller";
 import CustomError from "../../core/errors/custom-error";
 
@@ -32,19 +32,9 @@ export const createServer = (port: number) => {
     app.post("/admin/register", registerAdminController);
 
     app.use((_err: any, req: any, res: any, next: any) => {
-        if (
-            _err instanceof BadRequestError ||
-            _err instanceof ConflictRequestError ||
-            _err instanceof NotFoundRequest
-        ) {
-            res.status(_err.statusCode).send({
-                message: _err.responseBody,
-            });
-        } else {
-            res.status(500).send({
-                message: "Internal Error",
-            });
-        }
+        res.status(_err.statusCode).send({
+            message: _err.responseBody,
+        });
     });
 
     return {

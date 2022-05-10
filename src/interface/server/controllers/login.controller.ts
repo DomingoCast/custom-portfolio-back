@@ -4,9 +4,12 @@ import validateLogin from "../../../infrastructure/user/validate-login/validate-
 import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
 import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
 import { LoginInfo } from "../../../core/domain/user/login-info";
-import BadRequestError from "../../../infrastructure/http-errors/bad-request";
+import BadRequestError from "../../../infrastructure/http-errors/bad-request-error";
 import NotFoundError from "../../../core/errors/not-found-error";
-import NotFoundRequest from "../../../infrastructure/http-errors/not-found";
+import NotFoundRequest from "../../../infrastructure/http-errors/not-found-request-error";
+import ConflictError from "../../../core/errors/conflict-error";
+import ConflictRequestError from "../../../infrastructure/http-errors/conflict-request-error";
+import httpHandlerError from "../../../infrastructure/http-errors/http-error-handler";
 
 type CustomRequest = Request<{}, {}, LoginInfo> & {
     container?: AwilixContainer;
@@ -36,12 +39,7 @@ const loginController = async (
         container.logger.info(response);
         return res.status(200).send({ message: { token: token } });
     } catch (error) {
-        console.log(error + "Llega a entrar");
-        if (error instanceof NotFoundError) {
-            console.log(error.message);
-            throw new NotFoundRequest(error.message);
-        }
-        next(error);
+        httpHandlerError(error, next);
     }
 };
 

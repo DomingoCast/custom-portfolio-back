@@ -1,7 +1,7 @@
-import HttpError from "./error";
-import BadRequestError from "./bad-request";
-import ConflictRequestError from "./conflict";
-import NotFoundRequest from "./not-found";
+import HttpError from "./http-error";
+import BadRequestError from "./bad-request-error";
+import ConflictRequestError from "./conflict-request-error";
+import NotFoundRequestError from "./not-found-request-error";
 describe("Http error test", () => {
     it("Check if HttpError is called", () => {
         const customError = new HttpError("An error had occurred", 500);
@@ -26,9 +26,9 @@ describe("Check all functions of HttpError", () => {
     });
     it("Check if Not found Request is called", () => {
         const t = () => {
-            throw new NotFoundRequest("Not found Request");
+            throw new NotFoundRequestError("Not found Request");
         };
-        expect(t).toThrowError(NotFoundRequest);
+        expect(t).toThrowError(NotFoundRequestError);
         expect(t).toBeTruthy();
     });
     it("Check if Conflict Request is called", () => {

@@ -3,10 +3,6 @@ import { Request, Response } from "express";
 import { RegisterInfo } from "../../../../core/domain/user/register-info";
 import { User } from "../../../../core/domain/user/user";
 import validateUser from "../../../../infrastructure/user/validate-user/validate-user";
-import jwt from "jsonwebtoken";
-import CustomError from "../../../../infrastructure/errors/custom-error";
-import { decodedTextSpanIntersectsWith } from "typescript";
-import { Role } from "../../../../core/domain/user/role.enum";
 
 type CustomRequest = Request<{}, {}, RegisterInfo> & {
     container?: AwilixContainer;

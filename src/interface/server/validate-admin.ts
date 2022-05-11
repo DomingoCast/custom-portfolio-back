@@ -2,7 +2,7 @@ import { Request, RequestHandler, Response } from "express";
 import { Role } from "../../core/domain/user/role.enum";
 import { User } from "../../core/domain/user/user";
 import jwt from "jsonwebtoken";
-import CustomError from "../../infrastructure/errors/custom-error";
+import CustomError from "../../core/errors/custom-error";
 
 const validateAdmin: RequestHandler = (
     req: Request,

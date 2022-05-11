@@ -1,9 +1,7 @@
 import { AwilixContainer } from "awilix";
 import { Request, Response } from "express";
-import { User } from "../../../../core/domain/user/user";
-import validateUser from "../../../../infrastructure/user/validate-user/validate-user";
 
-type CustomRequest = Request<{}, {}, any> & {
+type CustomRequest = Request & {
     container?: AwilixContainer;
 };
 
@@ -14,10 +12,8 @@ const magicAdminController = async (
 ): Promise<Response> => {
     const container = req.container!.cradle;
     try {
-        console.log(req.query.token);
         const token = req.query.token;
         const decoded = container.accessToken.verify(token);
-        console.log(decoded);
         if (decoded.data.changePassword)
             return res.status(400).send({
                 message: "you need to change the password",

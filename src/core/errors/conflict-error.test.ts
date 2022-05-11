@@ -1,7 +1,7 @@
 import ConflictError from "./conflict-error";
 
-describe("CustomError test", () => {
-    it("Check if function is called", () => {
+describe("ConflictError test", () => {
+    it("Check if ConflictError is called", () => {
         const conflictError = new ConflictError("Email or password incorrect");
         expect(conflictError).toMatchObject({});
     });
@@ -11,7 +11,7 @@ describe("CustomError test", () => {
             "An error had occurred: Email or password incorrect"
         );
     });
-    it("Check if custom Error work well", () => {
+    it("Check if ConflictError work well", () => {
         const t = () => {
             throw new ConflictError("Email or password incorrect");
         };
@@ -19,7 +19,7 @@ describe("CustomError test", () => {
         expect(t).toThrow("Email or password incorrect");
         expect(t).toBeTruthy();
     });
-    it("Check custom message work well", () => {
+    it("Check ConflictError message work well", () => {
         const message = () => {
             throw new ConflictError(
                 "Email or password incorrect"

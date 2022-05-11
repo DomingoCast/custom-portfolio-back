@@ -22,7 +22,8 @@ describe("Check all functions of HttpError", () => {
         const t = () => {
             throw new BadRequestError("Bad Request");
         };
-        expect(t).toThrowError(HttpError);
+        expect(t).toThrowError(BadRequestError);
+        expect(t).toThrowError("Bad Request");
         expect(t).toBeTruthy();
     });
     it("Check if Not found Request is called", () => {
@@ -30,6 +31,7 @@ describe("Check all functions of HttpError", () => {
             throw new NotFoundRequestError("Not found Request");
         };
         expect(t).toThrowError(NotFoundRequestError);
+        expect(t).toThrowError("Not found Request");
         expect(t).toBeTruthy();
     });
     it("Check if Conflict Request is called", () => {
@@ -37,6 +39,7 @@ describe("Check all functions of HttpError", () => {
             throw new ConflictRequestError("Conflict Request");
         };
         expect(t).toThrowError(ConflictRequestError);
+        expect(t).toThrowError("Conflict Request");
         expect(t).toBeTruthy();
     });
     it("Check if Internal Server Error is called", () => {
@@ -44,6 +47,7 @@ describe("Check all functions of HttpError", () => {
             throw new InternalServerError("Internal Server Error");
         };
         expect(t).toThrowError(InternalServerError);
+        expect(t).toThrowError("Internal Server Error");
         expect(t).toBeTruthy();
     });
 });

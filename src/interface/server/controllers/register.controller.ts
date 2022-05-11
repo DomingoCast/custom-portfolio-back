@@ -39,7 +39,6 @@ const registerController = async (
                 .status(200)
                 .send({ message: "User has been registered" });
         }
-        container.logger.error("An error has ocurred in the repository");
         throw new InternalServerError("An error has ocurred in the repository");
     } catch (error: any) {
         container.logger.error(error.message);

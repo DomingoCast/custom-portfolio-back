@@ -1,5 +1,5 @@
-import NotFoundError from "../../core/errors/not-found-error";
-import httpHandlerError from "./http-error-handler";
+import NotFoundError from "../../../core/errors/not-found-error";
+import httpHandlerError from "../http-error-handler";
 import NextFunction from "express";
 
 describe("Http error handler test", () => {

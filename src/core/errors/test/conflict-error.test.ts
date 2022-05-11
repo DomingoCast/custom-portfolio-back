@@ -1,4 +1,4 @@
-import ConflictError from "./conflict-error";
+import ConflictError from "../conflict-error";
 
 describe("ConflictError test", () => {
     it("Check if ConflictError is called", () => {

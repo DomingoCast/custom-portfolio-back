@@ -1,4 +1,4 @@
-import NotFoundError from "./not-found-error";
+import NotFoundError from "../not-found-error";
 
 describe("NotFoundError test", () => {
     it("Check if error NotFound is called", () => {

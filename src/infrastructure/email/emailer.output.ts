@@ -21,7 +21,8 @@ export const setUpEmail = (): EmailSender => {
         getTemplateFn = getTemplate
     ): Promise<void> => {
         const htmlFile = getTemplateFn(email.template + ".sendgrid");
-        sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
+        const segridApiKey = process.env.SENDGRID_API_KEY || "";
+        sgMail.setApiKey(segridApiKey);
         const msg = {
             to: email.receiver,
             from: "team-dha@outlook.com",

@@ -1,6 +1,5 @@
 import httpHandlerError from "../http-error-handler";
 import NextFunction from "express";
-import validateLogin from "../../user/validate-login/validate-login";
 import BadRequestError from "../bad-request-error";
 import NotFoundRequestError from "../not-found-request-error";
 import ConflictRequestError from "../conflict-request-error";
@@ -10,14 +9,7 @@ describe("Http error handler test", () => {
     it("Check if httpHandlerError is called", () => {
         const testHttpHandler = async () => {
             try {
-                const loginInfo = {
-                    email: "hmail.com",
-                    password: "123456",
-                };
-                const validate = validateLogin(loginInfo);
-                if (validate !== true) {
-                    throw new BadRequestError(validate.toString());
-                }
+                throw new BadRequestError("Bad Request");
             } catch (error) {
                 httpHandlerError(error, NextFunction);
             }

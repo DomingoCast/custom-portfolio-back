@@ -7,6 +7,7 @@ import { container } from "../../infrastructure/dependency-injection/awilix-set-
 import { scopePerRequest } from "awilix-express";
 import loginController from "./controllers/login.controller";
 import registerAdminController from "./controllers/admin/register.admin.controller";
+import validateAdmin from "./validate-admin";
 import CustomError from "../../core/errors/custom-error";
 
 export const createServer = (port: number) => {
@@ -25,6 +26,7 @@ export const createServer = (port: number) => {
 
     app.post("/register", registerController); // makeInvoker(registerController));
 
+    app.use("/admin", validateAdmin);
     app.post("/admin/register", registerAdminController);
     app.use((err: any, req: any, res: any, next: any) => {
         res.status(500).send({ message: err.message });

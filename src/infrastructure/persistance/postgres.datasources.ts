@@ -1,8 +1,8 @@
 import "reflect-metadata";
 
 import { DataSource } from "typeorm";
-import CustomError from "../errors/custom-error";
 import { dataSource } from "./datasource";
+import CustomError from "../../core/errors/custom-error";
 
 export const createDBConnection = () => {
     const connect = (appDataSource: DataSource = dataSource) => {
@@ -10,7 +10,6 @@ export const createDBConnection = () => {
             .initialize()
             .then(async () => {
                 console.log("Data Source has been initialized!");
-                // await runSeed();
             })
             .catch((error: any) => {
                 const errorMessage =

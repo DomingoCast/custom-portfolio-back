@@ -9,6 +9,7 @@ services:
       - .env
     environment:
       NODE_ENV: production
+      POSTGRES_HOST: db
     depends_on:
       - "db"
 

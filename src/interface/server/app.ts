@@ -6,9 +6,10 @@ import swaggerOptions from "./api-docs/swagger-options";
 import { container } from "../../infrastructure/dependency-injection/awilix-set-up";
 import { scopePerRequest } from "awilix-express";
 import loginController from "./controllers/login.controller";
-import CustomError from "../../infrastructure/errors/custom-error";
 import registerAdminController from "./controllers/admin/register.admin.controller";
 import magicAdminController from "./controllers/admin/magic.admin.controller";
+import validateAdmin from "./validate-admin";
+import CustomError from "../../core/errors/custom-error";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -26,6 +27,7 @@ export const createServer = (port: number) => {
 
     app.post("/register", registerController); // makeInvoker(registerController));
 
+    app.use("/admin", validateAdmin);
     app.post("/admin/register", registerAdminController);
     app.get("/admin/magic", magicAdminController);
     app.use((err: any, req: any, res: any, next: any) => {

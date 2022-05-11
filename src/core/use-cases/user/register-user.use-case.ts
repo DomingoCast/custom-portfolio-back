@@ -5,7 +5,7 @@ import UserRepository from "../../ports/user-repository.port";
 import EmailSender from "../../ports/email/send-email.port";
 import { RegisterInfo } from "../../domain/user/register-info";
 import { Role } from "../../domain/user/role.enum";
-import CustomError from "../../errors/custom-error";
+import ConflictError from "../../errors/conflict-error";
 
 type RegisterUserUseCaseProps = {
     userRepository: UserRepository;
@@ -28,7 +28,7 @@ const registerUserUseCase =
         };
 
         if (await userRepository.findByEmail(user.email))
-            throw new CustomError("Email already in the database");
+            throw new ConflictError("Email already in the database");
 
         const userResponse = await userRepository.persist(userSafe);
         if (userResponse) {

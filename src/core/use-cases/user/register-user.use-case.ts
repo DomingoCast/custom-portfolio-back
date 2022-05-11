@@ -5,7 +5,7 @@ import UserRepository from "../../ports/user-repository.port";
 import EmailSender from "../../ports/email/send-email.port";
 import { RegisterInfo } from "../../domain/user/register-info";
 import { Role } from "../../domain/user/role.enum";
-import CustomError from "../../../infrastructure/errors/custom-error";
+import CustomError from "../../errors/custom-error";
 
 type RegisterUserUseCaseProps = {
     userRepository: UserRepository;

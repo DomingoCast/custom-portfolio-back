@@ -9,7 +9,8 @@ type CustomRequest = Request<{}, {}, any> & {
 
 const magicAdminController = async (
     req: CustomRequest,
-    res: Response
+    res: Response,
+    next: any
 ): Promise<Response> => {
     const container = req.container!.cradle;
     try {
@@ -18,12 +19,10 @@ const magicAdminController = async (
         const decoded = container.accessToken.verify(token);
         console.log(decoded);
         if (decoded.data.changePassword)
-            return res
-                .status(400)
-                .send({
-                    message: "you need to change the password",
-                    token: token,
-                });
+            return res.status(400).send({
+                message: "you need to change the password",
+                token: token,
+            });
         return res
             .status(200)
             .send({ message: "admin registration completed" });

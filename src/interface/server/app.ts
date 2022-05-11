@@ -28,7 +28,6 @@ export const createServer = (port: number) => {
     app.post("/register", registerController); // makeInvoker(registerController));
 
     app.get("/admin/magic", magicAdminController);
-    app.post("/admin/password", passwordAdminController); // makeInvoker(registerController));
     // app.use("/admin", validateAdmin);
     app.post("/admin/register", validateAdmin, registerAdminController);
     app.use((err: any, req: any, res: any, next: any) => {

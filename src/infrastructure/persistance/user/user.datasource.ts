@@ -1,7 +1,7 @@
 import UserRepository from "../../../core/ports/user-repository.port";
 import { User } from "../../../core/domain/user/user";
 import UserModel from "./user.model";
-import { dataSource } from "../postgres.datasources";
+import { dataSource } from "../datasource";
 
 const createUserRepository = (): UserRepository => {
     const userRepository = dataSource.getRepository(UserModel);

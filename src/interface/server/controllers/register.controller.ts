@@ -28,10 +28,7 @@ const registerController = async (
         }
 
         const validate = validateUser(user);
-        if (validate !== true) {
-            container.logger.error(validate);
-            throw new BadRequestError(validate.toString());
-        }
+        if (validate !== true) throw new BadRequestError(validate.toString());
         const response: null | User = await container.registerUserUseCase(
             user,
             Role.worker
@@ -44,8 +41,8 @@ const registerController = async (
         }
         container.logger.error("An error has ocurred in the repository");
         throw new InternalServerError("An error has ocurred in the repository");
-    } catch (error) {
-        container.logger.error(error);
+    } catch (error: any) {
+        container.logger.error(error.message);
         httpHandlerError(error, next);
     }
 };

@@ -24,18 +24,15 @@ const loginController = async (
             container.logger.info("Trim fields from login info");
         }
         const validate = validateLogin(loginInfo);
-        if (validate !== true) {
-            container.logger.error(validate);
-            throw new BadRequestError(validate.toString());
-        }
+        if (validate !== true) throw new BadRequestError(validate.toString());
         const response: Omit<LoginInfo, "password"> =
             await container.loginUseCase(loginInfo);
         const token: string = container.accessToken.create(response);
         container.logger.info("TokenAccess created");
         container.logger.info(response);
         return res.status(200).send({ message: { token: token } });
-    } catch (error) {
-        container.logger.error(error);
+    } catch (error: any) {
+        container.logger.error(error.message);
         httpHandlerError(error, next);
     }
 };

@@ -16,8 +16,8 @@ const loginController = async (
     res: Response,
     next: NextFunction
 ): Promise<void | Response> => {
+    const container = req.container?.cradle;
     try {
-        const container = req.container?.cradle;
         let loginInfo = req.body;
         if (req.body !== null) {
             loginInfo = trimFields(req.body, arrayExceptions);
@@ -35,6 +35,7 @@ const loginController = async (
         container.logger.info(response);
         return res.status(200).send({ message: { token: token } });
     } catch (error) {
+        container.logger.error(error);
         httpHandlerError(error, next);
     }
 };

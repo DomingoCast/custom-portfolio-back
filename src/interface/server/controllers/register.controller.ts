@@ -45,6 +45,7 @@ const registerController = async (
         container.logger.error("An error has ocurred in the repository");
         throw new InternalServerError("An error has ocurred in the repository");
     } catch (error) {
+        container.logger.error(error);
         httpHandlerError(error, next);
     }
 };

@@ -9,6 +9,7 @@ import loginController from "./controllers/login.controller";
 import registerAdminController from "./controllers/admin/register.admin.controller";
 import validateAdmin from "./validate-admin";
 import CustomError from "../../core/errors/custom-error";
+import HttpError from "../../infrastructure/http-errors/http-error";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -26,11 +27,15 @@ export const createServer = (port: number) => {
     app.use("/admin", validateAdmin);
     app.post("/admin/register", registerAdminController);
 
-    app.use((error: any, req: Request, res: Response, next: NextFunction) => {
-        res.status(error.statusCode).send({
-            message: error.responseBody,
-        });
-    });
+    app.use(
+        (error: unknown, req: Request, res: Response, next: NextFunction) => {
+            if (error instanceof HttpError) {
+                res.status(error.statusCode).send({
+                    message: error.responseBody,
+                });
+            }
+        }
+    );
 
     return {
         app: app,
@@ -44,7 +49,7 @@ export const runServer = (app: Application, port: number) => {
             console.log(`Connected successfully on port ${port}`);
         });
         return server;
-    } catch (error: any) {
-        throw new CustomError(error);
+    } catch (error: unknown) {
+        if (error instanceof Error) throw new CustomError(error.message);
     }
 };

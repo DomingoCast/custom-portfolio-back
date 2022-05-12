@@ -12,7 +12,7 @@ const registerAdminController = async (
     req: CustomRequest,
     res: Response
 ): Promise<Response> => {
-    const container = req.container!.cradle;
+    const container = req.container?.cradle;
     try {
         const dataForm = req.body;
         const validate = validateUser(dataForm);

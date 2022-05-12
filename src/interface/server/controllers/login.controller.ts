@@ -31,9 +31,11 @@ const loginController = async (
         container.logger.info("TokenAccess created");
         container.logger.info(response);
         return res.status(200).send({ token: token });
-    } catch (error: any) {
-        container.logger.error(error.message);
-        httpHandlerError(error, next);
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+            container.logger.error(error.message);
+            httpHandlerError(error, next);
+        }
     }
 };
 

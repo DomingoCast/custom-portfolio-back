@@ -1,9 +1,11 @@
 import { AwilixContainer } from "awilix";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import validateLogin from "../../../infrastructure/user/validate-login/validate-login";
 import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
 import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
 import { LoginInfo } from "../../../core/domain/user/login-info";
+import BadRequestError from "../../../infrastructure/http-errors/bad-request-error";
+import httpHandlerError from "../../../infrastructure/http-errors/http-error-handler";
 
 type CustomRequest = Request<{}, {}, LoginInfo> & {
     container?: AwilixContainer;
@@ -12,20 +14,17 @@ type CustomRequest = Request<{}, {}, LoginInfo> & {
 const loginController = async (
     req: CustomRequest,
     res: Response,
-    next: any
+    next: NextFunction
 ): Promise<void | Response> => {
     const container = req.container?.cradle;
     try {
-        let loginInfo: any = req.body;
+        let loginInfo = req.body;
         if (req.body !== null) {
             loginInfo = trimFields(req.body, arrayExceptions);
             container.logger.info("Trim fields from login info");
         }
         const validate = validateLogin(loginInfo);
-        if (validate !== true) {
-            container.logger.error(validate);
-            return res.status(400).send({ message: validate });
-        }
+        if (validate !== true) throw new BadRequestError(validate.toString());
         const response: Omit<LoginInfo, "password"> =
             await container.loginUseCase(loginInfo);
         const token: string = container.accessToken.create(response);
@@ -33,7 +32,8 @@ const loginController = async (
         container.logger.info(response);
         return res.status(200).send({ token: token });
     } catch (error: any) {
-        next(error);
+        container.logger.error(error.message);
+        httpHandlerError(error, next);
     }
 };
 

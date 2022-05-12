@@ -1,4 +1,4 @@
-import CustomError from "./custom-error";
+import CustomError from "../custom-error";
 
 describe("CustomError test", () => {
     it("Check if function getCustomMessage is called", () => {

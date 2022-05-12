@@ -27,7 +27,7 @@ describe("loginController", () => {
         const next = jest.fn;
         const sendResponse = jest.fn();
         const res: any = {
-            status: jest.fn((x) => ({
+            status: jest.fn(() => ({
                 send: sendResponse,
             })),
         };

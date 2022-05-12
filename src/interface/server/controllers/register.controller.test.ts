@@ -18,7 +18,7 @@ describe("registerController", () => {
         },
     };
     const res: any = {
-        status: jest.fn((x) => ({
+        status: jest.fn(() => ({
             send: jest.fn,
         })),
     };

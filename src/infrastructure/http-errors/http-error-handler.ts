@@ -6,7 +6,7 @@ import NotFoundRequestError from "./not-found-request-error";
 import InternalServerError from "./internal-error";
 import { NextFunction } from "express";
 
-const httpHandlerError = (error: any, next: NextFunction) => {
+const httpHandlerError = (error: unknown, next: NextFunction) => {
     if (error instanceof NotFoundError) {
         next(new NotFoundRequestError(error.message));
         return;
@@ -17,6 +17,6 @@ const httpHandlerError = (error: any, next: NextFunction) => {
         next(new ConflictRequestError(error.message));
         return;
     }
-    next(new InternalServerError(error.message));
+    if (error instanceof Error) next(new InternalServerError(error.message));
 };
 export default httpHandlerError;

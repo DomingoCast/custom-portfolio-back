@@ -11,10 +11,10 @@ export const createDBConnection = () => {
             .then(async () => {
                 console.log("Data Source has been initialized!");
             })
-            .catch((error: any) => {
+            .catch((error: unknown) => {
                 const errorMessage =
                     "Error during Data Source initialization " + error;
-                throw new CustomError(errorMessage);
+                if (error instanceof Error) throw new CustomError(errorMessage);
             });
     };
 

@@ -10,13 +10,14 @@ const validateAdmin: RequestHandler = (
     next: any
 ) => {
     const token = req.headers.token;
+    const JWT_SECRET: string = process.env.JWT_SECRET || "test";
+
     console.log(token);
     if (!token) throw new CustomError("No token");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     let decoded: any = { role: Role.worker };
     try {
-        decoded = <User>(
-            jwt.verify(<string>token, <string>process.env.JWT_SECRET!)
-        );
+        decoded = <User>jwt.verify(<string>token, JWT_SECRET);
     } catch (err) {
         console.log(err);
         next(new CustomError("Wrong Token"));

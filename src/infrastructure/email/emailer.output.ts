@@ -3,6 +3,7 @@ import Email from "../../core/ports/email/email";
 import sgMail from "@sendgrid/mail";
 import fs from "fs";
 import EmailSender from "../../core/ports/email/send-email.port";
+import CustomError from "../../core/errors/custom-error";
 
 export const getTemplate = (file: string): string => {
     try {
@@ -35,7 +36,9 @@ export const setUpEmail = (): EmailSender => {
             .then(() => {
                 console.log("Email sent");
             })
-            .catch((error: any) => {
+            .catch((error: unknown) => {
+                if (error instanceof Error)
+                    throw new CustomError(error.message);
                 console.error(error);
             });
     };

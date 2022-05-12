@@ -1,5 +1,6 @@
 import { AwilixContainer } from "awilix";
 import { Request, Response } from "express";
+import httpHandlerError from "../../../../infrastructure/http-errors/http-error-handler";
 
 type CustomRequest = Request & {
     container?: AwilixContainer;
@@ -9,7 +10,7 @@ const magicAdminController = async (
     req: CustomRequest,
     res: Response,
     next: any
-): Promise<Response> => {
+): Promise<Response | void> => {
     const container = req.container!.cradle;
     try {
         const token = req.query.token;
@@ -23,10 +24,7 @@ const magicAdminController = async (
             .status(200)
             .send({ message: "admin registration completed" });
     } catch (e) {
-        container.logger.error(e);
-        return res.status(500).send({
-            message: e,
-        });
+        httpHandlerError(e, next);
     }
 };
 

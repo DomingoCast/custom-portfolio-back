@@ -31,11 +31,10 @@ export const createServer = (port: number) => {
     app.use("/admin", validateAdmin);
     app.post("/admin/password", passwordAdminController);
     app.post("/admin/register", registerAdminController);
-    app.use((err: any, req: any, res: any, next: any) => {
-        res.status(500).send({ message: err.message });
 
     app.use((error: any, req: Request, res: Response, next: NextFunction) => {
-        res.status(error.statusCode).send({
+        console.log("[ERROR]", error);
+        res.status(error.statusCode ? error.statusCode : 500).send({
             message: error.responseBody,
         });
     });

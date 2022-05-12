@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { User } from "../../../core/domain/user/user";
 import { AwilixContainer } from "awilix";
 import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
@@ -6,6 +6,9 @@ import validateUser from "../../../infrastructure/user/validate-user/validate-us
 import { RegisterInfo } from "../../../core/domain/user/register-info";
 import { Role } from "../../../core/domain/user/role.enum";
 import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
+import httpHandlerError from "../../../infrastructure/http-errors/http-error-handler";
+import BadRequestError from "../../../infrastructure/http-errors/bad-request-error";
+import InternalServerError from "../../../infrastructure/http-errors/internal-error";
 
 type CustomRequest = Request<{}, {}, RegisterInfo> & {
     container?: AwilixContainer;
@@ -14,9 +17,9 @@ type CustomRequest = Request<{}, {}, RegisterInfo> & {
 const registerController = async (
     req: CustomRequest,
     res: Response,
-    next: any
+    next: NextFunction
 ): Promise<void | Response> => {
-    const container = req.container!.cradle;
+    const container = req.container?.cradle;
     try {
         let user: RegisterInfo = req.body;
         if (req.body !== null) {
@@ -25,10 +28,7 @@ const registerController = async (
         }
 
         const validate = validateUser(user);
-        if (validate !== true) {
-            container.logger.error(validate);
-            return res.status(400).send({ message: validate });
-        }
+        if (validate !== true) throw new BadRequestError(validate.toString());
         const response: null | User = await container.registerUserUseCase(
             user,
             Role.worker
@@ -39,12 +39,10 @@ const registerController = async (
                 .status(200)
                 .send({ message: "User has been registered" });
         }
-        container.logger.error("An error has ocurred in the repository");
-        return res
-            .status(500)
-            .send({ message: "An error has ocurred in the repository" });
-    } catch (error) {
-        next(error);
+        throw new InternalServerError("An error has ocurred in the repository");
+    } catch (error: any) {
+        container.logger.error(error.message);
+        httpHandlerError(error, next);
     }
 };
 

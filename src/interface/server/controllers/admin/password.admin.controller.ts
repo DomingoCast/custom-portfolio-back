@@ -1,5 +1,5 @@
 import { AwilixContainer } from "awilix";
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { User } from "../../../../core/domain/user/user";
 import httpHandlerError from "../../../../infrastructure/http-errors/http-error-handler";
 import validatePassword from "../../../../infrastructure/user/validate-password/validate-password";
@@ -11,7 +11,7 @@ type CustomRequest = Request<{}, {}, { password: string }> & {
 const passwordAdminController = async (
     req: CustomRequest,
     res: Response,
-    next: any
+    next: NextFunction
 ): Promise<Response | void> => {
     const container = req.container!.cradle;
     try {

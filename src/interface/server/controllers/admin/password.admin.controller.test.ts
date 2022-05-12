@@ -1,5 +1,4 @@
 import validatePassword from "../../../../infrastructure/user/validate-password/validate-password";
-import magicAdminController from "./magic.admin.controller";
 import passwordAdminController from "./password.admin.controller";
 
 jest.mock(

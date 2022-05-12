@@ -1,6 +1,5 @@
 import { AwilixContainer } from "awilix";
-import { Request, Response } from "express";
-import { nextTick } from "process";
+import { NextFunction, Request, Response } from "express";
 import { RegisterInfo } from "../../../../core/domain/user/register-info";
 import { Role } from "../../../../core/domain/user/role.enum";
 import { User } from "../../../../core/domain/user/user";
@@ -14,7 +13,7 @@ type CustomRequest = Request<{}, {}, RegisterInfo> & {
 const registerAdminController = async (
     req: CustomRequest,
     res: Response,
-    next: any
+    next: NextFunction
 ): Promise<Response | void> => {
     const container = req.container!.cradle;
     try {

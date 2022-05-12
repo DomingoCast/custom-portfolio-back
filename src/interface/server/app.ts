@@ -22,7 +22,7 @@ export const createServer = (port: number) => {
 
     app.post("/login", loginController);
 
-    app.post("/register", registerController); // makeInvoker(registerController));
+    app.post("/register", registerController);
 
     app.use("/admin", validateAdmin);
     app.post("/admin/register", registerAdminController);

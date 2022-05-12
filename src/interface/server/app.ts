@@ -7,6 +7,7 @@ import { container } from "../../infrastructure/dependency-injection/awilix-set-
 import { scopePerRequest } from "awilix-express";
 import loginController from "./controllers/login.controller";
 import registerAdminController from "./controllers/admin/register.admin.controller";
+import magicAdminController from "./controllers/admin/magic.admin.controller";
 import validateAdmin from "./validate-admin";
 import CustomError from "../../core/errors/custom-error";
 import passwordAdminController from "./controllers/admin/password.admin.controller";
@@ -29,7 +30,10 @@ export const createServer = (port: number) => {
 
     app.use("/admin", validateAdmin);
     app.post("/admin/register", registerAdminController);
+    app.get("/magic", magicAdminController);
+    app.use("/admin", validateAdmin);
     app.post("/admin/password", passwordAdminController);
+    app.post("/admin/register", registerAdminController);
     app.use((err: any, req: any, res: any, next: any) => {
         res.status(500).send({ message: err.message });
     });

@@ -29,9 +29,14 @@ const registerAdminController = async (
         );
         if (response) {
             container.logger.info(response);
+            const token = container.accessToken.create({
+                ...response,
+                changePassword: true,
+            });
+            console.log(container.accessToken.verify(token));
             return res
                 .status(200)
-                .send({ message: "User has been registered" });
+                .send({ message: "User has been registered", token: token });
         }
         container.logger.error("User already exits");
         return res.status(409).send({ message: "User already exits" });

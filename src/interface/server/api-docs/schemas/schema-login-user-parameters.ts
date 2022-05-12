@@ -18,13 +18,8 @@ const schemaLoginUserParameters = {
         schema: {
             type: "object",
             properties: {
-                message: {
-                    type: "object",
-                    properties: {
-                        token: {
-                            type: "string",
-                        },
-                    },
+                token: {
+                    type: "string",
                 },
             },
         },

@@ -34,6 +34,10 @@ const UserModel = new EntitySchema<User>({
             type: String,
             length: 100,
         },
+        role: {
+            type: String,
+            length: 100,
+        },
     },
 });
 

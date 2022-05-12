@@ -1,3 +1,4 @@
+import { Role } from "../../../core/domain/user/role.enum";
 import validateUser from "../../../infrastructure/user/validate-user/validate-user";
 import registerController from "./register.controller";
 
@@ -17,14 +18,14 @@ describe("registerController", () => {
         },
     };
     const res: any = {
-        status: jest.fn((x) => ({
+        status: jest.fn(() => ({
             send: jest.fn,
         })),
     };
     const next = jest.fn;
     it("doesn't register null", () => {
         registerController(req, res, next);
-        expect(res.status).toHaveBeenCalledWith(400);
+        expect(mockValidateUser).toHaveBeenCalledTimes(1);
     });
     it("validates the input", () => {
         mockValidateUser.mockImplementation(jest.fn());
@@ -44,7 +45,8 @@ describe("registerController", () => {
         mockValidateUser.mockImplementation(() => true);
         registerController(req, res, next);
         expect(req.container.cradle.registerUserUseCase).toHaveBeenCalledWith(
-            req.body
+            req.body,
+            Role.worker
         );
     });
 });

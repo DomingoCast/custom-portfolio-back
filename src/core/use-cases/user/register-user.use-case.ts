@@ -3,14 +3,16 @@ import { User } from "../../domain/user/user";
 import HashFunction from "../../ports/hash-function.port";
 import UserRepository from "../../ports/user-repository.port";
 import EmailSender from "../../ports/email/send-email.port";
-import CustomError from "../../../infrastructure/errors/custom-error";
+import { RegisterInfo } from "../../domain/user/register-info";
+import { Role } from "../../domain/user/role.enum";
+import ConflictError from "../../errors/conflict-error";
 
 type RegisterUserUseCaseProps = {
     userRepository: UserRepository;
     emailSender: EmailSender;
     hashFunction: HashFunction;
 };
-type RegisterUserUseCase = (user: Omit<User, "id">) => Promise<User | null>;
+type RegisterUserUseCase = (user: RegisterInfo) => Promise<User | null>;
 
 const registerUserUseCase =
     ({
@@ -18,14 +20,15 @@ const registerUserUseCase =
         hashFunction,
         emailSender,
     }: RegisterUserUseCaseProps): RegisterUserUseCase =>
-    async (user: Omit<User, "id">): Promise<User | null> => {
+    async (user: RegisterInfo, role = Role.worker): Promise<User | null> => {
         const userSafe = {
             ...user,
             password: await hashFunction.hash(user.password),
+            role,
         };
 
         if (await userRepository.findByEmail(user.email))
-            throw new CustomError("Email already in the database");
+            throw new ConflictError("Email already in the database");
 
         const userResponse = await userRepository.persist(userSafe);
         if (userResponse) {

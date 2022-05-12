@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
-import CustomError from "../errors/custom-error";
 import "dotenv/config";
 import { VerifyResponse } from "./verify.type";
 import { LoginInfo } from "../../core/domain/user/login-info";
+import CustomError from "../../core/errors/custom-error";
 const JWT_SECRET: string = process.env.JWT_SECRET || "test";
 
 const jwtToken = () => {

@@ -11,7 +11,7 @@ describe("createDBConnection", () => {
             initialize: jest.fn(() => Promise.resolve()),
         };
         const { connect } = createDBConnection();
-        connect(mockDataSource);
+        await connect(mockDataSource);
         expect(mockDataSource.initialize).toHaveBeenCalled();
     });
 });

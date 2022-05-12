@@ -69,7 +69,7 @@ describe("Regiter user use case", () => {
             password: hashPassword,
         };
         const userSafe = null;
-        const userRepository: UserRepository = {
+        const userRepository: any = {
             persist: jest.fn(async () => await userSafe),
             findByEmail: jest.fn(async () => await null),
         };

@@ -17,9 +17,20 @@ const createUserRepository = (): UserRepository => {
         });
         return response;
     };
+    const updatePassword = async (
+        id: string,
+        password: string
+    ): Promise<User | null> => {
+        const response = await userRepository.save({
+            id,
+            password,
+        });
+        return response;
+    };
     return {
         persist,
         findByEmail,
+        updatePassword,
     };
 };
 

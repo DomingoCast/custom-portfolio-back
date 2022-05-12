@@ -9,6 +9,7 @@ import loginController from "./controllers/login.controller";
 import registerAdminController from "./controllers/admin/register.admin.controller";
 import validateAdmin from "./validate-admin";
 import CustomError from "../../core/errors/custom-error";
+import passwordAdminController from "./controllers/admin/password.admin.controller";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -28,6 +29,7 @@ export const createServer = (port: number) => {
 
     app.use("/admin", validateAdmin);
     app.post("/admin/register", registerAdminController);
+    app.post("/admin/password", passwordAdminController);
     app.use((err: any, req: any, res: any, next: any) => {
         res.status(500).send({ message: err.message });
     });

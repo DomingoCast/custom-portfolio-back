@@ -16,6 +16,7 @@ describe("password admin controller", () => {
                     verify: jest.fn(() => ({
                         data: { id: true },
                     })),
+                    create: jest.fn(),
                 },
                 passwordUserUseCase: jest.fn(async () => await true),
                 logger: { info: jest.fn() },

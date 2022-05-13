@@ -2,6 +2,7 @@ import { AwilixContainer } from "awilix";
 import { NextFunction, Request, Response } from "express";
 import { User } from "../../../../core/domain/user/user";
 import httpHandlerError from "../../../../infrastructure/http-errors/http-error-handler";
+import InternalServerError from "../../../../infrastructure/http-errors/internal-error";
 import validatePassword from "../../../../infrastructure/user/validate-password/validate-password";
 
 type CustomRequest = Request<{}, {}, { password: string }> & {
@@ -31,13 +32,11 @@ const passwordAdminController = async (
             password.password
         );
         if (response) {
+            const token = container.accessToken.create(response);
             container.logger.info(response);
-            return res
-                .status(200)
-                .send({ message: "User has been passworded" });
+            return res.status(200).send({ token: token });
         }
-        container.logger.error("User already exits");
-        return res.status(409).send({ message: "User already exits" });
+        throw new InternalServerError("An error has ocurred");
     } catch (e) {
         httpHandlerError(e, next);
     }

@@ -20,7 +20,6 @@ const passwordUserUseCase =
         hashFunction,
     }: PasswordUserUseCaseProps): PasswordUserUseCase =>
     async (id: string, password: string): Promise<User | null> => {
-        console.log("ID", id);
         if (!(await userRepository.findById(id)))
             throw new ConflictError("user doesn't exist");
 

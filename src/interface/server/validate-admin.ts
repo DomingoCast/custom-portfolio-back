@@ -2,7 +2,7 @@ import { Request, RequestHandler, Response } from "express";
 import { Role } from "../../core/domain/user/role.enum";
 import { User } from "../../core/domain/user/user";
 import jwt from "jsonwebtoken";
-import CustomError from "../../core/errors/custom-error";
+import UnauthorizedError from "../../core/errors/unauthorized.error";
 
 const validateAdmin: RequestHandler = (
     req: Request,
@@ -11,7 +11,7 @@ const validateAdmin: RequestHandler = (
 ) => {
     const token = req.headers.token;
     console.log(token);
-    if (!token) throw new CustomError("No token");
+    if (!token) throw new UnauthorizedError("No token");
     let decoded: any = { role: Role.worker };
     try {
         decoded = <User>(
@@ -19,10 +19,10 @@ const validateAdmin: RequestHandler = (
         );
     } catch (err) {
         console.log(err);
-        next(new CustomError("Wrong Token"));
+        next(new UnauthorizedError("Wrong Token"));
     }
     if (Number(decoded.data.role) !== Role.admin)
-        next(new CustomError("Unauthorized"));
+        next(new UnauthorizedError("Unauthorized"));
     next();
 };
 

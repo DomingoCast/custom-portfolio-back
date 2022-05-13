@@ -21,9 +21,7 @@ const registerAdminController = async (
         const validate = validateUser(dataForm);
         if (validate !== true) {
             container.logger.error(validate);
-            return res
-                .status(400)
-                .send({ message: validate, casa: req.header });
+            return res.status(400).send({ message: validate });
         }
         const user: RegisterInfo = req.body;
         const response: null | User = await container.registerUserUseCase(

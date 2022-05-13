@@ -21,9 +21,7 @@ const passwordAdminController = async (
         const validate = validatePassword(password);
         if (validate !== true) {
             container.logger.error(validate);
-            return res
-                .status(400)
-                .send({ message: validate, casa: req.header });
+            return res.status(400).send({ message: validate });
         }
         const decoded = container.accessToken.verify(token);
 

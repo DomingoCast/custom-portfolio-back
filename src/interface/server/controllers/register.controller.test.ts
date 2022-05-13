@@ -18,14 +18,14 @@ describe("registerController", () => {
         },
     };
     const res: any = {
-        status: jest.fn((x) => ({
+        status: jest.fn(() => ({
             send: jest.fn,
         })),
     };
     const next = jest.fn;
     it("doesn't register null", () => {
         registerController(req, res, next);
-        expect(res.status).toHaveBeenCalledWith(400);
+        expect(mockValidateUser).toHaveBeenCalledTimes(1);
     });
     it("validates the input", () => {
         mockValidateUser.mockImplementation(jest.fn());

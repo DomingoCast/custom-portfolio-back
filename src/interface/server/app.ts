@@ -1,4 +1,4 @@
-import express, { Application } from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import registerController from "./controllers/register.controller";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
@@ -17,9 +17,6 @@ export const createServer = (port: number) => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(scopePerRequest(container));
-    app.use((err: any, req: any, res: any, next: any) => {
-        res.status(500).send(err);
-    });
 
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
@@ -27,11 +24,16 @@ export const createServer = (port: number) => {
 
     app.post("/register", registerController); // makeInvoker(registerController));
 
-    app.get("/admin/magic", magicAdminController);
-    // app.use("/admin", validateAdmin);
-    app.post("/admin/register", validateAdmin, registerAdminController);
-    app.use((err: any, req: any, res: any, next: any) => {
-        res.status(500).send({ message: err.message });
+    app.get("/magic", magicAdminController);
+
+    app.use("/admin", validateAdmin);
+
+    app.post("/admin/register", registerAdminController);
+
+    app.use((error: any, req: Request, res: Response, next: NextFunction) => {
+        res.status(error.statusCode).send({
+            message: error.responseBody,
+        });
     });
 
     return {

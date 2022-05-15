@@ -39,7 +39,31 @@ export const setUpEmail = (): EmailSender => {
             });
     };
 
+    const sendAdminEmail = async (
+        email: Email,
+        getTemplateFn = getTemplate
+    ): Promise<void> => {
+        const htmlFile = getTemplateFn(email.template + ".sendgrid");
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
+        const msg = {
+            to: email.receiver,
+            from: "team-dha@outlook.com",
+            subject: email.subject,
+            text: "and easy to do anywhere, even with Node.js",
+            html: htmlFile,
+        };
+        sgMail
+            .send(msg)
+            .then(() => {
+                console.log("Email sent");
+            })
+            .catch((error: any) => {
+                console.error(error);
+            });
+    };
+
     return {
         send: (email: Email) => sendEmail(email),
+        sendAdmin: (email: Email) => sendAdminEmail(email),
     };
 };

@@ -39,6 +39,13 @@ const UserModel = new EntitySchema<User>({
             length: 100,
         },
     },
+    relations: {
+        collections: {
+            type: "one-to-amy",
+            target: "Collection",
+            inverseSide: "user",
+        },
+    } as any,
 });
 
 export default UserModel;

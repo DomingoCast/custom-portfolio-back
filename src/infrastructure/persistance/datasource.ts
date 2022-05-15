@@ -4,6 +4,8 @@ import "dotenv/config";
 import { DataSource } from "typeorm";
 import UserModel from "./user/user.model";
 import path from "path";
+import CollectionModel from "./collection/collection.model";
+import PostModel from "./post/post.model";
 
 export const dataSource = new DataSource({
     type: "postgres",
@@ -14,7 +16,7 @@ export const dataSource = new DataSource({
     database: process.env.POSTGRES_DB,
     synchronize: false,
     logging: true,
-    entities: [UserModel],
+    entities: [UserModel, CollectionModel, PostModel],
     subscribers: [],
     migrationsTableName: "custom_migration_table",
     migrations: [path.join(__dirname, "migration/*.ts")],

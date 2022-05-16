@@ -1,9 +1,12 @@
-const trimFields = <T>(objectToTrim: T, arrayExceptions: Array<string>): T => {
+const trimFields = <T extends object = object>(
+    objectToTrim: T,
+    arrayExceptions: Array<string>
+): T => {
     const newObject = { ...objectToTrim };
     Object.keys(newObject).forEach((key: string) => {
-        const param = newObject[key as keyof T];
+        const param: unknown = newObject[key as keyof T];
         if (typeof param === "string" && !arrayExceptions.includes(key))
-            newObject[key as keyof T] = <any>param.trim();
+            (newObject[key as keyof T] as string) = param.trim();
     });
     return newObject;
 };

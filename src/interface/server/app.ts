@@ -28,7 +28,7 @@ export const createServer = (port: number) => {
     app.post("/admin/register", registerAdminController);
 
     app.use(
-        (error: unknown, req: Request, res: Response, next: NextFunction) => {
+        (error: unknown, _req: Request, res: Response, _next: NextFunction) => {
             if (error instanceof HttpError) {
                 res.status(error.statusCode).send({
                     message: error.responseBody,

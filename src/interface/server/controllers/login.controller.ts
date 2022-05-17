@@ -18,6 +18,9 @@ const loginController = async (
 ): Promise<void | Response> => {
     const container = req.container?.cradle;
     try {
+        container.logger.info(
+            req.method + " /login " + JSON.stringify(req.body)
+        );
         let loginInfo = req.body;
         if (req.body !== null) {
             loginInfo = trimFields(req.body, arrayExceptions);
@@ -28,8 +31,8 @@ const loginController = async (
         const response: Omit<LoginInfo, "password"> =
             await container.loginUseCase(loginInfo);
         const token: string = container.accessToken.create(response);
+        container.logger.info("Correct login: " + JSON.stringify(response));
         container.logger.info("TokenAccess created");
-        container.logger.info(response);
         return res.status(200).send({ token: token });
     } catch (error: any) {
         container.logger.error(error.message);

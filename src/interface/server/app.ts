@@ -18,7 +18,7 @@ import CustomError from "../../core/errors/custom-error";
 
 export const createServer = (port: number) => {
     const app: Application = express();
-    const adminRouter: Router = app.Router();
+    const adminRouter: Router = express.Router();
     app.use(cors());
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));

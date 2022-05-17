@@ -1,6 +1,8 @@
-interface HashFunction {
-    hash(password: string): Promise<string>;
-    verify(hashed: string, password: string): Promise<boolean>;
+import { LoginInfo } from "../domain/user/login-info";
+
+interface AccessToken {
+    create(loginInfo: Omit<LoginInfo, "password">): string;
+    verify(token: string): string | unknown;
 }
 
-export default HashFunction;
+export default AccessToken;

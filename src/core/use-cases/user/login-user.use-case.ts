@@ -7,15 +7,19 @@ type LoginUseCaseProps = {
     userRepository: UserRepository;
     hashFunction: HashFunction;
 };
+const PERMISSION_DENIED = "You don't have permission to access";
+
 type LoginUseCase = (loginInfo: LoginInfo) => void;
 const loginUseCase =
     ({ userRepository, hashFunction }: LoginUseCaseProps): LoginUseCase =>
     async (loginInfo: LoginInfo): Promise<User | void> => {
         const user = await userRepository.findByEmail(loginInfo.email);
-        if (!user)
-            throw new ForbiddenError("You don't have permission to access");
-        if (!(await hashFunction.verify(user.password, loginInfo.password)))
-            throw new ForbiddenError("You don't have permission to access");
+        if (!user) throw new ForbiddenError(PERMISSION_DENIED);
+        const isIncorrectPassword = !(await hashFunction.verify(
+            user.password,
+            loginInfo.password
+        ));
+        if (isIncorrectPassword) throw new ForbiddenError(PERMISSION_DENIED);
         return user;
     };
 

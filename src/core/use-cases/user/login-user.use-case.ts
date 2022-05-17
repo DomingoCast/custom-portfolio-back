@@ -2,7 +2,6 @@ import { LoginInfo } from "../../domain/user/login-info";
 import { User } from "../../domain/user/user";
 import HashFunction from "../../ports/hash-function.port";
 import UserRepository from "../../ports/user-repository.port";
-import NotFoundError from "../../errors/not-found-error";
 import ConflictError from "../../errors/conflict-error";
 type LoginUseCaseProps = {
     userRepository: UserRepository;
@@ -13,7 +12,7 @@ const loginUseCase =
     ({ userRepository, hashFunction }: LoginUseCaseProps): LoginUseCase =>
     async (loginInfo: LoginInfo): Promise<User | void> => {
         const user = await userRepository.findByEmail(loginInfo.email);
-        if (!user) throw new NotFoundError("Email not found");
+        if (!user) throw new ConflictError("Email or password incorrect");
         if (!(await hashFunction.verify(user.password, loginInfo.password)))
             throw new ConflictError("Email or password incorrect");
         return user;

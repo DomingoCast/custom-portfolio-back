@@ -1,0 +1,20 @@
+apiVersion: v1
+data:
+  ADMIN_ADRESS: ADMIN
+  ADMIN_EMAIL: admin@admin.com
+  ADMIN_NAME: ADMIN
+  ADMIN_PASSWORD: ADMINADMIN
+  ADMIN_PHONE: ADMIN
+  ADMIN_SURNAME: ADMIN
+  JWT_SECRET: TeamDHA
+  POSTGRES_DB: test
+  POSTGRES_PASSWORD: test
+  POSTGRES_PORT: "5432"
+  POSTGRES_USER: test
+  SENDGRID_API_KEY: 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
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: web-env
+  name: env

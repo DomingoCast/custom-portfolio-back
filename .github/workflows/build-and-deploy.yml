@@ -1,5 +1,8 @@
-on: push
-  branches: [main, kubernetes]
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
 name: deploy
 jobs:
   build-and-push:

@@ -14,7 +14,8 @@ const magicAdminController = async (
     const container = req.container!.cradle;
     try {
         const token = req.query.token;
-        if (container.magicUseCase)
+        console.log("BBBBBB");
+        if (container.magicUseCase(token))
             return res
                 .status(200)
                 .send({ message: "admin registration completed" });
@@ -23,6 +24,7 @@ const magicAdminController = async (
             token: token,
         });
     } catch (error) {
+        console.log("AAAAAAA");
         httpHandlerError(error, next);
     }
 };

@@ -1,8 +1,7 @@
 name: Build and deploy
-
 on:
   push:
-    branches: [main]
+    branches: [main, kubernetes]
 jobs:
   build-and-push:
     name: build and push image

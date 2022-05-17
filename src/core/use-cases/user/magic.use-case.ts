@@ -1,15 +1,24 @@
-type MagicUseCaseProps = {
-    accessToken: AccesToken;
-};
-type MagicUseCase = (user: RegisterInfo) => Promise<User | null>;
+import UnauthorizedError from "../../errors/unauthorized.error";
+import AccessToken from "../../ports/access-token.port";
 
-const registerUserUseCase =
+type MagicUseCaseProps = {
+    accessToken: AccessToken;
+};
+type MagicUseCase = (token: string) => Promise<boolean | void>;
+
+export const magicUseCase =
     ({ accessToken }: MagicUseCaseProps): MagicUseCase =>
-    async (user: RegisterInfo, role = Role.worker): Promise<User | null> => {
-        const decoded = container.accessToken.verify(token);
-        if (decoded.data.changePassword)
-            return res.status(400).send({
-                message: "you need to change the password",
-                token: token,
-            });
+    async (token: string): Promise<boolean> => {
+        try {
+            const decoded = accessToken.verify(token) as {
+                data: {
+                    changePassword: boolean;
+                };
+            };
+            if (decoded.data.changePassword) return false;
+        } catch (e) {
+            throw new UnauthorizedError("Wrong token");
+        }
+
+        return true;
     };

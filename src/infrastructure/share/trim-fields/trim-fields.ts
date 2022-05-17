@@ -6,7 +6,7 @@ const trimFields = <T extends object = object>(
     Object.keys(newObject).forEach((key: string) => {
         const param: unknown = newObject[key as keyof T];
         if (typeof param === "string" && !arrayExceptions.includes(key))
-            (newObject[key as keyof T] as string) = param.trim();
+            (newObject[key as keyof T] as unknown) = param.trim();
     });
     return newObject;
 };

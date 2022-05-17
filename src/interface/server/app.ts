@@ -1,4 +1,10 @@
-import express, { Application, Request, Response, NextFunction } from "express";
+import express, {
+    Application,
+    Request,
+    Response,
+    NextFunction,
+    Router,
+} from "express";
 import registerController from "./controllers/register.controller";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
@@ -12,6 +18,7 @@ import CustomError from "../../core/errors/custom-error";
 
 export const createServer = (port: number) => {
     const app: Application = express();
+    const adminRouter: Router = app.Router();
     app.use(cors());
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
@@ -23,8 +30,8 @@ export const createServer = (port: number) => {
 
     app.post("/register", registerController); // makeInvoker(registerController));
 
-    app.use("/admin", validateAdmin);
-    app.post("/admin/register", registerAdminController);
+    adminRouter.use(validateAdmin);
+    adminRouter.post("/admin/register", registerAdminController);
 
     app.use((error: any, req: Request, res: Response, next: NextFunction) => {
         res.status(error.statusCode).send({

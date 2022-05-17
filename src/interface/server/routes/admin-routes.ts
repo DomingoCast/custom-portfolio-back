@@ -5,5 +5,6 @@ const router = express.Router();
 const adminRoute = () => {
     router.use("/", validateAdmin);
     router.post("/register", registerAdminController);
+    return router;
 };
 export default adminRoute;

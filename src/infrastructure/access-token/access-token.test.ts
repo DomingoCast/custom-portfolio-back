@@ -5,8 +5,9 @@ const userLogin: Omit<LoginInfo, "password"> = {
     email: "test@gmail.com",
 };
 const createAccessToken: string = accessToken().create(userLogin);
-const verifyAccessToken: VerifyResponse =
-    accessToken().verify(createAccessToken);
+const verifyAccessToken: VerifyResponse = accessToken().verify(
+    createAccessToken
+) as VerifyResponse;
 
 describe("Test for access Token", () => {
     it("Check the function accessTokenFunction", () => {

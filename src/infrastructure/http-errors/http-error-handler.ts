@@ -5,6 +5,8 @@ import ConflictRequestError from "./conflict-request-error";
 import NotFoundRequestError from "./not-found-request-error";
 import InternalServerError from "./internal-error";
 import { NextFunction } from "express";
+import ForbiddenError from "../../core/errors/forbidden-error";
+import ForbiddenRequestError from "./forbidden-request-error";
 
 const httpHandlerError = (error: any, next: NextFunction) => {
     if (error instanceof NotFoundError) {
@@ -15,6 +17,9 @@ const httpHandlerError = (error: any, next: NextFunction) => {
         return;
     } else if (error instanceof ConflictError) {
         next(new ConflictRequestError(error.message));
+        return;
+    } else if (error instanceof ForbiddenError) {
+        next(new ForbiddenRequestError(error.message));
         return;
     }
     next(new InternalServerError(error.message));

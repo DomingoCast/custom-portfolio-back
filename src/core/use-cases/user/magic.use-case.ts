@@ -1,16 +1,10 @@
 type MagicUseCaseProps = {
-    userRepository: UserRepository;
-    emailSender: EmailSender;
-    hashFunction: HashFunction;
+    accessToken: AccesToken;
 };
 type MagicUseCase = (user: RegisterInfo) => Promise<User | null>;
 
 const registerUserUseCase =
-    ({
-        userRepository,
-        hashFunction,
-        emailSender,
-    }: MagicUseCaseProps): MagicUseCase =>
+    ({ accessToken }: MagicUseCaseProps): MagicUseCase =>
     async (user: RegisterInfo, role = Role.worker): Promise<User | null> => {
         const decoded = container.accessToken.verify(token);
         if (decoded.data.changePassword)

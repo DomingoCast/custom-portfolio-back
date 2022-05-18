@@ -21,9 +21,6 @@ const registerController = async (
 ): Promise<void | Response> => {
     const container = req.container?.cradle;
     try {
-        container.logger.info(
-            req.method + " /register " + JSON.stringify(req.body)
-        );
         let user: RegisterInfo = req.body;
         if (req.body !== null) {
             user = trimFields<RegisterInfo>(user, arrayExceptions);

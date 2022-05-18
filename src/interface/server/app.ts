@@ -9,6 +9,7 @@ import loginController from "./controllers/login.controller";
 import registerAdminController from "./controllers/admin/register.admin.controller";
 import validateAdmin from "./validate-admin";
 import CustomError from "../../core/errors/custom-error";
+import getLogger from "../../infrastructure/logger/get-logger";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -16,6 +17,16 @@ export const createServer = (port: number) => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(scopePerRequest(container));
+    app.use((req: Request) => {
+        return getLogger().info(
+            "Method: " +
+                req.method +
+                " ;Path: " +
+                req.path +
+                " ;Body: " +
+                JSON.stringify(req.body)
+        );
+    });
 
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 

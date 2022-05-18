@@ -18,9 +18,6 @@ const loginController = async (
 ): Promise<void | Response> => {
     const container = req.container?.cradle;
     try {
-        container.logger.info(
-            req.method + " /login " + JSON.stringify(req.body)
-        );
         let loginInfo = req.body;
         if (req.body !== null) {
             loginInfo = trimFields(req.body, arrayExceptions);

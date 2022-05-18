@@ -14,7 +14,6 @@ const magicAdminController = async (
     const container = req.container!.cradle;
     try {
         const token = req.query.token;
-        console.log("BBBBBB");
         const response = container.magicUseCase(token);
         if (response)
             return res
@@ -25,7 +24,6 @@ const magicAdminController = async (
             token: token,
         });
     } catch (error: any) {
-        console.log("AAAAAAA");
         httpHandlerError(error, next);
     }
 };

@@ -4,9 +4,14 @@ import { VerifyResponse } from "./verify.type";
 import { LoginInfo } from "../../core/domain/user/login-info";
 import CustomError from "../../core/errors/custom-error";
 const JWT_SECRET: string = process.env.JWT_SECRET || "test";
+const throwhError = (errorMessage: string): void => {
+    throw new CustomError(errorMessage);
+};
 
 const jwtToken = () => {
-    const createToken = (userLogin: Omit<LoginInfo, "password">): string => {
+    const createToken = (
+        userLogin: Omit<LoginInfo, "password">
+    ): string | undefined => {
         try {
             return jwt.sign(
                 {
@@ -16,16 +21,16 @@ const jwtToken = () => {
                 JWT_SECRET
             );
         } catch (error: unknown) {
-            if (error instanceof Error) throw new CustomError(error.message);
-            else throw new CustomError("Error creating token");
+            if (error instanceof Error) throwhError(error.message);
+            if (!(error instanceof Error)) throwhError("Error creating token");
         }
     };
-    const verifyToken = (token: string): VerifyResponse => {
+    const verifyToken = (token: string): VerifyResponse | undefined => {
         try {
             return jwt.verify(token, JWT_SECRET);
         } catch (error: unknown) {
-            if (error instanceof Error) throw new CustomError(error.message);
-            else throw new CustomError("Error verifying token");
+            if (error instanceof Error) throwhError(error.message);
+            if (!(error instanceof Error)) throwhError("Error verifying token");
         }
     };
     return {

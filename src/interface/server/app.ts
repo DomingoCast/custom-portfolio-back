@@ -9,7 +9,7 @@ import loginController from "./controllers/login.controller";
 import registerAdminController from "./controllers/admin/register.admin.controller";
 import validateAdmin from "./validate-admin";
 import CustomError from "../../core/errors/custom-error";
-import getLogger from "../../infrastructure/logger/get-logger";
+import loggerRequest from "./middleware/logger.request";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -17,15 +17,8 @@ export const createServer = (port: number) => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(scopePerRequest(container));
-    app.use((req: Request) => {
-        return getLogger().info(
-            "Method: " +
-                req.method +
-                " ;Path: " +
-                req.path +
-                " ;Body: " +
-                JSON.stringify(req.body)
-        );
+    app.use((req: Request, _res: Response, next: NextFunction) => {
+        loggerRequest(req, next);
     });
 
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
@@ -37,7 +30,7 @@ export const createServer = (port: number) => {
     app.use("/admin", validateAdmin);
     app.post("/admin/register", registerAdminController);
 
-    app.use((error: any, req: Request, res: Response, next: NextFunction) => {
+    app.use((error: any, req: Request, res: Response, _next: NextFunction) => {
         res.status(error.statusCode).send({
             message: error.responseBody,
         });

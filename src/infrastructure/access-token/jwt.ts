@@ -6,6 +6,7 @@ import CustomError from "../../core/errors/custom-error";
 const JWT_SECRET: string = process.env.JWT_SECRET || "test";
 const throwhError = (errorMessage: string): Error => {
     throw new CustomError(errorMessage);
+    
 };
 
 const jwtToken = () => {

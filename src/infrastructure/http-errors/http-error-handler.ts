@@ -8,7 +8,7 @@ import { NextFunction } from "express";
 import UnauthorizedError from "../../core/errors/unauthorized.error";
 import UnauthorizedRequestError from "./unauthorized-request-error";
 
-const httpHandlerError = (error: any, next: NextFunction): void => {
+const httpHandlerError = (error: Error, next: NextFunction): void => {
     if (error instanceof NotFoundError) {
         next(new NotFoundRequestError(error.message));
         return;

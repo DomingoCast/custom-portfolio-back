@@ -17,7 +17,7 @@ const jwtToken = () => {
             );
         } catch (error: unknown) {
             if (error instanceof Error) throw new CustomError(error.message);
-            throw new CustomError("Error creating token");
+            else throw new CustomError("Error creating token");
         }
     };
     const verifyToken = (token: string): VerifyResponse => {
@@ -25,7 +25,7 @@ const jwtToken = () => {
             return jwt.verify(token, JWT_SECRET);
         } catch (error: unknown) {
             if (error instanceof Error) throw new CustomError(error.message);
-            throw new CustomError("Error verifying token");
+            else throw new CustomError("Error verifying token");
         }
     };
     return {

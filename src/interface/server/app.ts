@@ -49,8 +49,9 @@ export const runServer = (app: Application, port: number) => {
             console.log(`Connected successfully on port ${port}`);
         });
         return server;
-    } catch (error) {
-        const messageError = error as Error;
-        throw new CustomError(messageError.message);
+    } catch (error: unknown) {
+        if (error instanceof Error) throw new CustomError(error.message);
+        if (!(error instanceof Error))
+            throw new CustomError("Error ocurred into runServer");
     }
 };

@@ -1,18 +1,25 @@
-import express, { Application, Request, Response, NextFunction } from "express";
-import registerController from "./controllers/register.controller";
+import express, {
+    Application,
+    Request,
+    Response,
+    NextFunction,
+    Router,
+} from "express";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerOptions from "./api-docs/swagger-options";
 import { container } from "../../infrastructure/dependency-injection/awilix-set-up";
 import { scopePerRequest } from "awilix-express";
-import loginController from "./controllers/login.controller";
-import registerAdminController from "./controllers/admin/register.admin.controller";
-import validateAdmin from "./validate-admin";
 import CustomError from "../../core/errors/custom-error";
 import loggerRequest from "./middleware/log-request.middleware";
+import adminRoute from "./routes/admin.routes";
+import validateAdmin from "./validate-admin";
+import loginController from "./controllers/login.controller";
+import registerController from "./controllers/register.controller";
 
 export const createServer = (port: number) => {
     const app: Application = express();
+    const adminRouter: Router = adminRoute();
     app.use(cors());
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
@@ -21,14 +28,11 @@ export const createServer = (port: number) => {
         loggerRequest(req, next);
     });
 
-    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
-
+    app.use("/admin", validateAdmin, adminRouter);
     app.post("/login", loginController);
+    app.post("/register", registerController);
 
-    app.post("/register", registerController); // makeInvoker(registerController));
-
-    app.use("/admin", validateAdmin);
-    app.post("/admin/register", registerAdminController);
+    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
     app.use((error: any, req: Request, res: Response, _next: NextFunction) => {
         res.status(error.statusCode).send({

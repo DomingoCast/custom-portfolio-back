@@ -23,7 +23,7 @@ export const createServer = (port: number) => {
     app.use(express.urlencoded({ extended: true }));
     app.use(scopePerRequest(container));
 
-    app.use("/admin", adminRouter, validateAdmin);
+    app.use("/admin", adminRouter(), validateAdmin);
     app.post("/login", loginController);
     app.post("/register", registerController);
 

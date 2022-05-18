@@ -20,9 +20,9 @@ const jwtToken = () => {
                 },
                 JWT_SECRET
             );
-        } catch (error) {
+        } catch (error: unknown) {
             if (error instanceof Error) throwhError(error.message);
-            else throwhError("Error creating token");
+            if (!(error instanceof Error)) throwhError("Error creating token");
         }
     };
     const verifyToken = (token: string): VerifyResponse => {

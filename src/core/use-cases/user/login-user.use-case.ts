@@ -2,7 +2,6 @@ import { LoginInfo } from "../../domain/user/login-info";
 import { User } from "../../domain/user/user";
 import HashFunction from "../../ports/hash-function.port";
 import UserRepository from "../../ports/user-repository.port";
-import NotFoundError from "../../errors/not-found-error";
 import ConflictError from "../../errors/conflict-error";
 type LoginUseCaseProps = {
     userRepository: UserRepository;

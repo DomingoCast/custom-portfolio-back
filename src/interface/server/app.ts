@@ -10,9 +10,7 @@ import registerAdminController from "./controllers/admin/register.admin.controll
 import validateAdmin from "./validate-admin";
 import CustomError from "../../core/errors/custom-error";
 import HttpError from "../../infrastructure/http-errors/http-error";
-function throwError(error: Error): Error {
-    throw new CustomError(error.message);
-}
+
 export const createServer = (port: number) => {
     const app: Application = express();
     app.use(cors());
@@ -52,6 +50,7 @@ export const runServer = (app: Application, port: number) => {
         });
         return server;
     } catch (error) {
-        if (error instanceof Error) throwError(error);
+        const messageError = error as Error;
+        throw new CustomError(messageError.message);
     }
 };

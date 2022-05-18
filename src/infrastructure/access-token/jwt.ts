@@ -9,9 +9,7 @@ const throwhError = (errorMessage: string): Error => {
 };
 
 const jwtToken = () => {
-    const createToken = (
-        userLogin: Omit<LoginInfo, "password">
-    ): AccessTokenResponse => {
+    const createToken = (userLogin: Omit<LoginInfo, "password">): string => {
         try {
             return jwt.sign(
                 {

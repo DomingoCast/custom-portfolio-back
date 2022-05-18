@@ -1,12 +1,10 @@
 import { LoginInfo } from "../../core/domain/user/login-info";
 import AccessToken from "../../core/ports/access-token.port";
 import jwtToken from "./jwt";
-import { VerifyResponse, AccessTokenResponse } from "./verify.type";
+import { VerifyResponse } from "./verify.type";
 
 const accessToken = (): AccessToken => {
-    const create = (
-        userLogin: Omit<LoginInfo, "password">
-    ): AccessTokenResponse => {
+    const create = (userLogin: Omit<LoginInfo, "password">): string => {
         return jwtToken().createToken(userLogin);
     };
     const verify = (token: string): VerifyResponse => {

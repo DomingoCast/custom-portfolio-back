@@ -1,6 +1,6 @@
 import { LoginInfo } from "../../core/domain/user/login-info";
 import accessToken from "./access-token";
-import { VerifyResponse, AccessTokenResponse } from "./verify.type";
+import { VerifyResponse } from "./verify.type";
 const userLogin: Omit<LoginInfo, "password"> = {
     email: "test@gmail.com",
 };

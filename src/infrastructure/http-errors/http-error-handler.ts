@@ -12,13 +12,16 @@ const httpHandlerError = (error: any, next: NextFunction) => {
     if (error instanceof NotFoundError) {
         next(new NotFoundRequestError(error.message));
         return;
-    } else if (error instanceof BadRequestError) {
+    }
+    if (error instanceof BadRequestError) {
         next(new BadRequestError(error.message));
         return;
-    } else if (error instanceof ConflictError) {
+    }
+    if (error instanceof ConflictError) {
         next(new ConflictRequestError(error.message));
         return;
-    } else if (error instanceof ForbiddenError) {
+    }
+    if (error instanceof ForbiddenError) {
         next(new ForbiddenRequestError(error.message));
         return;
     }

@@ -1,6 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 import { Role } from "../../../core/domain/user/role.enum";
 import { container } from "../../dependency-injection/awilix-set-up";
+import createHashFunction from "../../password/create-hash-function";
 
 export class first1652179533170 implements MigrationInterface {
     name = "first1652179533170";
@@ -14,8 +15,8 @@ export class first1652179533170 implements MigrationInterface {
                 process.env.ADMIN_NAME
             }','${process.env.ADMIN_SURNAME}','${
                 process.env.ADMIN_EMAIL
-            }','${await container.cradle.hashFunction.hash(
-                process.env.ADMIN_PASSWORD
+            }','${await createHashFunction().hash(
+                process.env.ADMIN_PASSWORD!
             )}','${process.env.ADMIN_PHONE}','${process.env.ADMIN_ADRESS}','${
                 Role.admin
             }')`

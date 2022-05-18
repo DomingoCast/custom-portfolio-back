@@ -11,20 +11,19 @@ import swaggerOptions from "./api-docs/swagger-options";
 import { container } from "../../infrastructure/dependency-injection/awilix-set-up";
 import { scopePerRequest } from "awilix-express";
 import CustomError from "../../core/errors/custom-error";
-import adminRoute from "./routes/admin.routes";
+import adminRouter from "./routes/admin.routes";
 import validateAdmin from "./validate-admin";
 import loginController from "./controllers/login.controller";
 import registerController from "./controllers/register.controller";
 
 export const createServer = (port: number) => {
     const app: Application = express();
-    const adminRouter: Router = adminRoute();
     app.use(cors());
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(scopePerRequest(container));
 
-    app.use("/admin", validateAdmin, adminRouter);
+    app.use("/admin", adminRouter, validateAdmin);
     app.post("/login", loginController);
     app.post("/register", registerController);
 

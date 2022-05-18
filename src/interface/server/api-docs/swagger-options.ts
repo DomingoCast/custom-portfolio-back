@@ -83,12 +83,12 @@ const swaggerOptions: swaggerJsdoc.Options = {
                             },
                         },
                     },
-                    409: {
-                        description: "Error: Conflict",
+                    403: {
+                        description: "Error: Forbidden",
                         content: {
                             "application/json": {
                                 schema: schemaLoginUserParameters
-                                    .incorrectSchema.schema,
+                                    .forbiddenSchema.schema,
                             },
                         },
                     },

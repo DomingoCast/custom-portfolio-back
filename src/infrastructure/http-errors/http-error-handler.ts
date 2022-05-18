@@ -5,6 +5,8 @@ import ConflictRequestError from "./conflict-request-error";
 import NotFoundRequestError from "./not-found-request-error";
 import InternalServerError from "./internal-error";
 import { NextFunction } from "express";
+import ForbiddenError from "../../core/errors/forbidden-error";
+import ForbiddenRequestError from "./forbidden-request-error";
 import UnauthorizedError from "../../core/errors/unauthorized.error";
 import UnauthorizedRequestError from "./unauthorized-request-error";
 
@@ -21,10 +23,14 @@ const httpHandlerError = (error: any, next: NextFunction): void => {
         next(new ConflictRequestError(error.message));
         return;
     }
+    if (error instanceof ForbiddenError) {
+        next(new ForbiddenRequestError(error.message));
+        return;
+    }
     if (error instanceof UnauthorizedError) {
         next(new UnauthorizedRequestError(error.message));
         return;
     }
-    next(new InternalServerError(error.message));
+    next(new InternalServerError(error.message || "Internal server error"));
 };
 export default httpHandlerError;

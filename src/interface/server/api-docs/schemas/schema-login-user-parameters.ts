@@ -34,5 +34,15 @@ const schemaLoginUserParameters = {
             },
         },
     },
+    forbiddenSchema: {
+        schema: {
+            type: "object",
+            properties: {
+                message: {
+                    type: "string",
+                },
+            },
+        },
+    },
 };
 export default schemaLoginUserParameters;

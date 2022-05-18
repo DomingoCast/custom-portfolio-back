@@ -53,7 +53,6 @@ straightforward as possible. Here we would have the update steps for 0.2.1 for p
 
 -   [CREATE ROL IN USER](https://github.com/DomingoCast/jnt-copy/pull/152)
 
-
 ### Changed
 
 -   [CHANGE OF LOCATION OF THE ERROR FOLDER](https://github.com/DomingoCast/jnt-copy/pull/165)

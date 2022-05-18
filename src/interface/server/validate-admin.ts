@@ -1,5 +1,5 @@
 import { AwilixContainer } from "awilix";
-import { Request, RequestHandler, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import { Role } from "../../core/domain/user/role.enum";
 import UnauthorizedError from "../../core/errors/unauthorized.error";
 
@@ -9,7 +9,7 @@ type CustomRequest = Request & {
 const validateAdmin: RequestHandler = (
     req: CustomRequest,
     res: Response,
-    next: any
+    next: NextFunction
 ) => {
     const container = req.container!.cradle;
     const token = req.headers.token;

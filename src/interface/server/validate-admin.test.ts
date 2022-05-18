@@ -1,4 +1,3 @@
-import exp from "constants";
 import { Role } from "../../core/domain/user/role.enum";
 import UnauthorizedError from "../../core/errors/unauthorized.error";
 import validateAdmin from "./validate-admin";

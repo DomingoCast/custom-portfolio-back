@@ -9,7 +9,7 @@ import loginController from "./controllers/login.controller";
 import registerAdminController from "./controllers/admin/register.admin.controller";
 import validateAdmin from "./validate-admin";
 import CustomError from "../../core/errors/custom-error";
-import loggerRequest from "./middleware/logger.request";
+import loggerRequest from "./middleware/log-request.middleware";
 
 export const createServer = (port: number) => {
     const app: Application = express();

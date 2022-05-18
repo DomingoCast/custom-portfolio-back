@@ -12,7 +12,7 @@ const loginUseCase =
     ({ userRepository, hashFunction }: LoginUseCaseProps): LoginUseCase =>
     async (loginInfo: LoginInfo): Promise<User | void> => {
         const user = await userRepository.findByEmail(loginInfo.email);
-        if (!user) throw new ConflictError("Email or password incorrect");
+        if (!user) throw new NotFoundError("Email not found");
         if (!(await hashFunction.verify(user.password, loginInfo.password)))
             throw new ConflictError("Email or password incorrect");
         return user;

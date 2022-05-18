@@ -31,6 +31,6 @@ const httpHandlerError = (error: any, next: NextFunction): void => {
         next(new UnauthorizedRequestError(error.message));
         return;
     }
-    next(new InternalServerError(error.message));
+    next(new InternalServerError(error.message || "Internal server error"));
 };
 export default httpHandlerError;

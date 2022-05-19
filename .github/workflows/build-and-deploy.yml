@@ -2,7 +2,7 @@ on:
   push:
     branches:
       - main
-      # - kubernetes
+      - kubernetes
 
 jobs:
   build:
@@ -23,10 +23,12 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: deploy to cluster
-       - uses: actions-hub/kubectl@master
-          env:
-            KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-            KUBE_CONTEXT: ${{ secrets.KUBE_CONTEXT }}
-          with:
-            args: get pods
+     - name: kubectl - Google Cloud GKE cluster.
+        uses: ameydev/gke-kubectl-action@master
+        env:
+          PROJECT_ID: dulcet-bucksaw-350506
+          APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          CLUSTER_NAME: node-server
+          ZONE_NAME: europe-west1
+        with:
+          args: kubectl set image deployment/web web=teamdha/nodeserver:${{github.sha}}

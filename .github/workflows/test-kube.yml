@@ -6,13 +6,12 @@ on:
 
 jobs:
   deploy-to-cluster:
-    name: deploy to cluster
     runs-on: ubuntu-latest
     steps:
       - name: deploy to cluster
-       - uses: actions-hub/kubectl@master
-          env:
-            KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
-            KUBE_CONTEXT: ${{ secrets.KUBE_CONTEXT }}
-          with:
-            args: get pods
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+          KUBE_CONTEXT: ${{ secrets.KUBE_CONTEXT }}
+        with:
+          args: get pods

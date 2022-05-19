@@ -1,24 +1,26 @@
 import { Request, RequestHandler, Response, NextFunction } from "express";
 import { Role } from "../../core/domain/user/role.enum";
-import CustomError from "../../core/errors/custom-error";
-import accessToken from "../../infrastructure/access-token/access-token";
+import { AwilixContainer } from "awilix";
+import UnauthorizedError from "../../core/errors/unauthorized.error";
 
+type CustomRequest = Request & {
+    container?: AwilixContainer;
+};
 const validateAdmin: RequestHandler = (
-    req: Request,
+    req: CustomRequest,
     res: Response,
     next: NextFunction
 ) => {
+    const container = req.container?.cradle;
     const token: string | undefined = req.headers.token as string | undefined;
-    if (!token) throw new CustomError("Token is missing");
+    if (!token) throw new UnauthorizedError("No token");
     try {
-        const decoded = accessToken().verify(token);
-        if (Number(decoded) !== Role.admin)
-            next(new CustomError("Unauthorized"));
+        const decoded = container.accessToken.verify(token);
+        if (!decoded.data || decoded.data.role !== Role.admin)
+            next(new UnauthorizedError("Unauthorized"));
     } catch (err) {
-        console.log(err);
-        next(new CustomError("Wrong Token"));
+        next(new UnauthorizedError("Wrong Token"));
     }
-
     next();
 };
 

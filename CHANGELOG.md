@@ -64,4 +64,3 @@ straightforward as possible. Here we would have the update steps for 0.2.1 for p
 ### Fixed
 
 -   [FIXED SOME FAILS INTO LOGIN TEST PARTY](https://github.com/DomingoCast/jnt-copy/pull/158)
-

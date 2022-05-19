@@ -2,7 +2,7 @@ on:
   push:
     branches:
       - main
-      - kubernetes
+      # - kubernetes
 
 jobs:
   build:
@@ -24,8 +24,9 @@ jobs:
     needs: build
     steps:
       - name: deploy to cluster
-        uses: steebchen/kubectl@master
-        env:
-          KUBE_CONFIG_DATA: ${{ secrets.KUBE_CONFIG_DATA }}
-        with:
-          args: set image deployment/web web=teamdha/nodeserver:${{ github.sha }}
+       - uses: actions-hub/kubectl@master
+          env:
+            KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+            KUBE_CONTEXT: ${{ secrets.KUBE_CONTEXT }}
+          with:
+            args: get pods

@@ -33,7 +33,7 @@ const loginController = async (
         return res.status(200).send({ token: token });
     } catch (error: any) {
         container.logger.error(error.message);
-        httpErrorHandler(error, next);
+        next(httpErrorHandler(error));
     }
 };
 

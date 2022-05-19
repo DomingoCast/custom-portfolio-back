@@ -4,37 +4,35 @@ import BadRequestError from "./bad-request-error";
 import ConflictRequestError from "./conflict-request-error";
 import NotFoundRequestError from "./not-found-request-error";
 import InternalServerError from "./internal-error";
-import { NextFunction } from "express";
 import ForbiddenError from "../../core/errors/forbidden-error";
 import ForbiddenRequestError from "./forbidden-request-error";
 import UnauthorizedError from "../../core/errors/unauthorized.error";
 import UnauthorizedRequestError from "./unauthorized-request-error";
 
-const httpErrorHandler = (error: unknown, next: NextFunction): void => {
-    if (error instanceof NotFoundError) {
-        next(new NotFoundRequestError(error.message));
-        return;
+const httpErrorHandler = (error: unknown): unknown => {
+    try {
+        if (error instanceof NotFoundError) {
+            throw new NotFoundRequestError(error.message);
+        }
+        if (error instanceof BadRequestError) {
+            throw new BadRequestError(error.message);
+        }
+        if (error instanceof ConflictError) {
+            throw new ConflictRequestError(error.message);
+        }
+        if (error instanceof ForbiddenError) {
+            throw new ForbiddenRequestError(error.message);
+        }
+        if (error instanceof UnauthorizedError) {
+            throw new UnauthorizedRequestError(error.message);
+        }
+        if (error instanceof Error) {
+            throw new InternalServerError(
+                error.message || "Internal server error"
+            );
+        }
+    } catch (error) {
+        return error;
     }
-    if (error instanceof BadRequestError) {
-        next(new BadRequestError(error.message));
-        return;
-    }
-    if (error instanceof ConflictError) {
-        next(new ConflictRequestError(error.message));
-        return;
-    }
-    if (error instanceof ForbiddenError) {
-        next(new ForbiddenRequestError(error.message));
-        return;
-    }
-    if (error instanceof UnauthorizedError) {
-        next(new UnauthorizedRequestError(error.message));
-        return;
-    }
-    if (error instanceof Error) {
-        next(new InternalServerError(error.message || "Internal server error"));
-        return;
-    }
-    next(error);
 };
 export default httpErrorHandler;

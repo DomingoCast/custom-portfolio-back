@@ -12,14 +12,13 @@ import { container } from "../../infrastructure/dependency-injection/awilix-set-
 import { scopePerRequest } from "awilix-express";
 import CustomError from "../../core/errors/custom-error";
 import loggerRequest from "./middleware/log-request.middleware";
-import adminRoute from "./routes/admin.routes";
+import adminRouter from "./routes/admin.routes";
 import validateAdmin from "./validate-admin";
 import loginController from "./controllers/login.controller";
 import registerController from "./controllers/register.controller";
 
 export const createServer = (port: number) => {
     const app: Application = express();
-    const adminRouter: Router = adminRoute();
     app.use(cors());
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
@@ -28,7 +27,7 @@ export const createServer = (port: number) => {
         loggerRequest(req, next);
     });
 
-    app.use("/admin", validateAdmin, adminRouter);
+    app.use("/admin", adminRouter(), validateAdmin);
     app.post("/login", loginController);
     app.post("/register", registerController);
 

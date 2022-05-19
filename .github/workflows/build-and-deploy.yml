@@ -4,20 +4,20 @@ on:
       - main
       - kubernetes
 
-name: deploy
 jobs:
-  build-and-push:
-    name: build and push image
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - name: build and push to docker
-        uses: docker/build-push-action@v2
-        with:
-          username: ${{ secrets.DOCKER_USER}}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          repository: teamdha/nodeserver
-          tags: ${{ github.sha }}
+      - uses: actions/checkout@v3
+      - name: Docker login
+        env:
+          DOCKER_USER: ${{secrets.DOCKER_USER}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag teamdha/nodeserver:${{github.sha}}
+      - name: Push docker image
+        run: docker push teamdha/nodeserver:1.0
   deploy-to-cluster:
     name: deploy to cluster
     runs-on: ubuntu-latest

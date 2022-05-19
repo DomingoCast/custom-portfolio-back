@@ -7,3 +7,8 @@ kubectl apply -f db-service.yaml,web-service.yaml,db-deployment.yaml,db-data-per
 kubectl expose deployment web --type=LoadBalancer --name=test-web
 
 kubectl set image deployment/web web=teamdha/nodeserver:latest
+kubectl create secret generic regcred \
+ --from-file=.dockerconfigjson=~/.docker/config.json \
+ --type=kubernetes.io/dockerconfigjson
+
+kubectl set image deployment/web web=teamdha/nodeserver

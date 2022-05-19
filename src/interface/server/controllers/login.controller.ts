@@ -5,7 +5,7 @@ import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
 import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
 import { LoginInfo } from "../../../core/domain/user/login-info";
 import BadRequestError from "../../../infrastructure/http-errors/bad-request-error";
-import httpHandlerError from "../../../infrastructure/http-errors/http-error-handler";
+import httpErrorHandler from "../../../infrastructure/http-errors/http-error-handler";
 
 type CustomRequest = Request<{}, {}, LoginInfo> & {
     container?: AwilixContainer;
@@ -33,7 +33,7 @@ const loginController = async (
         return res.status(200).send({ token: token });
     } catch (error: any) {
         container.logger.error(error.message);
-        httpHandlerError(error, next);
+        httpErrorHandler(error, next);
     }
 };
 

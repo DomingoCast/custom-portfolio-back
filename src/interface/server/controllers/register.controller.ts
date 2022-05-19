@@ -6,7 +6,7 @@ import validateUser from "../../../infrastructure/user/validate-user/validate-us
 import { RegisterInfo } from "../../../core/domain/user/register-info";
 import { Role } from "../../../core/domain/user/role.enum";
 import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
-import httpHandlerError from "../../../infrastructure/http-errors/http-error-handler";
+import httpErrorHandler from "../../../infrastructure/http-errors/http-error-handler";
 import BadRequestError from "../../../infrastructure/http-errors/bad-request-error";
 import InternalServerError from "../../../infrastructure/http-errors/internal-error";
 
@@ -42,7 +42,7 @@ const registerController = async (
         throw new InternalServerError("An error has ocurred in the repository");
     } catch (error: any) {
         container.logger.error(error.message);
-        httpHandlerError(error, next);
+        httpErrorHandler(error, next);
     }
 };
 

@@ -10,7 +10,7 @@ import ForbiddenRequestError from "./forbidden-request-error";
 import UnauthorizedError from "../../core/errors/unauthorized.error";
 import UnauthorizedRequestError from "./unauthorized-request-error";
 
-const httpHandlerError = (error: unknown, next: NextFunction): void => {
+const httpErrorHandler = (error: unknown, next: NextFunction): void => {
     if (error instanceof NotFoundError) {
         next(new NotFoundRequestError(error.message));
         return;
@@ -37,4 +37,4 @@ const httpHandlerError = (error: unknown, next: NextFunction): void => {
     }
     next(error);
 };
-export default httpHandlerError;
+export default httpErrorHandler;

@@ -1,3 +1,5 @@
+import { Role } from "../../domain/user/role.enum";
+import { User } from "../../domain/user/user";
 import passwordUserUseCase from "./pasword-user.use-case";
 
 describe("Password user use case", () => {
@@ -9,9 +11,19 @@ describe("Password user use case", () => {
         const password = "6543215";
         const id = "6";
         const userResponse = "";
+        const user: User = {
+            id: "test",
+            name: "test",
+            surname: "test",
+            email: "test",
+            password: "test",
+            phone: "test",
+            address: "test",
+            role: Role.worker,
+        };
         const userRepository: any = {
-            findById: jest.fn(async () => await true),
-            updatePassword: jest.fn(async () => await userResponse),
+            findById: jest.fn(async () => await user),
+            updateUser: jest.fn(async () => await userResponse),
         };
         const hashFunction: any = {
             hash: jest.fn(async () => await password),
@@ -29,9 +41,9 @@ describe("Password user use case", () => {
         expect(result).toStrictEqual(userResponse);
         expect(hashFunction.hash).toHaveBeenCalled();
         expect(userRepository.findById).toHaveBeenCalledWith(id);
-        expect(userRepository.updatePassword).toHaveBeenCalledWith(
-            id,
-            password
-        );
+        expect(userRepository.updateUser).toHaveBeenCalledWith({
+            ...user,
+            password,
+        });
     });
 });

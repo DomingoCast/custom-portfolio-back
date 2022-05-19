@@ -20,13 +20,13 @@ const passwordUserUseCase =
         hashFunction,
     }: PasswordUserUseCaseProps): PasswordUserUseCase =>
     async (id: string, password: string): Promise<User | null> => {
-        if (!(await userRepository.findById(id)))
-            throw new ConflictError("user doesn't exist");
+        const user = await userRepository.findById(id);
+        if (!user) throw new ConflictError("user doesn't exist");
 
-        const userResponse = await userRepository.updatePassword(
-            id,
-            await hashFunction.hash(password)
-        );
+        const userResponse = await userRepository.updateUser({
+            ...user,
+            password: await hashFunction.hash(password),
+        });
         return userResponse;
     };
 

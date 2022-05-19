@@ -5,6 +5,6 @@ interface UserRepository {
     persist(user: RegisterInfo): Promise<null | User>;
     findByEmail(email: string): Promise<null | User>;
     findById(id: string): Promise<null | User>;
-    updatePassword(id: string, password: string): Promise<null | User>;
+    updateUser(user: User): Promise<null | User>;
 }
 export default UserRepository;

@@ -24,13 +24,9 @@ const createUserRepository = (): UserRepository => {
         });
         return response;
     };
-    const updatePassword = async (
-        id: string,
-        password: string
-    ): Promise<User | null> => {
+    const updateUser = async (user: User): Promise<User | null> => {
         const response = await userRepository.save({
-            id,
-            password,
+            ...user,
         });
         return response;
     };
@@ -38,7 +34,7 @@ const createUserRepository = (): UserRepository => {
         persist,
         findByEmail,
         findById,
-        updatePassword,
+        updateUser,
     };
 };
 

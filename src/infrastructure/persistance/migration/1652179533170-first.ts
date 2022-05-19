@@ -1,6 +1,5 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 import { Role } from "../../../core/domain/user/role.enum";
-import { container } from "../../dependency-injection/awilix-set-up";
 import createHashFunction from "../../password/create-hash-function";
 
 export class first1652179533170 implements MigrationInterface {

@@ -35,7 +35,6 @@ export const createServer = (port: number) => {
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
     app.use((error: any, req: Request, res: Response, next: NextFunction) => {
-        console.log("[ERROR]", error);
         res.status(error.statusCode ? error.statusCode : 500).send({
             message: error.responseBody,
         });

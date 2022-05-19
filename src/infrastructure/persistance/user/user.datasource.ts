@@ -12,7 +12,6 @@ const createUserRepository = (): UserRepository => {
             .catch(() => null);
     };
     const findById = async (id: string): Promise<User | null> => {
-        console.log("[ID]", { id: id });
         const response = await userRepository.findOneBy({
             id: id,
         });

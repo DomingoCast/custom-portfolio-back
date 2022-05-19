@@ -1,4 +1,3 @@
-import { toEditorSettings } from "typescript";
 import UnauthorizedError from "../../errors/unauthorized.error";
 import { magicUseCase } from "./magic.use-case";
 

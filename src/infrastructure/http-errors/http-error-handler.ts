@@ -10,7 +10,7 @@ import ForbiddenRequestError from "./forbidden-request-error";
 import UnauthorizedError from "../../core/errors/unauthorized.error";
 import UnauthorizedRequestError from "./unauthorized-request-error";
 
-const httpHandlerError = (error: Error, next: NextFunction): void => {
+const httpHandlerError = (error: unknown, next: NextFunction): void => {
     if (error instanceof NotFoundError) {
         next(new NotFoundRequestError(error.message));
         return;
@@ -31,6 +31,10 @@ const httpHandlerError = (error: Error, next: NextFunction): void => {
         next(new UnauthorizedRequestError(error.message));
         return;
     }
-    next(new InternalServerError(error.message || "Internal server error"));
+    if (error instanceof Error) {
+        next(new InternalServerError(error.message || "Internal server error"));
+        return;
+    }
+    next(error);
 };
 export default httpHandlerError;

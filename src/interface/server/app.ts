@@ -26,6 +26,9 @@ export const createServer = (port: number) => {
     app.use("/admin", validateAdmin);
     app.post("/admin/register", registerAdminController);
 
+    app.get("/test", (req: Request, res: Response, next: NextFunction) => {
+        res.status(200).send("test");
+    });
     app.use((error: any, req: Request, res: Response, next: NextFunction) => {
         res.status(error.statusCode).send({
             message: error.responseBody,

@@ -29,9 +29,6 @@ export const createServer = (port: number) => {
 
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
-    app.get("/test", (req: Request, res: Response, next: NextFunction) => {
-        res.status(200).send("adios mae");
-    });
     app.use((error: any, req: Request, res: Response, next: NextFunction) => {
         res.status(error.statusCode).send({
             message: error.responseBody,

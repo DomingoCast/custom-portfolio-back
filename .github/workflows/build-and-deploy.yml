@@ -17,11 +17,11 @@ jobs:
       - name: Build the Docker image
         run: docker build . --file Dockerfile --tag teamdha/nodeserver:${{github.sha}}
       - name: Push docker image
-        run: docker push teamdha/nodeserver:1.0
+        run: docker push teamdha/nodeserver:${{github.sha}}
   deploy-to-cluster:
     name: deploy to cluster
     runs-on: ubuntu-latest
-    needs: build-and-push
+    needs: build
     steps:
       - name: deploy to cluster
         uses: steebchen/kubectl@master

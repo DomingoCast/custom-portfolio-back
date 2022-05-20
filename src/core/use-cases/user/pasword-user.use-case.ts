@@ -1,12 +1,10 @@
 import { User } from "../../domain/user/user";
 import HashFunction from "../../ports/hash-function.port";
 import UserRepository from "../../ports/user-repository.port";
-import EmailSender from "../../ports/email/send-email.port";
 import ConflictError from "../../errors/conflict-error";
 
 type PasswordUserUseCaseProps = {
     userRepository: UserRepository;
-    emailSender: EmailSender;
     hashFunction: HashFunction;
 };
 type PasswordUserUseCase = (

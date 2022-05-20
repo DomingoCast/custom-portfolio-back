@@ -17,7 +17,7 @@ describe("magic admin controller", () => {
         expect(response).toBe(true);
     });
     it("Given a token function and a token, and the token does have change password, returns true", () => {
-        const accessToken: any = {
+        const accessToken: AccessToken = {
             verify: jest.fn(() => ({
                 data: { changePassword: true },
             })),
@@ -29,7 +29,7 @@ describe("magic admin controller", () => {
         expect(response).toBe(false);
     });
     it("Given a token function and a token, and the token function throws error, a UnauthorizedError is thrown", () => {
-        const accessToken: any = {
+        const accessToken: AccessToken = {
             verify: jest.fn(() => {
                 throw new Error();
             }),

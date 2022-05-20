@@ -9,7 +9,7 @@ describe("magic admin controller", () => {
             verify: jest.fn(() => ({
                 data: {},
             })),
-            create: (loginInfo: Omit<LoginInfo, "password">) => "",
+            create: (loginInfo: Omit<LoginInfo, "password">) => loginInfo.email,
         };
         const token = "";
         const response = magicUseCase({ accessToken })(token);
@@ -21,6 +21,7 @@ describe("magic admin controller", () => {
             verify: jest.fn(() => ({
                 data: { changePassword: true },
             })),
+            create: (loginInfo: Omit<LoginInfo, "password">) => loginInfo.email,
         };
         const token = "";
         const response = magicUseCase({ accessToken })(token);
@@ -32,6 +33,7 @@ describe("magic admin controller", () => {
             verify: jest.fn(() => {
                 throw new Error();
             }),
+            create: (loginInfo: Omit<LoginInfo, "password">) => loginInfo.email,
         };
         const token = "";
         try {

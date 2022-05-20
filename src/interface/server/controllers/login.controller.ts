@@ -34,17 +34,15 @@ const loginController = async (
         container.logger.info(response);
         return res.status(200).send({ token: token });
     } catch (error: unknown) {
-        let errorMessage = "";
+        let errorMessage = "Error ocurred into login controller";
         if (error instanceof CustomError) {
             errorMessage = error.message;
-            container.logger.error(errorMessage);
             httpHandlerError(error, next);
         }
         if (!(error instanceof CustomError)) {
-            errorMessage = "Error ocurred into login controller";
-            container.logger.error(errorMessage);
             httpHandlerError(new InternalServerError(errorMessage), next);
         }
+        container.logger.error(errorMessage);
     }
 };
 

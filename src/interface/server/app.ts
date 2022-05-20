@@ -54,7 +54,6 @@ export const runServer = (app: Application, port: number) => {
         return server;
     } catch (error: unknown) {
         if (error instanceof Error) throw new CustomError(error.message);
-        if (!(error instanceof Error))
-            throw new CustomError("Error ocurred into runServer");
+        throw new CustomError("Error ocurred into runServer");
     }
 };

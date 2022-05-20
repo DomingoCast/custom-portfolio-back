@@ -1,10 +1,6 @@
-import { AwilixContainer } from "awilix";
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 import httpHandlerError from "../../../../infrastructure/http-errors/http-error-handler";
-
-type CustomRequest = Request & {
-    container?: AwilixContainer;
-};
+import { CustomRequest } from "../../types/custom.request";
 
 const magicAdminController = async (
     req: CustomRequest,

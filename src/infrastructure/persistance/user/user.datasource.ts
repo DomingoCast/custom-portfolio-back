@@ -23,7 +23,7 @@ const createUserRepository = (): UserRepository => {
         });
         return response;
     };
-    const updateUser = async (user: User): Promise<User | null> => {
+    const update = async (user: User): Promise<User | null> => {
         const response = await userRepository.save({
             ...user,
         });
@@ -33,7 +33,7 @@ const createUserRepository = (): UserRepository => {
         persist,
         findByEmail,
         findById,
-        updateUser,
+        update,
     };
 };
 

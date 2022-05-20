@@ -23,7 +23,7 @@ const passwordUserUseCase =
         const user = await userRepository.findById(id);
         if (!user) throw new ConflictError("user doesn't exist");
 
-        const userResponse = await userRepository.updateUser({
+        const userResponse = await userRepository.update({
             ...user,
             password: await hashFunction.hash(password),
         });

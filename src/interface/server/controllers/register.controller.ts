@@ -45,7 +45,7 @@ const registerController = async (
         let errorMessage = "Error ocurred into register controller";
         if (error instanceof CustomError) {
             errorMessage = error.message;
-            httpHandlerError(errorMessage, next);
+            httpHandlerError(error, next);
         }
         if (!(error instanceof CustomError)) {
             httpHandlerError(new InternalServerError(errorMessage), next);

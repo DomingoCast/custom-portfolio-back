@@ -42,17 +42,15 @@ const registerController = async (
         }
         throw new InternalServerError("An error has ocurred in the repository");
     } catch (error: unknown) {
-        let errorMessage = "";
+        let errorMessage = "Error ocurred into register controller";
         if (error instanceof CustomError) {
             errorMessage = error.message;
-            container.logger.error(errorMessage);
-            httpHandlerError(error, next);
+            httpHandlerError(errorMessage, next);
         }
         if (!(error instanceof CustomError)) {
-            errorMessage = "Error ocurred into register controller";
-            container.logger.error(errorMessage);
             httpHandlerError(new InternalServerError(errorMessage), next);
         }
+        container.logger.error(errorMessage);
     }
 };
 

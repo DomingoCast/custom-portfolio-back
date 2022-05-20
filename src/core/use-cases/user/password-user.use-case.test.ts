@@ -23,7 +23,7 @@ describe("Password user use case", () => {
         };
         const userRepository: any = {
             findById: jest.fn(async () => await user),
-            updateUser: jest.fn(async () => await userResponse),
+            update: jest.fn(async () => await userResponse),
         };
         const hashFunction: any = {
             hash: jest.fn(async () => await password),
@@ -41,7 +41,7 @@ describe("Password user use case", () => {
         expect(result).toStrictEqual(userResponse);
         expect(hashFunction.hash).toHaveBeenCalled();
         expect(userRepository.findById).toHaveBeenCalledWith(id);
-        expect(userRepository.updateUser).toHaveBeenCalledWith({
+        expect(userRepository.update).toHaveBeenCalledWith({
             ...user,
             password,
         });

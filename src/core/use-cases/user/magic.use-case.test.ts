@@ -1,12 +1,15 @@
+import { LoginInfo } from "../../domain/user/login-info";
 import UnauthorizedError from "../../errors/unauthorized.error";
+import AccessToken from "../../ports/access-token.port";
 import { magicUseCase } from "./magic.use-case";
 
 describe("magic admin controller", () => {
     it("Given a token function and a token, and the token doesn't have change password, returns true", () => {
-        const accessToken: any = {
+        const accessToken: AccessToken = {
             verify: jest.fn(() => ({
                 data: {},
             })),
+            create: (loginInfo: Omit<LoginInfo, "password">) => "",
         };
         const token = "";
         const response = magicUseCase({ accessToken })(token);

@@ -4,6 +4,7 @@ import NotFoundRequestError from "../not-found-request-error";
 import ConflictRequestError from "../conflict-request-error";
 import InternalServerError from "../internal-error";
 import ForbiddenRequestError from "../forbidden-request-error";
+import UnauthorizedRequestError from "../unauthorized-request-error";
 
 describe("Http error handler test", () => {
     it("Check if httpErrorHandler is called", () => {
@@ -50,10 +51,23 @@ describe("Http error handler test", () => {
         testHttpHandler();
         expect(testHttpHandler).toBeTruthy();
     });
-    it("Check if httpErrorHandler with forbiddenRequestError is called", () => {
+    it("Check if httpErrorHandler with ForbiddenRequestError is called", () => {
         const testHttpHandler = async () => {
             try {
                 throw new ForbiddenRequestError("Email or password is wrong");
+            } catch (error) {
+                httpErrorHandler(error);
+            }
+        };
+        testHttpHandler();
+        expect(testHttpHandler).toBeTruthy();
+    });
+    it("Check if httpErrorHandler with UnauthorizedRequestError is called", () => {
+        const testHttpHandler = async () => {
+            try {
+                throw new UnauthorizedRequestError(
+                    "Email or password is wrong"
+                );
             } catch (error) {
                 httpErrorHandler(error);
             }

@@ -1,7 +1,11 @@
-import { Request, NextFunction } from "express";
+import { Request, NextFunction, Response } from "express";
 import getLogger from "../../../infrastructure/logger/get-logger";
 
-const loggerRequest = (req: Request, next: NextFunction) => {
+const loggerRequestMiddleware = (
+    req: Request,
+    _res: Response,
+    next: NextFunction
+) => {
     getLogger().info(
         "Method: " +
             req.method +
@@ -13,4 +17,4 @@ const loggerRequest = (req: Request, next: NextFunction) => {
     next();
 };
 
-export default loggerRequest;
+export default loggerRequestMiddleware;

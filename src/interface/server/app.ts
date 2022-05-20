@@ -1,17 +1,11 @@
-import express, {
-    Application,
-    Request,
-    Response,
-    NextFunction,
-    Router,
-} from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerOptions from "./api-docs/swagger-options";
 import { container } from "../../infrastructure/dependency-injection/awilix-set-up";
 import { scopePerRequest } from "awilix-express";
 import CustomError from "../../core/errors/custom-error";
-import loggerRequest from "./middleware/log-request.middleware";
+import loggerRequestMiddleware from "./middleware/log-request.middleware";
 import adminRouter from "./routes/admin.routes";
 import validateAdmin from "./validate-admin";
 import loginController from "./controllers/login.controller";
@@ -23,9 +17,7 @@ export const createServer = (port: number) => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(scopePerRequest(container));
-    app.use((req: Request, _res: Response, next: NextFunction) => {
-        loggerRequest(req, next);
-    });
+    app.use(loggerRequestMiddleware);
 
     app.use("/admin", adminRouter(), validateAdmin);
     app.post("/login", loginController);

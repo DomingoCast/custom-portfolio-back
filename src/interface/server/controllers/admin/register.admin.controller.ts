@@ -13,34 +13,23 @@ const registerAdminController = async (
     res: Response
 ): Promise<Response> => {
     const container = req.container!.cradle;
-    try {
-        const dataForm = req.body;
-        const validate = validateUser(dataForm);
-        if (validate !== true) {
-            container.logger.error(validate);
-            return res
-                .status(400)
-                .send({ message: validate, casa: req.header });
-        }
-        const user: RegisterInfo = req.body;
-        const response: null | User = await container.registerUserUseCase(
-            user,
-            "admin"
-        );
-        if (response) {
-            container.logger.info(response);
-            return res
-                .status(200)
-                .send({ message: "User has been registered" });
-        }
-        container.logger.error("User already exits");
-        return res.status(409).send({ message: "User already exits" });
-    } catch (e) {
-        container.logger.error(e);
-        return res.status(500).send({
-            message: e,
-        });
+    const dataForm = req.body;
+    const validate = validateUser(dataForm);
+    if (validate !== true) {
+        container.logger.error(validate);
+        return res.status(400).send({ message: validate, casa: req.header });
     }
+    const user: RegisterInfo = req.body;
+    const response: null | User = await container.registerUserUseCase(
+        user,
+        "admin"
+    );
+    if (response) {
+        container.logger.info(response);
+        return res.status(200).send({ message: "User has been registered" });
+    }
+    container.logger.error("User already exits");
+    return res.status(409).send({ message: "User already exits" });
 };
 
 export default registerAdminController;

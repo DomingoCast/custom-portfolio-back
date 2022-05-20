@@ -1,10 +1,4 @@
-import express, {
-    Application,
-    Request,
-    Response,
-    NextFunction,
-    Router,
-} from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerOptions from "./api-docs/swagger-options";
@@ -15,6 +9,7 @@ import adminRouter from "./routes/admin.routes";
 import validateAdmin from "./validate-admin";
 import loginController from "./controllers/login.controller";
 import registerController from "./controllers/register.controller";
+import { controllerWrapper } from "./wrappers/controller.wrapper";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -24,8 +19,8 @@ export const createServer = (port: number) => {
     app.use(scopePerRequest(container));
 
     app.use("/admin", adminRouter(), validateAdmin);
-    app.post("/login", loginController);
-    app.post("/register", registerController);
+    app.post("/login", controllerWrapper(loginController));
+    app.post("/register", controllerWrapper(registerController));
 
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 

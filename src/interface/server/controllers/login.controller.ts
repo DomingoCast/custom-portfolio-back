@@ -13,28 +13,24 @@ type CustomRequest = Request<{}, {}, LoginInfo> & {
 
 const loginController = async (
     req: CustomRequest,
-    res: Response,
-    next: NextFunction
+    res: Response
 ): Promise<void | Response> => {
+    console.log("AAAAAAAAAAA");
     const container = req.container?.cradle;
-    try {
-        let loginInfo = req.body;
-        if (req.body !== null) {
-            loginInfo = trimFields(req.body, arrayExceptions);
-            container.logger.info("Trim fields from login info");
-        }
-        const validate = validateLogin(loginInfo);
-        if (validate !== true) throw new BadRequestError(validate.toString());
-        const response: Omit<LoginInfo, "password"> =
-            await container.loginUseCase(loginInfo);
-        const token: string = container.accessToken.create(response);
-        container.logger.info("TokenAccess created");
-        container.logger.info(response);
-        return res.status(200).send({ token: token });
-    } catch (error: any) {
-        container.logger.error(error.message);
-        httpHandlerError(error, next);
+    let loginInfo = req.body;
+    if (req.body !== null) {
+        loginInfo = trimFields(req.body, arrayExceptions);
+        container.logger.info("Trim fields from login info");
     }
+    const validate = validateLogin(loginInfo);
+    if (validate !== true) throw new BadRequestError(validate.toString());
+    const response: Omit<LoginInfo, "password"> = await container.loginUseCase(
+        loginInfo
+    );
+    const token: string = container.accessToken.create(response);
+    container.logger.info("TokenAccess created");
+    container.logger.info(response);
+    return res.status(200).send({ token: token });
 };
 
 export default loginController;

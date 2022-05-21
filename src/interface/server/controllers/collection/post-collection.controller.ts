@@ -27,7 +27,6 @@ const postCollectionController = async (
             container.logger.error(validate);
             return res.status(400).send({ message: validate });
         }
-        console.log("[USER]", req.user);
         const response: null | User = await container.createCollectionUseCase({
             ...collection,
             user: req.user,

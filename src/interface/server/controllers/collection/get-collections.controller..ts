@@ -29,7 +29,6 @@ const getCollectionController = async (
             container.logger.info(response);
             return res.status(200).send({ collections: response });
         }
-        console.log("[CCCCCCCC]", response);
         throw new InternalServerError("something went wrong");
     } catch (e) {
         container.logger.error(e);

@@ -2,23 +2,26 @@ import { Post } from "../../../core/domain/post/post";
 import PostModel from "./post.model";
 import { dataSource } from "../datasource";
 import { Collection } from "../../../core/domain/collection/collection";
+import { UsingJoinColumnOnlyOnOneSideAllowedError } from "typeorm";
+import PostRepository from "../../../core/ports/post-repository.port";
 
-const createPostRepository = () => {
+const createPostRepository = (): PostRepository => {
     const postRepository = dataSource.getRepository(PostModel);
-    const getByCollection = (user: Collection) => {
+    const getByCollection = (collectionId: string): Promise<Post[] | any> => {
         return postRepository
-            .find({ where: { user: { id: user.id } } as any })
+            .find({ where: { collection: { id: collectionId } } as any })
             .then((res: Post[]) => res)
-            .catch(() => null);
+            .catch((e) => console.log("[joder]"));
     };
     const persist = (post: Omit<Post, "id">) => {
         return postRepository
             .save(post)
             .then((res: Post) => res)
-            .catch(() => null);
+            .catch((e) => null);
     };
     return {
         persist,
+        getByCollection,
     };
 };
 

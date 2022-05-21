@@ -15,7 +15,7 @@ const checkToken: RequestHandler = (
 ) => {
     const container = req.container!.cradle;
     const token = req.headers.token;
-    if (!token) throw new UnauthorizedError("No token");
+    if (!token) next(new UnauthorizedError("No token"));
     try {
         const decoded = container.accessToken.verify(
             token,

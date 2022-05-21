@@ -24,16 +24,18 @@ const postPostController = async (
             container.logger.error(validate);
             return res.status(400).send({ message: validate });
         }
-        const collection = container.collectionRepository.getById(
+        const collection = await container.collectionRepository.getById(
             post.collection
         );
         let response;
         if (collection) {
-            response = await container.createPostUseCase({
+            const newPost = {
                 ...post,
                 user: req.user,
                 collection: collection,
-            });
+            };
+            // console.log("[new post]", newPost);
+            response = await container.createPostUseCase(newPost);
             if (response) {
                 container.logger.info(response);
                 return res

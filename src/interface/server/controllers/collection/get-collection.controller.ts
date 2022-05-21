@@ -5,13 +5,8 @@ import { User } from "../../../../core/domain/user/user";
 import httpHandlerError from "../../../../infrastructure/http-errors/http-error-handler";
 import InternalServerError from "../../../../infrastructure/http-errors/internal-error";
 
-type CustomRequest = Request<
-    {},
-    {},
-    Omit<Collection, "id" | "posts" | "user">
-> & {
+type CustomRequest = Request & {
     container?: AwilixContainer;
-    user?: User;
 };
 
 const getCollectionController = async (
@@ -21,14 +16,14 @@ const getCollectionController = async (
 ): Promise<Response | void> => {
     const container = req.container!.cradle;
     try {
-        const response: null | User = await container.getCollectionUseCase(
-            req.user
+        const response: null | User = await container.getCollectionAndPosts(
+            req.params.collectionId
         );
+        console.log("[asdfasd]", response);
         if (response) {
             container.logger.info(response);
             return res.status(200).send({ collection: response });
         }
-        console.log("[CCCCCCCC]", response);
         throw new InternalServerError("something went wrong");
     } catch (e) {
         container.logger.error(e);

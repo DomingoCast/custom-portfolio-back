@@ -15,7 +15,7 @@ const getUser: RequestHandler = async (
 ) => {
     const container = req.container!.cradle;
     const userId = req.params.userId;
-    if (!userId) throw new UnauthorizedError("No token");
+    if (!userId) next(new UnauthorizedError("No token"));
     try {
         const user = await container.userRepository.findById(userId);
         if (!user) next(new UnauthorizedError("Unauthorized"));

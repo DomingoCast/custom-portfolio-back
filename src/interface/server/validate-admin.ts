@@ -1,28 +1,29 @@
-import { Request, RequestHandler, Response } from "express";
+import { AwilixContainer } from "awilix";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import { Role } from "../../core/domain/user/role.enum";
-import { User } from "../../core/domain/user/user";
-import jwt from "jsonwebtoken";
-import CustomError from "../../core/errors/custom-error";
+import UnauthorizedError from "../../core/errors/unauthorized.error";
 
+type CustomRequest = Request & {
+    container?: AwilixContainer;
+};
 const validateAdmin: RequestHandler = (
-    req: Request,
+    req: CustomRequest,
     res: Response,
-    next: any
+    next: NextFunction
 ) => {
+    const container = req.container!.cradle;
     const token = req.headers.token;
-    console.log(token);
-    if (!token) throw new CustomError("No token");
-    let decoded: any = { role: Role.worker };
+    if (!token) throw new UnauthorizedError("No token");
     try {
-        decoded = <User>(
-            jwt.verify(<string>token, <string>process.env.JWT_SECRET!)
+        const decoded = container.accessToken.verify(
+            token,
+            process.env.JWT_SECRET!
         );
+        if (!decoded.data || decoded.data.role !== Role.admin)
+            next(new UnauthorizedError("Unauthorized"));
     } catch (err) {
-        console.log(err);
-        next(new CustomError("Wrong Token"));
+        next(new UnauthorizedError("Wrong Token"));
     }
-    if (Number(decoded.data.role) !== Role.admin)
-        next(new CustomError("Unauthorized"));
     next();
 };
 

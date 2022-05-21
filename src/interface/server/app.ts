@@ -24,6 +24,8 @@ export const createServer = (port: number) => {
     app.use(scopePerRequest(container));
 
     app.use("/admin", adminRouter(), validateAdmin);
+    app.use("/collection", adminRouter());
+    app.use("/post", adminRouter());
     app.post("/login", loginController);
     app.post("/register", registerController);
 

@@ -1,4 +1,6 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
+import { Role } from "../../../core/domain/user/role.enum";
+import createHashFunction from "../../password/create-hash-function";
 
 export class algo1652521379789 implements MigrationInterface {
     name = "algo1652521379789";
@@ -12,6 +14,17 @@ export class algo1652521379789 implements MigrationInterface {
         );
         await queryRunner.query(
             `ALTER TABLE "collection" ADD CONSTRAINT "FK_ca25eb01f75a85272300f336029" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`
+        );
+        await queryRunner.query(
+            `INSERT INTO "user" ("name" , "surname" , "email" , "password" , "phone" , "address" , "role") VALUES ('${
+                process.env.ADMIN_NAME
+            }','${process.env.ADMIN_SURNAME}','${
+                process.env.ADMIN_EMAIL
+            }','${await createHashFunction().hash(
+                process.env.ADMIN_PASSWORD!
+            )}','${process.env.ADMIN_PHONE}','${process.env.ADMIN_ADRESS}','${
+                Role.admin
+            }')`
         );
     }
 

@@ -10,6 +10,7 @@ import swaggerUi from "swagger-ui-express";
 import swaggerOptions from "./api-docs/swagger-options";
 import { container } from "../../infrastructure/dependency-injection/awilix-set-up";
 import { scopePerRequest } from "awilix-express";
+import magicAdminController from "./controllers/admin/magic.admin.controller";
 import CustomError from "../../core/errors/custom-error";
 import adminRouter from "./routes/admin.routes";
 import validateAdmin from "./validate-admin";
@@ -24,10 +25,11 @@ export const createServer = (port: number) => {
     app.use(scopePerRequest(container));
 
     app.use("/admin", adminRouter(), validateAdmin);
-    app.use("/collection", adminRouter());
-    app.use("/post", adminRouter());
     app.post("/login", loginController);
+
     app.post("/register", registerController);
+
+    app.get("/magic", magicAdminController);
 
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 

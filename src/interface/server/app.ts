@@ -16,6 +16,9 @@ import adminRouter from "./routes/admin.routes";
 import validateAdmin from "./validate-admin";
 import loginController from "./controllers/login.controller";
 import registerController from "./controllers/register.controller";
+import collectionRouter from "./routes/collection.router";
+import checkToken from "./check-token";
+import postRouter from "./routes/post.router";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -25,6 +28,8 @@ export const createServer = (port: number) => {
     app.use(scopePerRequest(container));
 
     app.use("/admin", adminRouter(), validateAdmin);
+    app.use("/collection", collectionRouter());
+    app.use("/post", postRouter());
     app.post("/login", loginController);
 
     app.post("/register", registerController);
@@ -34,6 +39,7 @@ export const createServer = (port: number) => {
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
     app.use((error: any, req: Request, res: Response, next: NextFunction) => {
+        console.error(error);
         res.status(error.statusCode).send({
             message: error.responseBody,
         });

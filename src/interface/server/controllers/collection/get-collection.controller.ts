@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 import { Collection } from "../../../../core/domain/collection/collection";
 import { User } from "../../../../core/domain/user/user";
 import httpHandlerError from "../../../../infrastructure/http-errors/http-error-handler";
-import validateCollection from "../../../../infrastructure/user/validate-collection/validate-collection";
+import InternalServerError from "../../../../infrastructure/http-errors/internal-error";
 
 type CustomRequest = Request<
     {},
@@ -14,34 +14,26 @@ type CustomRequest = Request<
     user?: User;
 };
 
-const postCollectionController = async (
+const getCollectionController = async (
     req: CustomRequest,
     res: Response,
     next: NextFunction
 ): Promise<Response | void> => {
     const container = req.container!.cradle;
     try {
-        const collection = req.body;
-        const validate = validateCollection(collection);
-        if (validate !== true) {
-            container.logger.error(validate);
-            return res.status(400).send({ message: validate });
-        }
-        console.log("[USER]", req.user);
-        const response: null | User = await container.createCollectionUseCase({
-            ...collection,
-            user: req.user,
-        });
+        const response: null | User = await container.getCollectionUseCase(
+            req.user
+        );
         if (response) {
             container.logger.info(response);
-            return res
-                .status(200)
-                .send({ message: "Collection has been created" });
+            return res.status(200).send({ collection: response });
         }
+        console.log("[CCCCCCCC]", response);
+        throw new InternalServerError("something went wrong");
     } catch (e) {
         container.logger.error(e);
         httpHandlerError(e, next);
     }
 };
 
-export default postCollectionController;
+export default getCollectionController;

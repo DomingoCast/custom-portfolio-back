@@ -4,8 +4,11 @@ import { Collection } from "../../../core/domain/collection/collection";
 import collectionSchema from "./collection-schema";
 
 const validateCollection = (
-    collection: Omit<Collection, "id" | "posts">
+    collection: Omit<Collection, "id" | "posts" | "user">
 ): ValidationResponse =>
-    validation<Omit<Collection, "id" | "posts">>(collectionSchema, collection);
+    validation<Omit<Collection, "id" | "posts" | "user">>(
+        collectionSchema,
+        collection
+    );
 
 export default validateCollection;

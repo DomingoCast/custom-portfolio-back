@@ -2,10 +2,10 @@ import { JSONSchemaType } from "ajv";
 import { Collection } from "../../../core/domain/collection/collection";
 
 const collectionSchema: JSONSchemaType<
-    Omit<Collection, "id" | "posts" | "user">
+    Omit<Collection, "id" | "posts" | "user" | "thumbnail">
 > = {
     type: "object",
-    required: ["title", "description", "thumbnail"],
+    required: ["title", "description"],
     properties: {
         title: {
             type: "string",
@@ -18,9 +18,6 @@ const collectionSchema: JSONSchemaType<
             minLength: 3,
             maxLength: 400,
             errorMessage: "Invalid surname, minimum 3 and maximum 400",
-        },
-        thumbnail: {
-            type: "string",
         },
     },
 };

@@ -4,9 +4,9 @@ import { Collection } from "../../../core/domain/collection/collection";
 import collectionSchema from "./collection-schema";
 
 const validateCollection = (
-    collection: Omit<Collection, "id" | "posts" | "user">
+    collection: Omit<Collection, "id" | "posts" | "user" | "thumbnail">
 ): ValidationResponse =>
-    validation<Omit<Collection, "id" | "posts" | "user">>(
+    validation<Omit<Collection, "id" | "posts" | "user" | "thumbnail">>(
         collectionSchema,
         collection
     );

@@ -19,7 +19,6 @@ const getCollectionController = async (
         const response: null | User = await container.getCollectionAndPosts(
             req.params.collectionId
         );
-        console.log("[asdfasd]", response);
         if (response) {
             container.logger.info(response);
             return res.status(200).send({ collection: response });

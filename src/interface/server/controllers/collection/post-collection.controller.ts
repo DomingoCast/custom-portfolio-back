@@ -29,6 +29,7 @@ const postCollectionController = async (
         }
         const response: null | User = await container.createCollectionUseCase({
             ...collection,
+            thumbnail: req.file!.filename,
             user: req.user,
         });
         if (response) {

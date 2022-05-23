@@ -19,6 +19,8 @@ import registerController from "./controllers/register.controller";
 import collectionRouter from "./routes/collection.router";
 import checkToken from "./check-token";
 import postRouter from "./routes/post.router";
+import imageController from "./controllers/image.controler";
+import checkTokenController from "./controllers/check-token.controller";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -30,11 +32,13 @@ export const createServer = (port: number) => {
     app.use("/admin", adminRouter(), validateAdmin);
     app.use("/collection", collectionRouter());
     app.use("/post", postRouter());
-    app.post("/login", loginController);
 
+    app.post("/login", loginController);
     app.post("/register", registerController);
+    app.post("/check-token", checkToken, checkTokenController);
 
     app.get("/magic", magicAdminController);
+    app.get("/image/:imageName", imageController);
 
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 

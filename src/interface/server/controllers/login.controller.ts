@@ -19,8 +19,10 @@ const loginController = async (
     const container = req.container?.cradle;
     try {
         let loginInfo = req.body;
+        console.log(loginInfo);
         if (req.body !== null) {
             loginInfo = trimFields(req.body, arrayExceptions);
+            console.log(loginInfo);
             container.logger.info("Trim fields from login info");
         }
         const validate = validateLogin(loginInfo);

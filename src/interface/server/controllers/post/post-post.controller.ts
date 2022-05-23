@@ -18,7 +18,7 @@ const postPostController = async (
 ): Promise<Response | void> => {
     const container = req.container!.cradle;
     try {
-        const post = req.body;
+        const post = { ...req.body, thumbnail: req.file!.filename };
         const validate = validatePost(post);
         if (validate !== true) {
             container.logger.error(validate);
@@ -33,6 +33,7 @@ const postPostController = async (
                 ...post,
                 user: req.user,
                 collection: collection,
+                thumbnail: req.file!.filename,
             };
             // console.log("[new post]", newPost);
             response = await container.createPostUseCase(newPost);

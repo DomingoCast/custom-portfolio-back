@@ -12,7 +12,7 @@ const validateAdmin: RequestHandler = (
     next: NextFunction
 ) => {
     const container = req.container?.cradle;
-    const token: string | undefined = req.headers.token as string | undefined;
+    const token: string | string[] | undefined = req.headers.token;
     if (!token) throw new UnauthorizedError("No token");
     try {
         const decoded = container.accessToken.verify(token);

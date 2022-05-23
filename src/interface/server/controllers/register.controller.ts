@@ -47,9 +47,7 @@ const registerController = async (
             errorMessage = error.message;
             httpHandlerError(error, next);
         }
-        if (!(error instanceof CustomError)) {
-            httpHandlerError(new InternalServerError(errorMessage), next);
-        }
+        httpHandlerError(new InternalServerError(errorMessage), next);
         container.logger.error(errorMessage);
     }
 };

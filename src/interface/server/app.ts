@@ -1,10 +1,4 @@
-import express, {
-    Application,
-    Request,
-    Response,
-    NextFunction,
-    Router,
-} from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerOptions from "./api-docs/swagger-options";

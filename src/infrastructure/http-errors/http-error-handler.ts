@@ -8,8 +8,10 @@ import ForbiddenError from "../../core/errors/forbidden-error";
 import ForbiddenRequestError from "./forbidden-request-error";
 import UnauthorizedError from "../../core/errors/unauthorized.error";
 import UnauthorizedRequestError from "./unauthorized-request-error";
+import HttpError from "./http-error";
+import CustomError from "../../core/errors/custom-error";
 
-const httpErrorHandler = (error: unknown): unknown => {
+const httpErrorHandler = (error: CustomError): HttpError => {
     if (error instanceof NotFoundError) {
         return new NotFoundRequestError(error.message);
     }
@@ -30,5 +32,6 @@ const httpErrorHandler = (error: unknown): unknown => {
             error.message || "Internal server error"
         );
     }
+    return new InternalServerError("Internal server unknown error");
 };
 export default httpErrorHandler;

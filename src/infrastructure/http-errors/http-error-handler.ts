@@ -27,7 +27,7 @@ const httpErrorHandler = (error: CustomError): HttpError => {
     if (error instanceof UnauthorizedError) {
         return new UnauthorizedRequestError(error.message);
     }
-    if (error instanceof Error) {
+    if (error instanceof CustomError) {
         return new InternalServerError(
             error.message || "Internal server error"
         );

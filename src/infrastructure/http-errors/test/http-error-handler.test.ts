@@ -12,7 +12,9 @@ describe("Http error handler test", () => {
             try {
                 throw new BadRequestError("Bad Request");
             } catch (error) {
-                httpErrorHandler(error);
+                if (error instanceof BadRequestError) {
+                    return httpErrorHandler(error);
+                }
             }
         };
         testHttpHandler();
@@ -23,7 +25,9 @@ describe("Http error handler test", () => {
             try {
                 throw new NotFoundRequestError("Email not found");
             } catch (error) {
-                httpErrorHandler(error);
+                if (error instanceof NotFoundRequestError) {
+                    return httpErrorHandler(error);
+                }
             }
         };
         testHttpHandler();
@@ -34,7 +38,9 @@ describe("Http error handler test", () => {
             try {
                 throw new ConflictRequestError("Email or password is wrong");
             } catch (error) {
-                httpErrorHandler(error);
+                if (error instanceof ConflictRequestError) {
+                    return httpErrorHandler(error);
+                }
             }
         };
         testHttpHandler();
@@ -45,7 +51,9 @@ describe("Http error handler test", () => {
             try {
                 throw new InternalServerError("Email or password is wrong");
             } catch (error) {
-                httpErrorHandler(error);
+                if (error instanceof InternalServerError) {
+                    return httpErrorHandler(error);
+                }
             }
         };
         testHttpHandler();
@@ -56,7 +64,9 @@ describe("Http error handler test", () => {
             try {
                 throw new ForbiddenRequestError("Email or password is wrong");
             } catch (error) {
-                httpErrorHandler(error);
+                if (error instanceof ForbiddenRequestError) {
+                    return httpErrorHandler(error);
+                }
             }
         };
         testHttpHandler();
@@ -69,7 +79,9 @@ describe("Http error handler test", () => {
                     "Email or password is wrong"
                 );
             } catch (error) {
-                httpErrorHandler(error);
+                if (error instanceof UnauthorizedRequestError) {
+                    return httpErrorHandler(error);
+                }
             }
         };
         testHttpHandler();

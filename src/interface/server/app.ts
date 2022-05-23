@@ -1,16 +1,11 @@
-import express, {
-    Application,
-    Request,
-    Response,
-    NextFunction,
-    Router,
-} from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import cors from "cors";
 import swaggerUi from "swagger-ui-express";
 import swaggerOptions from "./api-docs/swagger-options";
 import { container } from "../../infrastructure/dependency-injection/awilix-set-up";
 import { scopePerRequest } from "awilix-express";
 import CustomError from "../../core/errors/custom-error";
+import HttpError from "../../infrastructure/http-errors/http-error";
 import adminRouter from "./routes/admin.routes";
 import validateAdmin from "./validate-admin";
 import loginController from "./controllers/login.controller";
@@ -29,11 +24,15 @@ export const createServer = (port: number) => {
 
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
-    app.use((error: any, req: Request, res: Response, next: NextFunction) => {
-        res.status(error.statusCode).send({
-            message: error.responseBody,
-        });
-    });
+    app.use(
+        (error: unknown, _req: Request, res: Response, _next: NextFunction) => {
+            if (error instanceof HttpError) {
+                res.status(error.statusCode).send({
+                    message: error.responseBody,
+                });
+            }
+        }
+    );
 
     return {
         app: app,
@@ -47,7 +46,8 @@ export const runServer = (app: Application, port: number) => {
             console.log(`Connected successfully on port ${port}`);
         });
         return server;
-    } catch (error: any) {
-        throw new CustomError(error);
+    } catch (error: unknown) {
+        if (error instanceof Error) throw new CustomError(error.message);
+        throw new CustomError("Error ocurred into runServer");
     }
 };

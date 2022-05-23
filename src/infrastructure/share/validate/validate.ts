@@ -8,7 +8,10 @@ const validation = <T extends Schema>(
 ): ValidationResponse => {
     const initValidate = initValidation(schema);
     const valid = initValidate.validate(schema, data);
-    if (!valid) return initValidate.errors!.map((error) => error.message!);
+    if (!valid && initValidate.errors)
+        return initValidate.errors.map(
+            (error) => error.message || "Some error during validation"
+        );
     return valid;
 };
 export default validation;

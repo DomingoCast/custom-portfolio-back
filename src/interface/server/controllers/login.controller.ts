@@ -6,6 +6,8 @@ import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exc
 import { LoginInfo } from "../../../core/domain/user/login-info";
 import BadRequestError from "../../../infrastructure/http-errors/bad-request-error";
 import httpErrorHandler from "../../../infrastructure/http-errors/http-error-handler";
+import CustomError from "../../../core/errors/custom-error";
+import InternalServerError from "../../../infrastructure/http-errors/internal-error";
 
 type CustomRequest = Request<{}, {}, LoginInfo> & {
     container?: AwilixContainer;
@@ -31,9 +33,14 @@ const loginController = async (
         container.logger.info("TokenAccess created");
         container.logger.info(response);
         return res.status(200).send({ token: token });
-    } catch (error: any) {
-        container.logger.error(error.message);
-        next(httpErrorHandler(error));
+    } catch (error: unknown) {
+        const errorMessage = "Error ocurred into login controller";
+        if (error instanceof CustomError) {
+            container.logger.error(error.message);
+            next(httpErrorHandler(error));
+        }
+        container.logger.error(errorMessage);
+        next(httpErrorHandler(new InternalServerError(errorMessage)));
     }
 };
 

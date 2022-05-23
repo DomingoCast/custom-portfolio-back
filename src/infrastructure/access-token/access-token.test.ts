@@ -4,7 +4,7 @@ import { VerifyResponse } from "./verify.type";
 const userLogin: Omit<LoginInfo, "password"> = {
     email: "test@gmail.com",
 };
-const createAccessToken: string = accessToken().create(userLogin);
+const createAccessToken: any = accessToken().create(userLogin);
 const isValidAccessToken: VerifyResponse = accessToken().verify(
     createAccessToken
 ) as VerifyResponse;

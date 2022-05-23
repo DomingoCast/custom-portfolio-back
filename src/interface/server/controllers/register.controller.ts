@@ -9,6 +9,7 @@ import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exc
 import httpErrorHandler from "../../../infrastructure/http-errors/http-error-handler";
 import BadRequestError from "../../../infrastructure/http-errors/bad-request-error";
 import InternalServerError from "../../../infrastructure/http-errors/internal-error";
+import CustomError from "../../../core/errors/custom-error";
 
 type CustomRequest = Request<{}, {}, RegisterInfo> & {
     container?: AwilixContainer;
@@ -40,9 +41,14 @@ const registerController = async (
                 .send({ message: "User has been registered" });
         }
         throw new InternalServerError("An error has ocurred in the repository");
-    } catch (error: any) {
-        container.logger.error(error.message);
-        next(httpErrorHandler(error));
+    } catch (error: unknown) {
+        const errorMessage = "Error ocurred into login controller";
+        if (error instanceof CustomError) {
+            container.logger.error(error.message);
+            next(httpErrorHandler(error));
+        }
+        container.logger.error(errorMessage);
+        next(httpErrorHandler(new InternalServerError(errorMessage)));
     }
 };
 

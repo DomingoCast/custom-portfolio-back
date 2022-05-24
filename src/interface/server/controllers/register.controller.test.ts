@@ -1,4 +1,6 @@
 import { Role } from "../../../core/domain/user/role.enum";
+import BadRequestError from "../../../infrastructure/http-errors/bad-request-error";
+import InternalServerError from "../../../infrastructure/http-errors/internal-error";
 import validateUser from "../../../infrastructure/user/validate-user/validate-user";
 import registerController from "./register.controller";
 
@@ -22,17 +24,18 @@ describe("registerController", () => {
             send: jest.fn,
         })),
     };
-    const next = jest.fn;
-    it("doesn't register null", () => {
-        registerController(req, res);
-        expect(mockValidateUser).toHaveBeenCalledTimes(1);
-    });
-    it("validates the input", () => {
-        mockValidateUser.mockImplementation(jest.fn());
-        registerController(req, res);
+    it("doesn't register null", async () => {
+        mockValidateUser.mockImplementation(() => []);
+        try {
+            await registerController(req, res);
+        } catch (e) {
+            expect(e).toBeInstanceOf(BadRequestError);
+        }
+
         expect(mockValidateUser).toHaveBeenCalledWith(req.body);
     });
-    it("calls the usecase if the validation works", () => {
+    it("calls the usecase if the validation works", async () => {
+        mockValidateUser.mockImplementation(() => true);
         const req: any = {
             body: null,
             container: {
@@ -42,8 +45,12 @@ describe("registerController", () => {
                 },
             },
         };
-        mockValidateUser.mockImplementation(() => true);
-        registerController(req, res);
+        const res: any = {
+            status: jest.fn(() => ({
+                send: jest.fn,
+            })),
+        };
+        await registerController(req, res);
         expect(req.container.cradle.registerUserUseCase).toHaveBeenCalledWith(
             req.body,
             Role.worker

@@ -8,7 +8,6 @@ import { Role } from "../../../core/domain/user/role.enum";
 import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
 import BadRequestError from "../../../infrastructure/http-errors/bad-request-error";
 import InternalServerError from "../../../infrastructure/http-errors/internal-error";
-import CustomError from "../../../core/errors/custom-error";
 
 type CustomRequest = Request<{}, {}, RegisterInfo> & {
     container?: AwilixContainer;
@@ -26,6 +25,7 @@ const registerController = async (
     }
 
     const validate = validateUser(user);
+    console.log("[VALIDATE]", validate);
     if (validate !== true) throw new BadRequestError(validate.toString());
     const response: null | User = await container.registerUserUseCase(
         user,

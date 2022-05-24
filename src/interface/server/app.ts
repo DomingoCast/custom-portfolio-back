@@ -23,11 +23,16 @@ export const createServer = (port: number) => {
     app.use(express.urlencoded({ extended: true }));
     app.use(scopePerRequest(container));
 
-    app.use("/admin", adminRouter(), validateAdmin);
-    app.post("/login", loginController);
-    app.post("/register", registerController);
-
-    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
+    app.get("/api", (req, res) =>
+        res.status(200).send({ message: "welcome to the API" })
+    );
+    app.use("/api/admin", adminRouter(), validateAdmin);
+    app.post("/api/login", loginController);
+    app.post("/api/register", registerController);
+    app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
+    app.get("/", (req, res) =>
+        res.status(200).send({ message: "hello world!" })
+    );
 
     app.use((error: any, req: Request, res: Response, next: NextFunction) => {
         res.status(error.statusCode).send({

@@ -1,18 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: web-deployment
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.1 (HEAD)
+  creationTimestamp: null
   labels:
-    app: web
+    io.kompose.service: web
+  name: web
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: web
+      io.kompose.service: web
+  strategy: {}
   template:
     metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.26.1 (HEAD)
+      creationTimestamp: null
       labels:
-        app: web
+        io.kompose.service: web
     spec:
       containers:
         - env:
@@ -80,7 +89,7 @@ spec:
                 configMapKeyRef:
                   key: SENDGRID_API_KEY
                   name: env
-          image: teamdha/nodeserver:0.7
+          image: teamdha/nodeserver:1.0
           name: web
           ports:
             - containerPort: 8080

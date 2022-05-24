@@ -6,7 +6,7 @@ type MagicUseCaseProps = {
 };
 type MagicUseCase = (token: string) => boolean | void;
 
-export const magicUseCase =
+const magicUseCase =
     ({ accessToken }: MagicUseCaseProps): MagicUseCase =>
     (token: string): boolean => {
         try {
@@ -22,3 +22,5 @@ export const magicUseCase =
 
         return true;
     };
+
+export default magicUseCase;

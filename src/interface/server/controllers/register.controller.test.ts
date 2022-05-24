@@ -1,6 +1,5 @@
 import { Role } from "../../../core/domain/user/role.enum";
 import BadRequestError from "../../../infrastructure/http-errors/bad-request-error";
-import InternalServerError from "../../../infrastructure/http-errors/internal-error";
 import validateUser from "../../../infrastructure/user/validate-user/validate-user";
 import registerController from "./register.controller";
 

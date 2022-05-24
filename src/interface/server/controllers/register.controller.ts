@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { User } from "../../../core/domain/user/user";
 import { AwilixContainer } from "awilix";
 import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
@@ -25,7 +25,6 @@ const registerController = async (
     }
 
     const validate = validateUser(user);
-    console.log("[VALIDATE]", validate);
     if (validate !== true) throw new BadRequestError(validate.toString());
     const response: null | User = await container.registerUserUseCase(
         user,

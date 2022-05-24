@@ -30,8 +30,8 @@ const loginController = async (
         const response: Omit<LoginInfo, "password"> =
             await container.loginUseCase(loginInfo);
         const token: string = container.accessToken.create(response);
+        container.logger.info("Correct login: " + JSON.stringify(response));
         container.logger.info("TokenAccess created");
-        container.logger.info(response);
         return res.status(200).send({ token: token });
     } catch (error: unknown) {
         const errorMessage = "Error ocurred into login controller";

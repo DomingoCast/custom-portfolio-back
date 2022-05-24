@@ -35,7 +35,9 @@ const registerController = async (
             Role.worker
         );
         if (response) {
-            container.logger.info(response);
+            container.logger.info(
+                "Correct register: " + JSON.stringify(response)
+            );
             return res
                 .status(200)
                 .send({ message: "User has been registered" });

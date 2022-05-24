@@ -7,9 +7,9 @@ import { RegisterInfo } from "../../../core/domain/user/register-info";
 import { Role } from "../../../core/domain/user/role.enum";
 import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
 import httpErrorHandler from "../../../infrastructure/http-errors/http-error-handler";
-import BadRequestError from "../../../infrastructure/http-errors/bad-request-error";
 import InternalServerError from "../../../infrastructure/http-errors/internal-error";
 import CustomError from "../../../core/errors/custom-error";
+import InternalBadRequestError from "../../../core/errors/internal-bad-request-error";
 
 type CustomRequest = Request<{}, {}, RegisterInfo> & {
     container?: AwilixContainer;
@@ -29,7 +29,8 @@ const registerController = async (
         }
 
         const validate = validateUser(user);
-        if (validate !== true) throw new BadRequestError(validate.toString());
+        if (validate !== true)
+            throw new InternalBadRequestError(validate.toString());
         const response: null | User = await container.registerUserUseCase(
             user,
             Role.worker
@@ -42,15 +43,9 @@ const registerController = async (
                 .status(200)
                 .send({ message: "User has been registered" });
         }
-        throw new InternalServerError("An error has ocurred in the repository");
     } catch (error: unknown) {
-        const errorMessage = "Error ocurred into login controller";
-        if (error instanceof CustomError) {
-            container.logger.error(error.message);
-            next(httpErrorHandler(error));
-        }
-        container.logger.error(errorMessage);
-        next(httpErrorHandler(new InternalServerError(errorMessage)));
+        if (error instanceof CustomError) next(httpErrorHandler(error));
+        next(httpErrorHandler(new InternalServerError(error as Error)));
     }
 };
 

@@ -10,28 +10,27 @@ import UnauthorizedError from "../../core/errors/unauthorized.error";
 import UnauthorizedRequestError from "./unauthorized-request-error";
 import HttpError from "./http-error";
 import CustomError from "../../core/errors/custom-error";
+import InternalBadRequestError from "../../core/errors/internal-bad-request-error";
 
 const httpErrorHandler = (error: CustomError): HttpError => {
     if (error instanceof NotFoundError) {
-        return new NotFoundRequestError(error.message);
+        return new NotFoundRequestError(error);
     }
-    if (error instanceof BadRequestError) {
-        return new BadRequestError(error.message);
+    if (error instanceof InternalBadRequestError) {
+        return new BadRequestError(error);
     }
     if (error instanceof ConflictError) {
-        return new ConflictRequestError(error.message);
+        return new ConflictRequestError(error);
     }
     if (error instanceof ForbiddenError) {
-        return new ForbiddenRequestError(error.message);
+        return new ForbiddenRequestError(error);
     }
     if (error instanceof UnauthorizedError) {
-        return new UnauthorizedRequestError(error.message);
+        return new UnauthorizedRequestError(error);
     }
     if (error instanceof CustomError) {
-        return new InternalServerError(
-            error.message || "Internal server error"
-        );
+        return new InternalServerError(error);
     }
-    return new InternalServerError("Internal server unknown error");
+    return new InternalServerError(error);
 };
 export default httpErrorHandler;

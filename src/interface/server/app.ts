@@ -11,6 +11,7 @@ import adminRouter from "./routes/admin.routes";
 import validateAdmin from "./validate-admin";
 import loginController from "./controllers/login.controller";
 import registerController from "./controllers/register.controller";
+import getLogger from "../../infrastructure/logger/get-logger";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -27,7 +28,13 @@ export const createServer = (port: number) => {
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
     app.use(
-        (error: unknown, _req: Request, res: Response, _next: NextFunction) => {
+        (
+            error: HttpError,
+            _req: Request,
+            res: Response,
+            _next: NextFunction
+        ) => {
+            getLogger().error(error.message);
             if (error instanceof HttpError) {
                 res.status(error.statusCode).send({
                     message: error.responseBody,

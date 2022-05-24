@@ -1,12 +1,13 @@
 import HttpError from "./http-error";
 import httpStatusCodes from "./status-codes";
 class NotFoundRequestError extends HttpError {
-    constructor(responseBody: string) {
-        super(responseBody, httpStatusCodes.NOT_FOUND);
+    constructor(error: Error) {
+        super(error.message, httpStatusCodes.NOT_FOUND);
         this.name = "NotFoundRequestError";
+        this.stack = error.stack;
         Object.setPrototypeOf(this, NotFoundRequestError.prototype);
         this.statusCode = httpStatusCodes.NOT_FOUND;
-        this.responseBody = responseBody;
+        this.responseBody = error.message;
     }
 }
 export default NotFoundRequestError;

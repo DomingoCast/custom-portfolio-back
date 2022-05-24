@@ -7,7 +7,7 @@ const magicAdminController = async (
     res: Response,
     next: NextFunction
 ): Promise<Response | void> => {
-    const container = req.container!.cradle;
+    const container = req.container?.cradle;
     try {
         const token = req.query.token;
         const response = container.magicUseCase(token);
@@ -19,7 +19,7 @@ const magicAdminController = async (
             message: "you need to change the password",
             token: token,
         });
-    } catch (error: any) {
+    } catch (error: unknown) {
         httpHandlerError(error, next);
     }
 };

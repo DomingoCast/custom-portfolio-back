@@ -5,6 +5,7 @@ import swaggerOptions from "./api-docs/swagger-options";
 import { container } from "../../infrastructure/dependency-injection/awilix-set-up";
 import { scopePerRequest } from "awilix-express";
 import CustomError from "../../core/errors/custom-error";
+import loggerRequestMiddleware from "./middleware/log-request.middleware";
 import HttpError from "../../infrastructure/http-errors/http-error";
 import adminRouter from "./routes/admin.routes";
 import validateAdmin from "./validate-admin";
@@ -17,6 +18,7 @@ export const createServer = (port: number) => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(scopePerRequest(container));
+    app.use(loggerRequestMiddleware);
 
     app.use("/admin", adminRouter(), validateAdmin);
     app.post("/login", loginController);

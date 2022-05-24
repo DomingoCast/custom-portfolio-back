@@ -37,7 +37,7 @@ describe("magic admin controller", () => {
         };
         const token = "";
         try {
-            const response = magicUseCase({ accessToken })(token);
+            magicUseCase({ accessToken })(token);
         } catch (error) {
             expect(error).toBeInstanceOf(UnauthorizedError);
         }

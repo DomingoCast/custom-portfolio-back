@@ -37,7 +37,7 @@ describe("registerController", () => {
     it("calls the usecase if the validation works", async () => {
         mockValidateUser.mockImplementation(() => true);
         const req: any = {
-            body: null,
+            body: {},
             container: {
                 cradle: {
                     registerUserUseCase: jest.fn(async (x) => await x),

@@ -8,6 +8,7 @@ import { Role } from "../../../core/domain/user/role.enum";
 import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
 import BadRequestError from "../../../infrastructure/http-errors/bad-request-error";
 import InternalServerError from "../../../infrastructure/http-errors/internal-error";
+import CustomError from "../../../core/errors/custom-error";
 
 type CustomRequest = Request<{}, {}, RegisterInfo> & {
     container?: AwilixContainer;
@@ -31,7 +32,7 @@ const registerController = async (
         Role.worker
     );
     if (response) {
-        container.logger.info(response);
+        container.logger.info("Correct register: " + JSON.stringify(response));
         return res.status(200).send({ message: "User has been registered" });
     }
     throw new InternalServerError("An error has ocurred in the repository");

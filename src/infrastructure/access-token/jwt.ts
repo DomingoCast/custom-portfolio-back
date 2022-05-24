@@ -1,12 +1,18 @@
 import jwt from "jsonwebtoken";
 import "dotenv/config";
-import { VerifyResponse } from "./verify.type";
+import { VerifyResponse, AccessTokenResponse } from "./verify.type";
 import { LoginInfo } from "../../core/domain/user/login-info";
 import CustomError from "../../core/errors/custom-error";
 const JWT_SECRET: string = process.env.JWT_SECRET || "test";
+const throwhError = (error: Error): Error => {
+    if (error instanceof Error) throw new CustomError(error.message);
+    throw new CustomError(error);
+};
 
 const jwtToken = () => {
-    const createToken = (userLogin: Omit<LoginInfo, "password">): string => {
+    const createToken = (
+        userLogin: Omit<LoginInfo, "password">
+    ): AccessTokenResponse => {
         try {
             return jwt.sign(
                 {
@@ -15,15 +21,15 @@ const jwtToken = () => {
                 },
                 JWT_SECRET
             );
-        } catch (error: any) {
-            throw new CustomError(error.message);
+        } catch (error: unknown) {
+            throwhError(error as Error);
         }
     };
     const verifyToken = (token: string): VerifyResponse => {
         try {
             return jwt.verify(token, JWT_SECRET);
-        } catch (error: any) {
-            throw new CustomError(error);
+        } catch (error) {
+            throwhError(error as Error);
         }
     };
     return {

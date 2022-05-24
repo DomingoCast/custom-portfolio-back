@@ -1,5 +1,6 @@
 import { AwilixContainer } from "awilix";
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
+import CustomError from "../../../core/errors/custom-error";
 import httpHandlerError from "../../../infrastructure/http-errors/http-error-handler";
 
 type CustomRequest = Request & {
@@ -12,7 +13,7 @@ export const controllerWrapper = (controller: Function) => {
         try {
             await controller(req, res, next);
         } catch (error) {
-            if (error instanceof Error) {
+            if (error instanceof CustomError) {
                 container.logger.error(error.message);
                 httpHandlerError(error, next);
             }

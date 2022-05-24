@@ -32,7 +32,7 @@ describe("loginController", () => {
             })),
         };
 
-        await loginController(req, res, next);
+        await loginController(req, res);
         expect(mockValidateLogin).toHaveBeenCalledWith(req.body);
         expect(res.status).toHaveBeenCalledWith(200);
         expect(sendResponse).toHaveBeenCalledWith({

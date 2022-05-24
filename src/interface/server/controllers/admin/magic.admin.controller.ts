@@ -1,4 +1,5 @@
 import { NextFunction, Response } from "express";
+import CustomError from "../../../../core/errors/custom-error";
 import httpHandlerError from "../../../../infrastructure/http-errors/http-error-handler";
 import { CustomRequest } from "../../types/custom.request";
 
@@ -20,7 +21,8 @@ const magicAdminController = async (
             token: token,
         });
     } catch (error: unknown) {
-        httpHandlerError(error, next);
+        if (error instanceof CustomError) httpHandlerError(error, next);
+        next(error);
     }
 };
 

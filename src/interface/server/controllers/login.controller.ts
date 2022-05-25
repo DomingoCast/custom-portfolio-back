@@ -5,10 +5,7 @@ import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
 import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
 import { LoginInfo } from "../../../core/domain/user/login-info";
 import BadRequestError from "../../../infrastructure/http-errors/bad-request-error";
-
-type CustomRequest = Request<{}, {}, LoginInfo> & {
-    container?: AwilixContainer;
-};
+import { CustomRequest } from "./types/custom-request";
 
 const loginController = async (
     req: CustomRequest,

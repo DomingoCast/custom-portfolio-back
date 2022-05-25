@@ -2,17 +2,10 @@ import { AwilixContainer } from "awilix";
 import { NextFunction, Request, Response } from "express";
 import CustomError from "../../../core/errors/custom-error";
 import httpHandlerError from "../../../infrastructure/http-errors/http-error-handler";
-
-type CustomRequest = Request & {
-    container?: AwilixContainer;
-};
+import { CustomRequest } from "../controllers/types/custom-request";
 
 export const controllerWrapper = (
-    controller: (
-        req: Request,
-        res: Response,
-        next: NextFunction
-    ) => Response | void
+    controller: (req: CustomRequest, res: Response) => Promise<Response | void>
 ) => {
     const run = async (
         req: CustomRequest,
@@ -21,7 +14,7 @@ export const controllerWrapper = (
     ) => {
         const container = req.container?.cradle;
         try {
-            await controller(req, res, next);
+            await controller(req, res);
         } catch (error) {
             if (error instanceof CustomError) {
                 container.logger.error(error.message);

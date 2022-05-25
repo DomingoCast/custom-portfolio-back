@@ -8,10 +8,7 @@ import { Role } from "../../../core/domain/user/role.enum";
 import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
 import BadRequestError from "../../../infrastructure/http-errors/bad-request-error";
 import InternalServerError from "../../../infrastructure/http-errors/internal-error";
-
-type CustomRequest = Request<{}, {}, RegisterInfo> & {
-    container?: AwilixContainer;
-};
+import { CustomRequest } from "./types/custom-request";
 
 const registerController = async (
     req: CustomRequest,

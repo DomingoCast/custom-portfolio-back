@@ -4,6 +4,7 @@ import BadRequestError from "../bad-request-error";
 import NotFoundRequestError from "../not-found-request-error";
 import ConflictRequestError from "../conflict-request-error";
 import InternalServerError from "../internal-error";
+import CustomError from "../../../core/errors/custom-error";
 
 describe("Http error handler test", () => {
     it("Check if httpHandlerError is called", () => {
@@ -11,7 +12,9 @@ describe("Http error handler test", () => {
             try {
                 throw new BadRequestError("Bad Request");
             } catch (error) {
-                httpHandlerError(error, NextFunction);
+                if (error instanceof CustomError) {
+                    httpHandlerError(error, NextFunction);
+                }
             }
         };
         testHttpHandler();
@@ -22,7 +25,9 @@ describe("Http error handler test", () => {
             try {
                 throw new NotFoundRequestError("Email not found");
             } catch (error) {
-                httpHandlerError(error, NextFunction);
+                if (error instanceof CustomError) {
+                    httpHandlerError(error, NextFunction);
+                }
             }
         };
         testHttpHandler();
@@ -33,7 +38,9 @@ describe("Http error handler test", () => {
             try {
                 throw new ConflictRequestError("Email or password is wrong");
             } catch (error) {
-                httpHandlerError(error, NextFunction);
+                if (error instanceof CustomError) {
+                    httpHandlerError(error, NextFunction);
+                }
             }
         };
         testHttpHandler();
@@ -44,7 +51,9 @@ describe("Http error handler test", () => {
             try {
                 throw new InternalServerError("Email or password is wrong");
             } catch (error) {
-                httpHandlerError(error, NextFunction);
+                if (error instanceof CustomError) {
+                    httpHandlerError(error, NextFunction);
+                }
             }
         };
         testHttpHandler();

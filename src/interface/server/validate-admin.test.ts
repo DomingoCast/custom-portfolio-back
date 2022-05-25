@@ -28,7 +28,7 @@ describe("validate admin", () => {
             container: {
                 cradle: {
                     accessToken: {
-                        verify: jest.fn((x) => {
+                        verify: jest.fn(() => {
                             throw new Error();
                         }),
                     },
@@ -49,7 +49,7 @@ describe("validate admin", () => {
             container: {
                 cradle: {
                     accessToken: {
-                        verify: jest.fn((x) => ({
+                        verify: jest.fn(() => ({
                             data: { role: Role.worker },
                         })),
                     },
@@ -70,7 +70,7 @@ describe("validate admin", () => {
             container: {
                 cradle: {
                     accessToken: {
-                        verify: jest.fn((x) => ({
+                        verify: jest.fn(() => ({
                             data: { role: Role.admin },
                         })),
                     },

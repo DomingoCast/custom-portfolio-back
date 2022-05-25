@@ -1,20 +1,10 @@
-import express, {
-    Application,
-    Request,
-    Response,
-    NextFunction,
-    Router,
-} from "express";
+import express, { Application, Request, Response, NextFunction } from "express";
 import cors from "cors";
-import swaggerUi from "swagger-ui-express";
-import swaggerOptions from "./api-docs/swagger-options";
 import { container } from "../../infrastructure/dependency-injection/awilix-set-up";
 import { scopePerRequest } from "awilix-express";
 import CustomError from "../../core/errors/custom-error";
-import adminRouter from "./routes/admin.routes";
 import validateAdmin from "./validate-admin";
-import loginController from "./controllers/login.controller";
-import registerController from "./controllers/register.controller";
+import apiRouter from "./routes/api.router";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -22,17 +12,7 @@ export const createServer = (port: number) => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(scopePerRequest(container));
-
-    app.get("/api", (req, res) =>
-        res.status(200).send({ message: "welcome to the API" })
-    );
-    app.use("/api/admin", adminRouter(), validateAdmin);
-    app.post("/api/login", loginController);
-    app.post("/api/register", registerController);
-    app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
-    app.get("/", (req, res) =>
-        res.status(200).send({ message: "hello world!" })
-    );
+    app.use("/api", apiRouter(), validateAdmin);
 
     app.use((error: any, req: Request, res: Response, next: NextFunction) => {
         res.status(error.statusCode).send({

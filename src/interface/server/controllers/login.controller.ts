@@ -36,7 +36,7 @@ const loginController = async (
         return res.status(200).send({ token: token });
     } catch (error: unknown) {
         if (error instanceof CustomError) next(httpErrorHandler(error));
-        next(httpErrorHandler(new InternalServerError(error as Error)));
+        next(httpErrorHandler(new InternalServerError(error as CustomError)));
     }
 };
 

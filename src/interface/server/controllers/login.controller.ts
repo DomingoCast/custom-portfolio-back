@@ -1,5 +1,4 @@
-import { AwilixContainer } from "awilix";
-import { Request, Response } from "express";
+import { Response } from "express";
 import validateLogin from "../../../infrastructure/user/validate-login/validate-login";
 import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
 import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";

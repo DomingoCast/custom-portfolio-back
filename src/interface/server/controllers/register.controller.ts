@@ -1,6 +1,5 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { User } from "../../../core/domain/user/user";
-import { AwilixContainer } from "awilix";
 import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
 import validateUser from "../../../infrastructure/user/validate-user/validate-user";
 import { RegisterInfo } from "../../../core/domain/user/register-info";

@@ -1,5 +1,4 @@
-import { AwilixContainer } from "awilix";
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 import CustomError from "../../../core/errors/custom-error";
 import httpHandlerError from "../../../infrastructure/http-errors/http-error-handler";
 import { CustomRequest } from "../controllers/types/custom-request";

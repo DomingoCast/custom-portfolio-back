@@ -41,7 +41,7 @@ const registerAdminController = async (
         }
         container.logger.error("User already exits");
         return res.status(409).send({ message: "User already exits" });
-    } catch (e) {
+    } catch (e: any) {
         httpHandlerError(e, next);
     }
 };

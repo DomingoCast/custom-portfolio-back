@@ -5,12 +5,13 @@ import ConflictRequestError from "./conflict-request-error";
 import NotFoundRequestError from "./not-found-request-error";
 import InternalServerError from "./internal-error";
 import { NextFunction } from "express";
+import CustomError from "../../core/errors/custom-error";
 import ForbiddenError from "../../core/errors/forbidden-error";
 import ForbiddenRequestError from "./forbidden-request-error";
 import UnauthorizedError from "../../core/errors/unauthorized.error";
 import UnauthorizedRequestError from "./unauthorized-request-error";
 
-const httpHandlerError = (error: unknown, next: NextFunction): void => {
+const httpHandlerError = (error: CustomError, next: NextFunction): void => {
     if (error instanceof NotFoundError) {
         next(new NotFoundRequestError(error.message));
         return;

@@ -1,6 +1,7 @@
 import { AwilixContainer } from "awilix";
 import { Request, Response } from "express";
 import { RegisterInfo } from "../../../../core/domain/user/register-info";
+import { Role } from "../../../../core/domain/user/role.enum";
 import { User } from "../../../../core/domain/user/user";
 import validateUser from "../../../../infrastructure/user/validate-user/validate-user";
 
@@ -22,11 +23,18 @@ const registerAdminController = async (
     const user: RegisterInfo = req.body;
     const response: null | User = await container.registerUserUseCase(
         user,
-        "admin"
+        Role.admin
     );
     if (response) {
         container.logger.info(response);
-        return res.status(200).send({ message: "User has been registered" });
+        const token = container.accessToken.create({
+            ...response,
+            changePassword: true,
+        });
+        console.log(container.accessToken.verify(token));
+        return res
+            .status(200)
+            .send({ message: "User has been registered", token: token });
     }
     container.logger.error("User already exits");
     return res.status(409).send({ message: "User already exits" });

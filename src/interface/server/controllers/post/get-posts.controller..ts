@@ -30,7 +30,7 @@ const getCollectionController = async (
             return res.status(200).send({ collections: response });
         }
         throw new InternalServerError("something went wrong");
-    } catch (e) {
+    } catch (e: any) {
         container.logger.error(e);
         httpHandlerError(e, next);
     }

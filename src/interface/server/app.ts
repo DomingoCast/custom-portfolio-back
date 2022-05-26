@@ -17,6 +17,7 @@ import checkToken from "./check-token";
 import postRouter from "./routes/post.router";
 import imageController from "./controllers/image.controler";
 import checkTokenController from "./controllers/check-token.controller";
+import userRouter from "./routes/user.router";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -29,6 +30,7 @@ export const createServer = (port: number) => {
     app.use("/admin", adminRouter(), validateAdmin);
     app.use("/collection", collectionRouter());
     app.use("/post", postRouter());
+    app.use("/user", userRouter());
 
     app.post("/login", loginController);
     app.post("/register", registerController);

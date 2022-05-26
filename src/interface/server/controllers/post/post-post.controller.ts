@@ -45,7 +45,7 @@ const postPostController = async (
             }
         }
         throw new ConflictError("Wrong collection");
-    } catch (e) {
+    } catch (e: any) {
         container.logger.error(e);
         httpHandlerError(e, next);
     }

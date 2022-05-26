@@ -18,7 +18,7 @@ describe("validate admin", () => {
         const next = jest.fn();
         try {
             validateAdmin(req, res, next);
-        } catch (e) {
+        } catch (e: any) {
             expect(e).toBeInstanceOf(UnauthorizedError);
         }
     });
@@ -39,7 +39,7 @@ describe("validate admin", () => {
         const next = jest.fn();
         try {
             validateAdmin(req, res, next);
-        } catch (e) {
+        } catch (e: any) {
             expect(e).toBeInstanceOf(UnauthorizedError);
         }
     });
@@ -60,7 +60,7 @@ describe("validate admin", () => {
         const next = jest.fn();
         try {
             validateAdmin(req, res, next);
-        } catch (e) {
+        } catch (e: any) {
             expect(e).toBeInstanceOf(UnauthorizedError);
         }
     });

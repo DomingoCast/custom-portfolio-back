@@ -16,7 +16,7 @@ export const magicUseCase =
                 };
             };
             if (decoded.data.changePassword) return false;
-        } catch (e) {
+        } catch (e: any) {
             throw new UnauthorizedError("Wrong token");
         }
 

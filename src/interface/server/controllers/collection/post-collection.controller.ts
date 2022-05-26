@@ -38,7 +38,7 @@ const postCollectionController = async (
                 .status(200)
                 .send({ message: "Collection has been created" });
         }
-    } catch (e) {
+    } catch (e: any) {
         container.logger.error(e);
         httpHandlerError(e, next);
     }

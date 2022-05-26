@@ -35,7 +35,7 @@ const passwordAdminController = async (
             return res.status(200).send({ token: token });
         }
         throw new InternalServerError("An error has ocurred");
-    } catch (e) {
+    } catch (e: any) {
         httpHandlerError(e, next);
     }
 };

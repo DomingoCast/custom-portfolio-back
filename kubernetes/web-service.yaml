@@ -1,20 +1,20 @@
 apiVersion: v1
 kind: Service
 metadata:
-    annotations:
-        kompose.cmd: kompose convert
-        kompose.version: 1.26.1 (HEAD)
-    creationTimestamp: null
-    labels:
-        io.kompose.service: web
-    name: web
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.26.1 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: web
+  name: web
 spec:
-    ports:
-        - name: http
-          protocol: TCP
-          port: 80
-          targetPort: 8080
-    selector:
-        io.kompose.service: web
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+  selector:
+    io.kompose.service: web
 status:
-    loadBalancer: {}
+  loadBalancer: {}

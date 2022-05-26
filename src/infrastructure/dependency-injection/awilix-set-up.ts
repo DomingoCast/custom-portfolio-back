@@ -7,6 +7,7 @@ import getLogger from "../logger/get-logger";
 import createHashFunction from "../password/create-hash-function";
 import loginUseCase from "../../core/use-cases/user/login-user.use-case";
 import accessToken from "../access-token/access-token";
+import magicUseCase from "../../core/use-cases/user/magic.use-case";
 
 export const container = awilix.createContainer({
     injectionMode: awilix.InjectionMode.PROXY,
@@ -15,6 +16,7 @@ export const container = awilix.createContainer({
 container.register({
     registerUserUseCase: awilix.asFunction(registerUserUseCase),
     loginUseCase: awilix.asFunction(loginUseCase),
+    magicUseCase: awilix.asFunction(magicUseCase),
     userRepository: awilix.asFunction(createUserRepository),
     emailSender: awilix.asFunction(setUpEmail),
     accessToken: awilix.asFunction(accessToken),

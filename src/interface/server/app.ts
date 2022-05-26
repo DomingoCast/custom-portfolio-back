@@ -4,8 +4,8 @@ import { container } from "../../infrastructure/dependency-injection/awilix-set-
 import { scopePerRequest } from "awilix-express";
 import CustomError from "../../core/errors/custom-error";
 import HttpError from "../../infrastructure/http-errors/http-error";
-import validateAdmin from "./validate-admin";
 import apiRouter from "./routes/api.router";
+import loggerRequestMiddleware from "./middleware/log-request.middleware";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -13,7 +13,8 @@ export const createServer = (port: number) => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(scopePerRequest(container));
-    app.use("/api", apiRouter(), validateAdmin);
+    app.use(loggerRequestMiddleware);
+    app.use("/api", apiRouter());
 
     app.use(
         (error: unknown, _req: Request, res: Response, _next: NextFunction) => {

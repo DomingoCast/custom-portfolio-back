@@ -1,8 +1,15 @@
 import { AwilixContainer } from "awilix";
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { RegisterInfo } from "../../../../core/domain/user/register-info";
 import { User } from "../../../../core/domain/user/user";
+import CustomError from "../../../../core/errors/custom-error";
+import InternalBadRequestError from "../../../../core/errors/internal-bad-request-error";
+import httpErrorHandler from "../../../../infrastructure/http-errors/http-error-handler";
+import InternalServerError from "../../../../infrastructure/http-errors/internal-error";
+import arrayExceptions from "../../../../infrastructure/share/trim-fields/array-exceptions";
+import trimFields from "../../../../infrastructure/share/trim-fields/trim-fields";
 import validateUser from "../../../../infrastructure/user/validate-user/validate-user";
+import ConflictError from "../../../../core/errors/conflict-error";
 
 type CustomRequest = Request<{}, {}, RegisterInfo> & {
     container?: AwilixContainer;
@@ -10,17 +17,20 @@ type CustomRequest = Request<{}, {}, RegisterInfo> & {
 
 const registerAdminController = async (
     req: CustomRequest,
-    res: Response
-): Promise<Response> => {
+    res: Response,
+    next: NextFunction
+): Promise<Response | void> => {
     const container = req.container?.cradle;
     try {
-        const dataForm = req.body;
+        let dataForm = req.body;
+        if (req.body !== null) {
+            dataForm = trimFields(req.body, arrayExceptions);
+            container.logger.info("Trim fields from login info");
+        }
         const validate = validateUser(dataForm);
         if (validate !== true) {
             container.logger.error(validate);
-            return res
-                .status(400)
-                .send({ message: validate, casa: req.header });
+            throw new InternalBadRequestError(validate.toString());
         }
         const user: RegisterInfo = req.body;
         const response: null | User = await container.registerUserUseCase(
@@ -39,12 +49,10 @@ const registerAdminController = async (
                 .send({ message: "User has been registered", token: token });
         }
         container.logger.error("User already exits");
-        return res.status(409).send({ message: "User already exits" });
-    } catch (e) {
-        container.logger.error(e);
-        return res.status(500).send({
-            message: e,
-        });
+        throw new ConflictError("User already exits");
+    } catch (error: unknown) {
+        if (error instanceof CustomError) next(httpErrorHandler(error));
+        next(httpErrorHandler(new InternalServerError(error as CustomError)));
     }
 };
 

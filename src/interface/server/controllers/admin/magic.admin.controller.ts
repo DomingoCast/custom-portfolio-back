@@ -1,6 +1,7 @@
 import { NextFunction, Response } from "express";
 import CustomError from "../../../../core/errors/custom-error";
-import httpHandlerError from "../../../../infrastructure/http-errors/http-error-handler";
+import httpErrorHandler from "../../../../infrastructure/http-errors/http-error-handler";
+import InternalServerError from "../../../../infrastructure/http-errors/internal-error";
 import { CustomRequest } from "../../types/custom.request";
 
 const magicAdminController = async (
@@ -21,8 +22,8 @@ const magicAdminController = async (
             token: token,
         });
     } catch (error: unknown) {
-        if (error instanceof CustomError) httpHandlerError(error, next);
-        next(error);
+        if (error instanceof CustomError) next(httpErrorHandler(error));
+        next(httpErrorHandler(new InternalServerError(error as CustomError)));
     }
 };
 

@@ -1,7 +1,5 @@
-import { Response } from "@sendgrid/helpers/classes";
 import CustomError from "../../../core/errors/custom-error";
 import httpHandlerError from "../../../infrastructure/http-errors/http-error-handler";
-import { CustomRequest } from "../types/custom.request";
 import { controllerWrapper } from "./controller.wrapper";
 
 jest.mock("../../../infrastructure/http-errors/http-error-handler", () =>
@@ -27,7 +25,7 @@ describe("controller wrapper", () => {
     mockHttpHandlerError.mockImplementation(jest.fn());
     it("calls handler error if controller throws CustomError", () => {
         mockHttpHandlerError.mockReset();
-        const controller: any = (req: CustomRequest, res: Response) => {
+        const controller: any = () => {
             throw new CustomError();
         };
         controllerWrapper(controller)(req, res, next);
@@ -36,7 +34,7 @@ describe("controller wrapper", () => {
     it("calls next if controller doesn't throw an error instance of CustomError", () => {
         mockHttpHandlerError.mockReset();
         mockHttpHandlerError.mockImplementation(jest.fn());
-        const controller: any = (req: CustomRequest, res: Response) => {
+        const controller: any = () => {
             return "";
         };
         controllerWrapper(controller)(req, res, next);

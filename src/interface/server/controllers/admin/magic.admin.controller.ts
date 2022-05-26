@@ -1,6 +1,4 @@
-import { NextFunction, Response } from "express";
-import CustomError from "../../../../core/errors/custom-error";
-import httpHandlerError from "../../../../infrastructure/http-errors/http-error-handler";
+import { Response } from "express";
 import { CustomRequest } from "../../types/custom.request";
 
 const magicAdminController = async (

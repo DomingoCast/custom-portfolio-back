@@ -39,7 +39,7 @@ export const createServer = (port: number) => {
             res: Response,
             _next: NextFunction
         ) => {
-            getLogger().error(error.message);
+            getLogger().error(error.toString());
             if (error instanceof HttpError) {
                 res.status(error.statusCode).send({
                     message: error.responseBody,

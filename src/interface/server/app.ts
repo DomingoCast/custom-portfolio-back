@@ -12,7 +12,6 @@ import adminRouter from "./routes/admin.routes";
 import validateAdmin from "./validate-admin";
 import loginController from "./controllers/login.controller";
 import registerController from "./controllers/register.controller";
-import getLogger from "../../infrastructure/logger/get-logger";
 import { controllerWrapper } from "./wrappers/controller.wrapper";
 
 export const createServer = (port: number) => {
@@ -32,18 +31,15 @@ export const createServer = (port: number) => {
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
     app.use(
-        (
-            error: HttpError,
-            _req: Request,
-            res: Response,
-            _next: NextFunction
-        ) => {
-            getLogger().error(error.toString());
+        (error: unknown, _req: Request, res: Response, _next: NextFunction) => {
             if (error instanceof HttpError) {
                 res.status(error.statusCode).send({
                     message: error.responseBody,
                 });
             }
+            res.status(500).send({
+                message: "Internal server error",
+            });
         }
     );
 

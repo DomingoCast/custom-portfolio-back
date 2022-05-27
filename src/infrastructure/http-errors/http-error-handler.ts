@@ -3,7 +3,7 @@ import NotFoundError from "../../core/errors/not-found-error";
 import BadRequestError from "./bad-request-error";
 import ConflictRequestError from "./conflict-request-error";
 import NotFoundRequestError from "./not-found-request-error";
-import InternalServerError from "./internal-error";
+import InternalServerError from "./internal-server-error";
 import ForbiddenError from "../../core/errors/forbidden-error";
 import ForbiddenRequestError from "./forbidden-request-error";
 import UnauthorizedError from "../../core/errors/unauthorized.error";

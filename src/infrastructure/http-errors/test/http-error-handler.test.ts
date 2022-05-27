@@ -1,5 +1,5 @@
 import httpErrorHandler from "../http-error-handler";
-import InternalServerError from "../internal-error";
+import InternalServerError from "../internal-server-error";
 import InternalBadRequestError from "../../../core/errors/internal-bad-request-error";
 import CustomError from "../../../core/errors/custom-error";
 import NotFoundError from "../../../core/errors/not-found-error";

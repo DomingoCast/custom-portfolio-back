@@ -1,4 +1,4 @@
-import InternalServerError from "../internal-error";
+import InternalServerError from "../internal-server-error";
 const error: Error = {
     name: "InternalServerError",
     message: "Internal Server Error",

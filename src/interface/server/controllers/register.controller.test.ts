@@ -1,5 +1,5 @@
 import { Role } from "../../../core/domain/user/role.enum";
-import BadRequestError from "../../../infrastructure/http-errors/bad-request-error";
+import InternalBadRequestError from "../../../core/errors/internal-bad-request-error";
 import validateUser from "../../../infrastructure/user/validate-user/validate-user";
 import registerController from "./register.controller";
 
@@ -28,7 +28,7 @@ describe("registerController", () => {
         try {
             await registerController(req, res);
         } catch (e) {
-            expect(e).toBeInstanceOf(BadRequestError);
+            expect(e).toBeInstanceOf(InternalBadRequestError);
         }
 
         expect(mockValidateUser).toHaveBeenCalledWith(req.body);

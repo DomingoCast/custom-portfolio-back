@@ -18,9 +18,11 @@ import postRouter from "./routes/post.router";
 import imageController from "./controllers/image.controler";
 import checkTokenController from "./controllers/check-token.controller";
 import userRouter from "./routes/user.router";
+import cookieParser from "cookie-parser";
 
 export const createServer = (port: number) => {
     const app: Application = express();
+    app.use(cookieParser());
     app.use(cors());
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));

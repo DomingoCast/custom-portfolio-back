@@ -52,7 +52,7 @@ const registerAdminController = async (
         throw new ConflictError("User already exits");
     } catch (error: unknown) {
         if (error instanceof CustomError) next(httpErrorHandler(error));
-        next(httpErrorHandler(new InternalServerError(error as Error)));
+        next(httpErrorHandler(new InternalServerError(error as CustomError)));
     }
 };
 

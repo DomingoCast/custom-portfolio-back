@@ -2,7 +2,7 @@ import { AwilixContainer } from "awilix";
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import { Role } from "../../core/domain/user/role.enum";
 import { User } from "../../core/domain/user/user";
-import UnauthorizedError from "../../core/errors/unauthorized.error";
+import UnauthorizedRequestError from "../../infrastructure/http-errors/unauthorized-request-error";
 
 type CustomRequest = Request & {
     container?: AwilixContainer;
@@ -14,17 +14,21 @@ const checkToken: RequestHandler = (
     next: NextFunction
 ) => {
     const container = req.container!.cradle;
-    const token = req.headers.authorization;
-    if (!token) next(new UnauthorizedError("No token"));
+    let token = "";
+    if (req.headers.token) token = <string>req.headers.token;
+    if (req.cookies) if (req.cookies.token) token = <string>req.cookies.token;
+    if (!token) next(new UnauthorizedRequestError("No token"));
+    console.log("[TOKENASO]", token, req.cookies);
     try {
         const decoded = container.accessToken.verify(
             token,
             process.env.JWT_SECRET!
         );
-        if (!decoded.data) next(new UnauthorizedError("Unauthorized"));
+        console.log("DECODED", decoded, decoded.data);
+        if (!decoded.data) next(new UnauthorizedRequestError("Unauthorized"));
         req.user = decoded.data;
     } catch (err) {
-        next(new UnauthorizedError("Wrong Token"));
+        next(new UnauthorizedRequestError("Wrong Token"));
     }
     next();
 };

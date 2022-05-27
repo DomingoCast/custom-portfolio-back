@@ -21,6 +21,7 @@ const postCollectionController = async (
 ): Promise<Response | void> => {
     const container = req.container!.cradle;
     try {
+        console.log("[QUE ESTÁ PASANDO????]", req.user);
         const collection = req.body;
         const validate = validateCollection(collection);
         if (validate !== true) {

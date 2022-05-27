@@ -5,6 +5,7 @@ import getCollectionsController from "../controllers/collection/get-collections.
 import postCollectionController from "../controllers/collection/post-collection.controller";
 import getUser from "../get-user";
 import multer from "multer";
+import validateToken from "../validate-token";
 
 const router: Router = express.Router();
 
@@ -14,7 +15,7 @@ const collectionRouter = (): Router => {
     router.post(
         "/",
         multer({ dest: "uploads/" }).single("thumbnail"),
-        checkToken,
+        validateToken,
         postCollectionController
     );
     return router;

@@ -21,6 +21,7 @@ import userRouter from "./routes/user.router";
 import cookieParser from "cookie-parser";
 import validateToken from "./validate-token";
 import testCookieController from "./controllers/test-cookie.controller";
+import testCookieController2 from "./controllers/test-cookie-2.controller";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -46,6 +47,7 @@ export const createServer = (port: number) => {
     app.post("/register", registerController);
     app.post("/check-token", checkToken, checkTokenController);
     app.get("/cookie", validateToken, testCookieController);
+    app.post("/cookie", validateToken, testCookieController2);
 
     app.get("/magic", magicAdminController);
     app.get("/image/:imageName", imageController);

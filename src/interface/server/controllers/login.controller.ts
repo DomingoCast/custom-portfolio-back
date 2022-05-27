@@ -8,6 +8,7 @@ import BadRequestError from "../../../infrastructure/http-errors/bad-request-err
 import httpHandlerError from "../../../infrastructure/http-errors/http-error-handler";
 import CustomError from "../../../core/errors/custom-error";
 import InternalServerError from "../../../infrastructure/http-errors/internal-error";
+import { User } from "../../../core/domain/user/user";
 
 type CustomRequest = Request<{}, {}, LoginInfo> & {
     container?: AwilixContainer;
@@ -29,13 +30,15 @@ const loginController = async (
         }
         const validate = validateLogin(loginInfo);
         if (validate !== true) throw new BadRequestError(validate.toString());
-        const response: Omit<LoginInfo, "password"> =
-            await container.loginUseCase(loginInfo);
+        const response: User = await container.loginUseCase(loginInfo);
         const token: string = container.accessToken.create(response);
         container.logger.info("Correct login: " + JSON.stringify(response));
         container.logger.info("TokenAccess created");
         console.log("[REQ]", req.cookies);
-        return res.status(200).cookie("token", token).send({ token: token });
+        return res
+            .status(200)
+            .cookie("token", token)
+            .send({ token: token, userId: response.id });
     } catch (error: unknown) {
         let errorMessage = "Error ocurred into login controller";
         if (error instanceof CustomError) {

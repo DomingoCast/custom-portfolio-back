@@ -13,6 +13,7 @@ import validateAdmin from "./validate-admin";
 import loginController from "./controllers/login.controller";
 import registerController from "./controllers/register.controller";
 import getLogger from "../../infrastructure/logger/get-logger";
+import { controllerWrapper } from "./wrappers/controller.wrapper";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -23,12 +24,10 @@ export const createServer = (port: number) => {
     app.use(loggerRequestMiddleware);
 
     app.use("/admin", adminRouter(), validateAdmin);
+    app.post("/login", controllerWrapper(loginController));
+    app.post("/register", controllerWrapper(registerController));
 
-    app.post("/login", loginController);
-
-    app.post("/register", registerController);
-
-    app.get("/magic", magicAdminController);
+    app.get("/magic", controllerWrapper(magicAdminController));
 
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 

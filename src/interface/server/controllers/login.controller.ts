@@ -35,14 +35,7 @@ const loginController = async (
         container.logger.info("Correct login: " + JSON.stringify(response));
         container.logger.info("TokenAccess created");
         console.log("[REQ]", req.cookies);
-        return res
-            .status(200)
-            .cookie("hello", "world")
-            .setHeader(
-                "Set-Cookie",
-                "visited=true; Max-Age=3000; HttpOnly, Secure"
-            )
-            .send({ token: token });
+        return res.status(200).cookie("token", token).send({ token: token });
     } catch (error: unknown) {
         let errorMessage = "Error ocurred into login controller";
         if (error instanceof CustomError) {

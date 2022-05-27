@@ -30,7 +30,7 @@ const loginController = async (
         const token: string = container.accessToken.create(response);
         container.logger.info("TokenAccess created");
         container.logger.info(response);
-        return res.status(200).send({ token: token });
+        return res.status(200).cookie("token", token).send({ token: token });
     } catch (error: any) {
         container.logger.error(error.message);
         httpHandlerError(error, next);

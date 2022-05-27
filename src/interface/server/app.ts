@@ -9,17 +9,22 @@ import loginController from "./controllers/login.controller";
 import registerAdminController from "./controllers/admin/register.admin.controller";
 import validateAdmin from "./validate-admin";
 import CustomError from "../../core/errors/custom-error";
+import validateToken from "./validate-token";
+import testCookieController from "./controllers/test-cookie.controller";
+import cookieParser from "cookie-parser";
 
 export const createServer = (port: number) => {
     const app: Application = express();
     app.use(cors());
     app.use(express.json());
+    app.use(cookieParser());
     app.use(express.urlencoded({ extended: true }));
     app.use(scopePerRequest(container));
 
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
     app.post("/login", loginController);
+    app.get("/cookie", validateToken, testCookieController);
 
     app.post("/register", registerController); // makeInvoker(registerController));
 

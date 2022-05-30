@@ -6,10 +6,12 @@ import postCollectionController from "../controllers/collection/post-collection.
 import getUser from "../get-user";
 import multer from "multer";
 import validateToken from "../validate-token";
+import getMyCollectionsController from "../controllers/collection/get-my-collections.controller";
 
 const router: Router = express.Router();
 
 const collectionRouter = (): Router => {
+    router.get("/mine", validateToken, getMyCollectionsController);
     router.get("/user/:userId", getUser, getCollectionsController);
     router.get("/:collectionId", getCollectionController);
     router.post(

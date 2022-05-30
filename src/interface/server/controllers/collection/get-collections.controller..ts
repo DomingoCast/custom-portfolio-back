@@ -6,16 +6,12 @@ import httpHandlerError from "../../../../infrastructure/http-errors/http-error-
 import InternalServerError from "../../../../infrastructure/http-errors/internal-error";
 import validateCollection from "../../../../infrastructure/user/validate-collection/validate-collection";
 
-type CustomRequest = Request<
-    {},
-    {},
-    Omit<Collection, "id" | "posts" | "user">
-> & {
+type CustomRequest = Request & {
     container?: AwilixContainer;
     user?: User;
 };
 
-const getCollectionController = async (
+const getCollectionsController = async (
     req: CustomRequest,
     res: Response,
     next: NextFunction
@@ -26,6 +22,19 @@ const getCollectionController = async (
             req.user
         );
         if (response) {
+            if (req.cookies && req.cookies.token) {
+                try {
+                    const token = container.accesToken.verify(
+                        req.cookies.token
+                    );
+                    if (token.data.id === req.params.userId!)
+                        return res
+                            .status(200)
+                            .send({ collections: response, mine: true });
+                } catch (e) {
+                    console.error(e);
+                }
+            }
             container.logger.info(response);
             return res.status(200).send({ collections: response });
         }
@@ -36,4 +45,4 @@ const getCollectionController = async (
     }
 };
 
-export default getCollectionController;
+export default getCollectionsController;

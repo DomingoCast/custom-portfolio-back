@@ -10,4 +10,5 @@ export interface User {
     address: string;
     role: Role;
     collections?: string;
+    customization?: string;
 }

@@ -45,6 +45,11 @@ const UserModel = new EntitySchema<User>({
             target: "Collection",
             inverseSide: "user",
         },
+        customization: {
+            type: "one-to-one",
+            target: "Customization",
+            inverseSide: "user",
+        },
     },
 });
 

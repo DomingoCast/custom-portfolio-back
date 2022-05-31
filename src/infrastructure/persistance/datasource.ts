@@ -6,6 +6,7 @@ import UserModel from "./user/user.model";
 import path from "path";
 import CollectionModel from "./collection/collection.model";
 import PostModel from "./post/post.model";
+import CustomizationModel from "./customization/customization.model";
 
 export const dataSource = new DataSource({
     type: "postgres",
@@ -16,7 +17,7 @@ export const dataSource = new DataSource({
     database: process.env.POSTGRES_DB_PORTFOLIO,
     synchronize: false,
     logging: true,
-    entities: [UserModel, CollectionModel, PostModel],
+    entities: [UserModel, CollectionModel, PostModel, CustomizationModel],
     subscribers: [],
     migrationsTableName: "custom_migration_table",
     migrations: [path.join(__dirname, "migration/*.ts")],

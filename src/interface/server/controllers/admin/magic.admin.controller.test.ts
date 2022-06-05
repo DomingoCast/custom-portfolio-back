@@ -18,8 +18,7 @@ describe("magic admin controller", () => {
                 send: jest.fn,
             })),
         };
-        const next = jest.fn;
-        magicAdminController(req, res, next);
+        magicAdminController(req, res);
         expect(res.status).toHaveBeenCalledWith(200);
     });
     it("responds with status 401 when decoded magicUseCase returns false", () => {
@@ -39,8 +38,7 @@ describe("magic admin controller", () => {
                 send: jest.fn,
             })),
         };
-        const next = jest.fn;
-        magicAdminController(req, res, next);
+        magicAdminController(req, res);
         expect(res.status).toHaveBeenCalledWith(401);
     });
 });

@@ -24,7 +24,6 @@ describe("loginController", () => {
                 },
             },
         };
-        const next = jest.fn;
         const sendResponse = jest.fn();
         const res: any = {
             status: jest.fn(() => ({
@@ -32,7 +31,7 @@ describe("loginController", () => {
             })),
         };
 
-        await loginController(req, res, next);
+        await loginController(req, res);
         expect(mockValidateLogin).toHaveBeenCalledWith(req.body);
         expect(res.status).toHaveBeenCalledWith(200);
         expect(sendResponse).toHaveBeenCalledWith({

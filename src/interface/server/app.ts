@@ -22,6 +22,7 @@ import cookieParser from "cookie-parser";
 import validateToken from "./validate-token";
 import testCookieController from "./controllers/test-cookie.controller";
 import testCookieController2 from "./controllers/test-cookie-2.controller";
+import { controllerWrapper } from "./wrappers/controller.wrapper";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -42,15 +43,11 @@ export const createServer = (port: number) => {
     app.use("/collection", collectionRouter());
     app.use("/post", postRouter());
     app.use("/user", userRouter());
+    app.get("/image/:imageName", controllerWrapper(imageController));
+    app.post("/login", controllerWrapper(loginController));
+    app.post("/register", controllerWrapper(registerController));
 
-    app.post("/login", loginController);
-    app.post("/register", registerController);
-    app.post("/check-token", checkToken, checkTokenController);
-    app.get("/cookie", validateToken, testCookieController);
-    app.post("/cookie", validateToken, testCookieController2);
-
-    app.get("/magic", magicAdminController);
-    app.get("/image/:imageName", imageController);
+    app.get("/magic", controllerWrapper(magicAdminController));
 
     app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
@@ -61,6 +58,9 @@ export const createServer = (port: number) => {
                     message: error.responseBody,
                 });
             }
+            res.status(500).send({
+                message: "Internal server error",
+            });
         }
     );
 

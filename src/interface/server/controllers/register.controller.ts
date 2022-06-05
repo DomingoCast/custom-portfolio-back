@@ -1,57 +1,36 @@
-import { Request, Response, NextFunction } from "express";
+import { Response } from "express";
 import { User } from "../../../core/domain/user/user";
-import { AwilixContainer } from "awilix";
 import trimFields from "../../../infrastructure/share/trim-fields/trim-fields";
 import validateUser from "../../../infrastructure/user/validate-user/validate-user";
 import { RegisterInfo } from "../../../core/domain/user/register-info";
 import { Role } from "../../../core/domain/user/role.enum";
 import arrayExceptions from "../../../infrastructure/share/trim-fields/array-exceptions";
-import httpHandlerError from "../../../infrastructure/http-errors/http-error-handler";
-import BadRequestError from "../../../infrastructure/http-errors/bad-request-error";
-import InternalServerError from "../../../infrastructure/http-errors/internal-error";
-import CustomError from "../../../core/errors/custom-error";
-
-type CustomRequest = Request<{}, {}, RegisterInfo> & {
-    container?: AwilixContainer;
-};
+import { CustomRequest } from "./types/custom-request";
+import InternalBadRequestError from "../../../core/errors/internal-bad-request-error";
 
 const registerController = async (
     req: CustomRequest,
-    res: Response,
-    next: NextFunction
+    res: Response
 ): Promise<void | Response> => {
     const container = req.container?.cradle;
-    try {
-        let user: RegisterInfo = req.body;
-        if (req.body !== null) {
-            user = trimFields<RegisterInfo>(user, arrayExceptions);
-            container.logger.info("Trim fields from data form");
-        }
-
-        const validate = validateUser(user);
-        if (validate !== true) throw new BadRequestError(validate.toString());
-        const response: null | User = await container.registerUserUseCase(
-            user,
-            Role.worker
-        );
-        if (response) {
-            container.logger.info(
-                "Correct register: " + JSON.stringify(response)
-            );
-            return res
-                .status(200)
-                .send({ message: "User has been registered" });
-        }
-        throw new InternalServerError("An error has ocurred in the repository");
-    } catch (error: unknown) {
-        let errorMessage = "Error ocurred into register controller";
-        if (error instanceof CustomError) {
-            errorMessage = error.message;
-            httpHandlerError(error, next);
-        }
-        httpHandlerError(new InternalServerError(errorMessage), next);
-        container.logger.error(errorMessage);
+    let user: RegisterInfo = req.body;
+    if (req.body !== null) {
+        user = trimFields<RegisterInfo>(user, arrayExceptions);
+        container.logger.info("Trim fields from data form");
     }
+
+    const validate = validateUser(user);
+    if (validate !== true)
+        throw new InternalBadRequestError(validate.toString());
+    const response: null | User = await container.registerUserUseCase(
+        user,
+        Role.worker
+    );
+    if (response) {
+        container.logger.info("Correct register: " + JSON.stringify(response));
+        return res.status(200).send({ message: "User has been registered" });
+    }
+    throw new InternalBadRequestError("An error has ocurred in the repository");
 };
 
 export default registerController;

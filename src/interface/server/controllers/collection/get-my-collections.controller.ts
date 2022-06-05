@@ -1,10 +1,9 @@
 import { AwilixContainer } from "awilix";
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { Collection } from "../../../../core/domain/collection/collection";
 import { User } from "../../../../core/domain/user/user";
-import httpHandlerError from "../../../../infrastructure/http-errors/http-error-handler";
-import InternalServerError from "../../../../infrastructure/http-errors/internal-error";
-import validateCollection from "../../../../infrastructure/user/validate-collection/validate-collection";
+import CustomError from "../../../../core/errors/custom-error";
+import InternalServerError from "../../../../infrastructure/http-errors/internal-server-error";
 
 type CustomRequest = Request<
     {},
@@ -17,23 +16,17 @@ type CustomRequest = Request<
 
 const getMyCollectionsController = async (
     req: CustomRequest,
-    res: Response,
-    next: NextFunction
+    res: Response
 ): Promise<Response | void> => {
     const container = req.container!.cradle;
-    try {
-        const response: null | User = await container.getCollectionsUseCase(
-            req.user
-        );
-        if (response) {
-            container.logger.info(response);
-            return res.status(200).send({ collections: response });
-        }
-        throw new InternalServerError("something went wrong");
-    } catch (e: any) {
-        container.logger.error(e);
-        httpHandlerError(e, next);
+    const response: null | User = await container.getCollectionsUseCase(
+        req.user
+    );
+    if (response) {
+        container.logger.info(response);
+        return res.status(200).send({ collections: response });
     }
+    throw new CustomError("something went wrong");
 };
 
 export default getMyCollectionsController;

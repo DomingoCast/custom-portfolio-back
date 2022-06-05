@@ -2,7 +2,7 @@ import express, { Router } from "express";
 import multer from "multer";
 import checkToken from "../check-token";
 import postPostController from "../controllers/post/post-post.controller";
-import getUser from "../get-user";
+import { controllerWrapper } from "../wrappers/controller.wrapper";
 
 const router: Router = express.Router();
 
@@ -11,7 +11,7 @@ const postRouter = (): Router => {
         "/",
         multer({ dest: "uploads/" }).single("thumbnail"),
         checkToken,
-        postPostController
+        controllerWrapper(postPostController)
     );
     return router;
 };

@@ -8,7 +8,6 @@ import createHashFunction from "../password/create-hash-function";
 import loginUseCase from "../../core/use-cases/user/login-user.use-case";
 import accessToken from "../access-token/access-token";
 import passwordUserUseCase from "../../core/use-cases/user/pasword-user.use-case";
-import { magicUseCase } from "../../core/use-cases/user/magic.use-case";
 import createCollectionUseCase from "../../core/use-cases/collection/create-collection.use-case";
 import createCollectionRepository from "../persistance/collection/collection.datasource";
 import getCollectionsUseCase from "../../core/use-cases/collection/get-collections.use-case";
@@ -16,6 +15,7 @@ import getCollectionUseCase from "../../core/use-cases/collection/get-collection
 import createPostUseCase from "../../core/use-cases/post/create-post.use-case";
 import createPostRepository from "../persistance/post/post.datasource";
 import getCollectionAndPostsUseCase from "../../core/use-cases/post/get-collection-and-posts.use-case";
+import magicUseCase from "../../core/use-cases/user/magic.use-case";
 
 export const container = awilix.createContainer({
     injectionMode: awilix.InjectionMode.PROXY,

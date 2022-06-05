@@ -6,7 +6,7 @@ type MagicUseCaseProps = {
 };
 type MagicUseCase = (token: string) => boolean | void;
 
-export const magicUseCase =
+const magicUseCase =
     ({ accessToken }: MagicUseCaseProps): MagicUseCase =>
     (token: string): boolean => {
         try {
@@ -16,9 +16,11 @@ export const magicUseCase =
                 };
             };
             if (decoded.data.changePassword) return false;
-        } catch (e: any) {
+        } catch (_error) {
             throw new UnauthorizedError("Wrong token");
         }
 
         return true;
     };
+
+export default magicUseCase;

@@ -14,7 +14,7 @@ describe("magic admin controller", () => {
         };
         const req: any = { query: { token: "" }, container };
         const res: any = {
-            status: jest.fn((x) => ({
+            status: jest.fn(() => ({
                 send: jest.fn,
             })),
         };
@@ -35,7 +35,7 @@ describe("magic admin controller", () => {
         };
         const req: any = { query: { token: "" }, container };
         const res: any = {
-            status: jest.fn((x) => ({
+            status: jest.fn(() => ({
                 send: jest.fn,
             })),
         };

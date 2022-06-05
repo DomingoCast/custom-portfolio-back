@@ -3,7 +3,6 @@ import { Role } from "../../core/domain/user/role.enum";
 import { User } from "../../core/domain/user/user";
 import jwt from "jsonwebtoken";
 import CustomError from "../../core/errors/custom-error";
-import InternalServerError from "../../infrastructure/http-errors/internal-error";
 import { AwilixContainer } from "awilix";
 import UnauthorizedRequestError from "../../infrastructure/http-errors/unauthorized-request-error";
 
@@ -20,7 +19,7 @@ const validateToken: RequestHandler = (
     if (req.headers.token) token = <string>req.headers.token;
     if (req.cookies) if (req.cookies.token) token = <string>req.cookies.token;
     console.log("[COOKIES]", req.cookies);
-    if (!token) throw new UnauthorizedRequestError("No token");
+    if (!token) next(new UnauthorizedRequestError(new CustomError("No token")));
     let decoded: any = { role: Role.worker };
     try {
         decoded = <User>(
@@ -29,7 +28,7 @@ const validateToken: RequestHandler = (
         req.user = decoded.data;
     } catch (err) {
         console.log(err);
-        next(new UnauthorizedRequestError("Wrong Token"));
+        next(new UnauthorizedRequestError(new CustomError("Wrong Token")));
     }
     next();
 };

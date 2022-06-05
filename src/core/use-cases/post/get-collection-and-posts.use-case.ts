@@ -1,6 +1,5 @@
-import InternalServerError from "../../../infrastructure/http-errors/internal-error";
-import createPostRepository from "../../../infrastructure/persistance/post/post.datasource";
 import { Collection } from "../../domain/collection/collection";
+import CustomError from "../../errors/custom-error";
 import CollectionRepository from "../../ports/collection-repository.port";
 import PostRepository from "../../ports/post-repository.port";
 
@@ -20,7 +19,7 @@ const getCollectionAndPostsUseCase =
     async (collectionId: string): Promise<any | null> => {
         console.log("[POSTS]");
         const posts = await postRepository.getByCollection(collectionId);
-        if (!posts) throw new InternalServerError("dios");
+        if (!posts) throw new CustomError("dios");
         return {
             collection: await collectionRepository.getById(collectionId),
             posts: posts,

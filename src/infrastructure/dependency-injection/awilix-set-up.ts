@@ -16,6 +16,7 @@ import createPostUseCase from "../../core/use-cases/post/create-post.use-case";
 import createPostRepository from "../persistance/post/post.datasource";
 import getCollectionAndPostsUseCase from "../../core/use-cases/post/get-collection-and-posts.use-case";
 import magicUseCase from "../../core/use-cases/user/magic.use-case";
+import deletePostUseCase from "../../core/use-cases/post/delete-post.use-case";
 
 export const container = awilix.createContainer({
     injectionMode: awilix.InjectionMode.PROXY,
@@ -26,6 +27,7 @@ container.register({
     passwordUserUseCase: awilix.asFunction(passwordUserUseCase),
     createCollectionUseCase: awilix.asFunction(createCollectionUseCase),
     createPostUseCase: awilix.asFunction(createPostUseCase),
+    deletePostUseCase: awilix.asFunction(deletePostUseCase),
     getCollectionsUseCase: awilix.asFunction(getCollectionsUseCase),
     getCollectionAndPosts: awilix.asFunction(getCollectionAndPostsUseCase),
     loginUseCase: awilix.asFunction(loginUseCase),

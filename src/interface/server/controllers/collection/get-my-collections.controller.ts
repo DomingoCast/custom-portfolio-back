@@ -19,9 +19,11 @@ const getMyCollectionsController = async (
     res: Response
 ): Promise<Response | void> => {
     const container = req.container!.cradle;
+    console.log("[RESPONSEasdfkhaskdlkhsa");
     const response: null | User = await container.getCollectionsUseCase(
         req.user
     );
+    console.log("[RESPONSE", response);
     if (response) {
         container.logger.info(response);
         return res.status(200).send({ collections: response });

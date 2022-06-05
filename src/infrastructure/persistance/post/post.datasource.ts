@@ -13,6 +13,17 @@ const createPostRepository = (): PostRepository => {
             .then((res: Post[]) => res)
             .catch((e) => console.log("[joder]"));
     };
+    const deleteById = async (postId: string) => {
+        console.log("MISMUEROOOOOS");
+        try {
+            const post = await postRepository.findOneBy({ id: postId });
+            const response = await postRepository.delete(post!);
+            if (response) return post;
+            return null;
+        } catch (_e) {
+            return null;
+        }
+    };
     const persist = (post: Omit<Post, "id">) => {
         return postRepository
             .save(post)
@@ -22,6 +33,7 @@ const createPostRepository = (): PostRepository => {
     return {
         persist,
         getByCollection,
+        deleteById,
     };
 };
 

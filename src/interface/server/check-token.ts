@@ -14,6 +14,7 @@ const checkToken: RequestHandler = (
     res: Response,
     next: NextFunction
 ) => {
+    console.log("TU NADA?");
     const container = req.container!.cradle;
     let token = "";
     if (req.headers.token) token = <string>req.headers.token;

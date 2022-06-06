@@ -23,7 +23,7 @@ const winston = createLogger({
     ],
 
     defaultMeta: {
-        service: "TeamDHA",
+        service: "domingocast",
     },
 });
 export default winston;

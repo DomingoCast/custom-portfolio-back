@@ -6,7 +6,7 @@ describe("Test for logger", () => {
         expect(winston).toBeDefined();
     });
     it("Check name of service", () => {
-        expect(winston.defaultMeta.service).toEqual("TeamDHA");
+        expect(winston.defaultMeta.service).toEqual("domingocast");
     });
     it("Check function logger", () => {
         expect(getLogger).toBeDefined();

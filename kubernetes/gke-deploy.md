@@ -11,4 +11,4 @@
 -   permit kubctl to access private image:
     `kubectl create secret generic regcred --from-file=.dockerconfigjson=<path to .docker/config.json> --type=kubernetes.io/dockerconfigjson`
 
--   change version of image of container: `kubectl set image deployment/web web=teamdha/nodeserver:<image version>`
+-   change version of image of container: `kubectl set image deployment/web web=domingocast/nodeserver:<image version>`

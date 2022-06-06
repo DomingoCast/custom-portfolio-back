@@ -17,7 +17,6 @@ const getCollectionAndPostsUseCase =
         postRepository,
     }: CreateCollectionUseCaseProps): CreateCollectionUseCase =>
     async (collectionId: string): Promise<any | null> => {
-        console.log("[POSTS]");
         const posts = await postRepository.getByCollection(collectionId);
         if (!posts) throw new CustomError("dios");
         return {

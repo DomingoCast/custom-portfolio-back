@@ -11,10 +11,9 @@ const createPostRepository = (): PostRepository => {
         return postRepository
             .find({ where: { collection: { id: collectionId } } as any })
             .then((res: Post[]) => res)
-            .catch((e) => console.log("[joder]"));
+            .catch((e) => console.log(e));
     };
     const deleteById = async (postId: string) => {
-        console.log("MISMUEROOOOOS");
         try {
             const post = await postRepository.findOneBy({ id: postId });
             const response = await postRepository.delete(post!);

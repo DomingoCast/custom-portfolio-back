@@ -12,7 +12,6 @@ type CreatePostUseCase = (postId: string) => Promise<Post | null>;
 const deletePostUseCase =
     ({ postRepository }: CreatePostUseCaseProps): CreatePostUseCase =>
     async (postId: string): Promise<Post | null> => {
-        console.log("ID", postId);
         return await postRepository.deleteById(postId);
     };
 

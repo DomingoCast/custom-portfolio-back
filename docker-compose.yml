@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   web:
-    image: teamdha/nodeserver:1.0
+    image: domingocast/nodeserver:1.0
     ports:
       - "80:8080"
     env_file:

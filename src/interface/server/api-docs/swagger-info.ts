@@ -16,7 +16,7 @@ const swaggerInfo = {
     },
     servers: [
         {
-            url: `http://jntco-loadb-h3mmmgwqamex-88cd2b11d447a160.elb.us-east-1.amazonaws.com:8080`,
+            url: `http://domingocastco-loadb-h3mmmgwqamex-88cd2b11d447a160.elb.us-east-1.amazonaws.com:8080`,
             description: "Production server",
         },
         {

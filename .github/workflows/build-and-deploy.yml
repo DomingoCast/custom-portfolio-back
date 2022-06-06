@@ -14,9 +14,9 @@ jobs:
           DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
         run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag teamdha/nodeserver:${{github.sha}}
+        run: docker build . --file Dockerfile --tag domingocast/nodeserver:${{github.sha}}
       - name: Push docker image
-        run: docker push teamdha/nodeserver:${{github.sha}}
+        run: docker push domingocast/nodeserver:${{github.sha}}
   deploy-to-cluster:
     name: deploy to cluster
     runs-on: ubuntu-latest
@@ -31,4 +31,4 @@ jobs:
           CLUSTER_NAME: node-server
           ZONE_NAME: europe-west1
         with:
-          args: set image deployment/web web=teamdha/nodeserver:${{github.sha}}
+          args: set image deployment/web web=domingocast/nodeserver:${{github.sha}}

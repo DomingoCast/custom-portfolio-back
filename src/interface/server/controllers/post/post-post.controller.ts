@@ -32,7 +32,6 @@ const postPostController = async (
             collection: collection,
             thumbnail: req.file!.filename,
         };
-        // console.log("[new post]", newPost);
         response = await container.createPostUseCase(newPost);
         if (response) {
             container.logger.info(response);

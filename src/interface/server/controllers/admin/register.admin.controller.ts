@@ -31,7 +31,6 @@ const registerAdminController = async (
             ...response,
             changePassword: true,
         });
-        console.log(container.accessToken.verify(token));
         return res
             .status(200)
             .send({ message: "User has been registered", token: token });

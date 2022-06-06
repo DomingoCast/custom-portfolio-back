@@ -1,5 +1,5 @@
 {
-  "name": "jnt-copy",
+  "name": "domingocast-copy",
   "version": "0.2.1",
   "description": "API that emulates Job and Talent",
   "main": "index.js",
@@ -20,14 +20,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DomingoCast/jnt-copy.git"
+    "url": "git+https://github.com/DomingoCast/domingocast-copy.git"
   },
   "author": "Hector Plinio, Aitor Segura, Domingo Castillo",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/DomingoCast/jnt-copy/issues"
+    "url": "https://github.com/DomingoCast/domingocast-copy/issues"
   },
-  "homepage": "https://github.com/DomingoCast/jnt-copy#readme",
+  "homepage": "https://github.com/DomingoCast/domingocast-copy#readme",
   "dependencies": {
     "@sendgrid/mail": "^7.6.2",
     "ajv": "^8.11.0",

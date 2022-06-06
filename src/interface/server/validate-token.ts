@@ -18,7 +18,6 @@ const validateToken: RequestHandler = (
     let token = "";
     if (req.headers.token) token = <string>req.headers.token;
     if (req.cookies) if (req.cookies.token) token = <string>req.cookies.token;
-    console.log("[COOKIES]", req.cookies);
     if (!token) next(new UnauthorizedRequestError(new CustomError("No token")));
     let decoded: any = { role: Role.worker };
     try {
@@ -27,7 +26,6 @@ const validateToken: RequestHandler = (
         );
         req.user = decoded.data;
     } catch (err) {
-        console.log(err);
         next(new UnauthorizedRequestError(new CustomError("Wrong Token")));
     }
     next();

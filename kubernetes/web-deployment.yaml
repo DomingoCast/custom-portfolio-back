@@ -89,7 +89,7 @@ spec:
                 configMapKeyRef:
                   key: SENDGRID_API_KEY
                   name: env
-          image: teamdha/nodeserver:0.7
+          image: domingocast/nodeserver:0.7
           name: web
           ports:
             - containerPort: 8080

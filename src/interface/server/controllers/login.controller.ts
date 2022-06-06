@@ -13,10 +13,8 @@ const loginController = async (
 ): Promise<void | Response> => {
     const container = req.container?.cradle;
     let loginInfo = req.body;
-    console.log(loginInfo);
     if (req.body !== null) {
         loginInfo = trimFields(req.body, arrayExceptions);
-        console.log(loginInfo);
         container.logger.info("Trim fields from login info");
     }
     const validate = validateLogin(loginInfo);
@@ -26,7 +24,6 @@ const loginController = async (
     const token: string = container.accessToken.create(response);
     container.logger.info("Correct login: " + JSON.stringify(response));
     container.logger.info("TokenAccess created");
-    console.log("[REQ]", req.cookies);
     return res
         .status(200)
         .cookie("token", token)

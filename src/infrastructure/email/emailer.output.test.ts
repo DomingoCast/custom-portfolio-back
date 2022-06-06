@@ -34,7 +34,7 @@ describe("set up email", () => {
         };
         const msg = {
             to: email.receiver,
-            from: "team-dha@outlook.com",
+            from: "register@custom-portfolio.com",
             subject: email.subject,
             text: "and easy to do anywhere, even with Node.js",
             html: mockText,

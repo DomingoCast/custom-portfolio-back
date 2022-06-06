@@ -26,7 +26,7 @@ export const setUpEmail = (): EmailSender => {
         sgMail.setApiKey(segridApiKey);
         const msg = {
             to: email.receiver,
-            from: "team-dha@outlook.com",
+            from: "register@custom-portfolio.com",
             subject: email.subject,
             text: "and easy to do anywhere, even with Node.js",
             html: htmlFile,
@@ -39,7 +39,7 @@ export const setUpEmail = (): EmailSender => {
             .catch((error: unknown) => {
                 if (error instanceof Error)
                     throw new CustomError(error.message);
-                console.error(error);
+                throw new CustomError("AN error has ocurred");
             });
     };
 
@@ -51,7 +51,7 @@ export const setUpEmail = (): EmailSender => {
         sgMail.setApiKey(process.env.SENDGRID_API_KEY!);
         const msg = {
             to: email.receiver,
-            from: "team-dha@outlook.com",
+            from: "register@custom-portfolio.com",
             subject: email.subject,
             text: "and easy to do anywhere, even with Node.js",
             html: htmlFile,

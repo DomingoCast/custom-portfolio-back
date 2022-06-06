@@ -37,7 +37,7 @@ const registerUserUseCase =
                 subject: "REGISTER",
                 template: "register",
             };
-            emailSender.send(email);
+            // emailSender.send(email);
         }
         return userResponse;
     };

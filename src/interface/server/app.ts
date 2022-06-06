@@ -1,7 +1,5 @@
 import express, { Application, Request, Response, NextFunction } from "express";
 import cors from "cors";
-import swaggerUi from "swagger-ui-express";
-import swaggerOptions from "./api-docs/swagger-options";
 import { container } from "../../infrastructure/dependency-injection/awilix-set-up";
 import { scopePerRequest } from "awilix-express";
 import magicAdminController from "./controllers/admin/magic.admin.controller";
@@ -13,15 +11,10 @@ import validateAdmin from "./validate-admin";
 import loginController from "./controllers/login.controller";
 import registerController from "./controllers/register.controller";
 import collectionRouter from "./routes/collection.router";
-import checkToken from "./check-token";
 import postRouter from "./routes/post.router";
 import imageController from "./controllers/image.controler";
-import checkTokenController from "./controllers/check-token.controller";
 import userRouter from "./routes/user.router";
 import cookieParser from "cookie-parser";
-import validateToken from "./validate-token";
-import testCookieController from "./controllers/test-cookie.controller";
-import testCookieController2 from "./controllers/test-cookie-2.controller";
 import { controllerWrapper } from "./wrappers/controller.wrapper";
 
 export const createServer = (port: number) => {
@@ -48,8 +41,6 @@ export const createServer = (port: number) => {
     app.post("/register", controllerWrapper(registerController));
 
     app.get("/magic", controllerWrapper(magicAdminController));
-
-    app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
 
     app.use(
         (error: unknown, _req: Request, res: Response, _next: NextFunction) => {

@@ -80,7 +80,10 @@ spec:
                 configMapKeyRef:
                   key: SENDGRID_API_KEY
                   name: env
-          image: domingocast/nodeserver:0.7
+            - name: NODE_ENV
+              value: PRODUCTION
+
+          image: domingocast/nodeserver:0.4
           name: web
           ports:
             - containerPort: 8080

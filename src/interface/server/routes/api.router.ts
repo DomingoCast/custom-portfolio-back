@@ -13,6 +13,9 @@ import imageController from "../controllers/image.controler";
 const router: Router = express.Router();
 
 const apiRouter = (): Router => {
+    router.get("/", (req: any, res: any) =>
+        res.status(200).send("Hello, World!")
+    );
     router.use("/admin", adminRouter(), validateAdmin);
     router.use("/collection", collectionRouter());
     router.use("/post", postRouter());

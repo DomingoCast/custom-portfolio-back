@@ -32,4 +32,4 @@ jobs:
           CLUSTER_NAME: node-server
           ZONE_NAME: europe-west1
         with:
-          args: set image deployment/web web=domingocast/nodeserver:${{github.sha}}
+          args: set image deployment/web-deployment web=domingocast/nodeserver:${{github.sha}}

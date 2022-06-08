@@ -12,7 +12,7 @@ export const createServer = (port: number) => {
     const app: Application = express();
     app.use(cookieParser());
     const corsOptions = {
-        origin: "http://127.0.0.1:3000",
+        origin: "http://34.102.207.84",
         credentials: true, //access-control-allow-credentials:true
         optionSuccessStatus: 200,
     };

@@ -2,20 +2,11 @@ import express, { Application, Request, Response, NextFunction } from "express";
 import cors from "cors";
 import { container } from "../../infrastructure/dependency-injection/awilix-set-up";
 import { scopePerRequest } from "awilix-express";
-import magicAdminController from "./controllers/admin/magic.admin.controller";
 import CustomError from "../../core/errors/custom-error";
-import loggerRequestMiddleware from "./middleware/log-request.middleware";
 import HttpError from "../../infrastructure/http-errors/http-error";
-import adminRouter from "./routes/admin.routes";
-import validateAdmin from "./validate-admin";
-import loginController from "./controllers/login.controller";
-import registerController from "./controllers/register.controller";
-import collectionRouter from "./routes/collection.router";
-import postRouter from "./routes/post.router";
-import imageController from "./controllers/image.controler";
-import userRouter from "./routes/user.router";
+import apiRouter from "./routes/api.router";
+import loggerRequestMiddleware from "./middleware/log-request.middleware";
 import cookieParser from "cookie-parser";
-import { controllerWrapper } from "./wrappers/controller.wrapper";
 
 export const createServer = (port: number) => {
     const app: Application = express();
@@ -27,20 +18,10 @@ export const createServer = (port: number) => {
     };
     app.use(cors(corsOptions));
     app.use(express.json());
-    app.use(cookieParser());
     app.use(express.urlencoded({ extended: true }));
     app.use(scopePerRequest(container));
     app.use(loggerRequestMiddleware);
-
-    app.use("/admin", adminRouter(), validateAdmin);
-    app.use("/collection", collectionRouter());
-    app.use("/post", postRouter());
-    app.use("/user", userRouter());
-    app.get("/image/:imageName", controllerWrapper(imageController));
-    app.post("/login", controllerWrapper(loginController));
-    app.post("/register", controllerWrapper(registerController));
-
-    app.get("/magic", controllerWrapper(magicAdminController));
+    app.use("/api", apiRouter());
 
     app.use(
         (error: unknown, _req: Request, res: Response, _next: NextFunction) => {

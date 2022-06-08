@@ -1,18 +1,25 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: minimal-ingress
+  name: my-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    # If the class annotation is not specified it defaults to "gce".
+    kubernetes.io/ingress.class: "gce"
 spec:
-  ingressClassName: nginx-example
   rules:
     - http:
         paths:
-          - path: /testpath
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: nextjs-service
+                port:
+                  number: 3000
+          - path: /api
             pathType: Prefix
             backend:
               service:
-                name: test
+                name: web-service
                 port:
                   number: 80

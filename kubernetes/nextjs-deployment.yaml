@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: next-deployment
+  labels:
+    app: next
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: next
+  template:
+    metadata:
+      labels:
+        app: next
+    spec:
+      type: NodePort
+      containers:
+        - name: next
+          image: teamdha/nextjs:0.1
+          ports:
+            - containerPort: 3000
